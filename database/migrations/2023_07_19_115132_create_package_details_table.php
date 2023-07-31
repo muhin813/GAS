@@ -17,7 +17,6 @@ class CreatePackageDetailsTable extends Migration
             $table->id();
             $table->integer('package_id')->nullable();
             $table->string('description')->nullable();
-            $table->string('condition')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
