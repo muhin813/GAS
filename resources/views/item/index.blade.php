@@ -71,6 +71,7 @@
                                                     <tr>
                                                         <th class="text-center">Category</th>
                                                         <th class="text-center">Name</th>
+                                                        <th class="text-center">Description</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                     </thead>
@@ -79,6 +80,7 @@
                                                         <tr id="item_{{$item->id}}">
                                                             <td class="text-center">{{$item->category_name}}</td>
                                                             <td class="text-center">{{$item->name}}</td>
+                                                            <td class="text-center">{{$item->description}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-success btn-sm" href="{{url('items',$item->id)}}" title="Edit"><i class="icon-pencil"></i></a>
                                                                 <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_item({{$item->id}})"><i class="icon-trash"></i></a>

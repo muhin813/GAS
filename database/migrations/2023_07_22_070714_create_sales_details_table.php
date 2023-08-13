@@ -20,6 +20,7 @@ class CreateSalesDetailsTable extends Migration
             $table->integer('quantity')->nullable();
             $table->decimal('unit_price',10,2)->nullable();
             $table->decimal('discount',10,2)->nullable();
+            $table->decimal('total_value',10,2)->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

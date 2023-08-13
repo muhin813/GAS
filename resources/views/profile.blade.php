@@ -1,4 +1,8 @@
-@extends('layouts.master')
+@if(Session::get('role')==4)
+    @extends('layouts.customer_master')
+@else
+    @extends('layouts.master')
+@endif
 @section('title', 'Profile')
 @section('content')
 

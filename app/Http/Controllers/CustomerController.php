@@ -29,7 +29,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         try{
-            $customers = Customer::select('customers.*');
+            $customers = Customer::with('vehicles');
+            $customers = $customers->select('customers.*');
             $customers = $customers->whereIn('customers.status',['active','inactive']);
             $customers = $customers->paginate(50);
             return view('customer.index',compact('customers'));
@@ -51,14 +52,14 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
-        //try{
+        try{
             $user = Auth::user();
 
             DB::beginTransaction();
 
-            $old_customer = Customer::where('first_name',$request->first_name)->where('last_name',$request->last_name)->where('status','!=','deleted')->first();
+            $old_customer = Customer::where('phone',$request->phone)->where('status','!=','deleted')->first();
             if(!empty($old_customer)){
-                return ['status'=>401, 'reason'=>'This customer name already exists'];
+                return ['status'=>401, 'reason'=>'This customer email already exists'];
             }
 
             $customer = NEW Customer();
@@ -67,7 +68,7 @@ class CustomerController extends Controller
             $customer->address = $request->address;
             $customer->phone = $request->phone;
             $customer->email = $request->email;
-            $customer->password = bcrypt($request->password);
+            //$customer->password = bcrypt($request->password);
             $customer->created_by = $user->id;
             $customer->created_at = date('Y-m-d h:i:s');
             $customer->save();
@@ -89,14 +90,34 @@ class CustomerController extends Controller
                 $vehicle_credential->save();
             }
 
+            /*
+             * Adding user information
+             * */
+            $user = new User();
+            $user->name = $request->first_name." ".$request->last_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->phone = $request->phone;
+            $user->role = 4;
+            $user->status = 'active';
+            $user->save();
+
+            /*
+             * Update GAS customer number and user id
+             * */
+            $customer_update = Customer::where('id',$customer->id)->first();
+            $customer_update->registration_number = 'GAS'.Common::addLeadingZero($customer->id,5);
+            $customer_update->user_id = $user->id;
+            $customer_update->save();
+
             Db::commit();
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
-        /*}
+        }
         catch(\Exception $e){
             DB::rollback();
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
-        }*/
+        }
     }
 
     public function edit(Request $request)
@@ -117,7 +138,7 @@ class CustomerController extends Controller
         try{
             $user = Auth::user();
 
-            $old_customer = Customer::where('first_name',$request->first_name)->where('last_name',$request->last_name)->where('status','!=','deleted')->first();
+            $old_customer = Customer::where('phone',$request->phone)->where('status','!=','deleted')->first();
             if(!empty($old_customer) && $old_customer->id != $request->id){
                 return ['status'=>401, 'reason'=>'This customer name already exists'];
             }
@@ -175,6 +196,18 @@ class CustomerController extends Controller
             $customer->save();
 
             return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function getVehicles(Request $request)
+    {
+        try{
+            $vehicles = CustomerVehicleCredential::where('customer_id',$request->customer_id)->get();
+
+            return ['status'=>200, 'vehicles'=>$vehicles];
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];

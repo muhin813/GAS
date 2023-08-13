@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->integer('category_id')->nullable();
             $table->string('name')->nullable();
+            $table->text('description')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

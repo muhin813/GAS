@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Service Category')
+@section('title', 'Edit Service Type')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('service_categories')}}">Service Categories</a>
+                        <a href="{{url('service_types')}}">Service Types</a>
                         <i class=""></i>
                     </li>
                     <li>
@@ -37,9 +37,9 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="service_category_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="service_type_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <input type="hidden" name="id" value="{{$service_category->id}}">
+                        <input type="hidden" name="id" value="{{$service_type->id}}">
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
 
@@ -51,8 +51,19 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label for=""><b>Service Category</b></label>
+                                                    <select name="service_category_id" id="service_category_id" class="form-control">
+                                                        <option value="">Select Category</option>
+                                                        @foreach($service_categories as $category)
+                                                            <option value="{{$category->id}}" @if($category->id==$service_type->service_type_id) selected @endif>{{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label for=""><b>Name</b></label>
-                                                    <input type="text" class="form-control" name="name" id="name" value="{{$service_category->name}}">
+                                                    <input type="text" class="form-control" name="name" id="name" value="{{$service_type->name}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -83,21 +94,25 @@
 
         });
 
-        $(document).on("submit", "#service_category_form", function(event) {
+        $(document).on("submit", "#service_type_form", function(event) {
             event.preventDefault();
             show_loader();
 
+            var service_category_id = $("#service_category_id").val();
             var name = $("#name").val();
 
             var validate = "";
 
+            if (service_category_id.trim() == "") {
+                validate = validate + "Service category is required</br>";
+            }
             if (name.trim() == "") {
                 validate = validate + "Name is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#service_category_form")[0]);
-                var url = "{{ url('service_categories/update') }}";
+                var formData = new FormData($("#service_type_form")[0]);
+                var url = "{{ url('service_types/update') }}";
 
                 $.ajax({
                     type: "POST",

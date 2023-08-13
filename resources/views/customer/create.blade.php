@@ -228,9 +228,9 @@
             if (phone.trim() == "") {
                 validate = validate + "Phone is required</br>";
             }
-            if (email.trim() == "") {
+            /*if (email.trim() == "") {
                 validate = validate + "Email is required</br>";
-            }
+            }*/
             if (password.trim() == "") {
                 validate = validate + "Password is required</br>";
             }

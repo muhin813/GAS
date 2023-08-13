@@ -32,4 +32,14 @@ class HomeController extends Controller
             return redirect('error_404');
         }
     }
+
+    public function customerDashboard(Request $request)
+    {
+        try{
+            return view('customer_dashboard');
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
 }

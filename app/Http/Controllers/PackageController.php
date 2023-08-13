@@ -75,6 +75,14 @@ class PackageController extends Controller
             $package->save();
 
             /*
+             * Update package id
+             * */
+            $package_update = Package::where('id',$package->id)->first();
+            $package_update->package_id = 'Pack-'.Common::addLeadingZero($package->id,4);
+            $package_update->user_id = $user->id;
+            $package_update->save();
+
+            /*
              * Saving package details
              * */
             $package_detail_names = $request->package_detail_name;
@@ -140,6 +148,21 @@ class PackageController extends Controller
         }
         catch(\Exception $e){
             return redirect('error_404');
+        }
+    }
+
+    public function getDetails(Request $request)
+    {
+        try{
+            $package = Package::with('details.sub_details','benefits')
+                ->select('packages.*')
+                ->where('packages.id',$request->package_id)
+                ->first();
+            //echo "<pre>"; print_r($package); echo "</pre>"; exit();
+            return ['status'=>200, 'package'=>$package];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }
 

@@ -64,6 +64,7 @@ class ItemController extends Controller
             $item = NEW Item();
             $item->category_id = $request->category_id;
             $item->name = $request->name;
+            $item->description = $request->description;
             $item->created_by = $user->id;
             $item->created_at = date('Y-m-d h:i:s');
             $item->save();
@@ -103,6 +104,7 @@ class ItemController extends Controller
             $item = Item::where('id',$request->id)->first();
             $item->category_id = $request->category_id;
             $item->name = $request->name;
+            $item->description = $request->description;
             $item->updated_by = $user->id;
             $item->updated_at = date('Y-m-d h:i:s');
             $item->save();

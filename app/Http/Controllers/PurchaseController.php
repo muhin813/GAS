@@ -32,7 +32,7 @@ class PurchaseController extends Controller
      */
     public function index(Request $request)
     {
-        //try{
+        try{
             $purchases = Purchase::select('purchases.*','items.name as item_name','item_categories.name as category_name','suppliers.name as supplier_name','item_uoms.name as item_uom','package_uoms.name as package_uom');
             $purchases = $purchases->join('items','items.id','=','purchases.item_id');
             $purchases = $purchases->join('item_categories','item_categories.id','=','items.category_id');
@@ -42,10 +42,10 @@ class PurchaseController extends Controller
             $purchases = $purchases->whereIn('purchases.status',['active','inactive']);
             $purchases = $purchases->paginate(50);
             return view('purchase.index',compact('purchases'));
-        /*}
+        }
         catch(\Exception $e){
             return redirect('error_404');
-        }*/
+        }
     }
 
     public function create(Request $request)
@@ -85,6 +85,7 @@ class PurchaseController extends Controller
             $purchase->challan_no = $request->challan_no;
             $purchase->unit_price = $request->unit_price;
             $purchase->total_value = $total_value;
+            $purchase->balance_quantity = $request->quantity;
             $purchase->created_by = $user->id;
             $purchase->created_at = date('Y-m-d h:i:s');
             $purchase->save();

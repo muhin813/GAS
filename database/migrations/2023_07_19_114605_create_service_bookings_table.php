@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCustomerServiceBookingsTable extends Migration
+class CreateServiceBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCustomerServiceBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('customer_service_bookings', function (Blueprint $table) {
+        Schema::create('service_bookings', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id')->nullable();
             $table->string('booking_number')->nullable();
@@ -24,7 +24,7 @@ class CreateCustomerServiceBookingsTable extends Migration
             $table->timestamp('request_completion_date')->nullable();
             $table->text('special_note')->nullable();
             $table->tinyInteger('home_pickup_drop')->nullable()->default(0);
-            $table->tinyInteger('emergency')->nullable()->default(0);
+            $table->enum('emergency', ['Yes','No'])->default('No');
             $table->enum('confirmation_status', ['pending','confirmed'])->default('pending');
             $table->date('confirmation_date')->nullable();
             $table->time('confirmation_time')->nullable();
@@ -41,6 +41,6 @@ class CreateCustomerServiceBookingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customer_service_bookings');
+        Schema::dropIfExists('service_bookings');
     }
 }

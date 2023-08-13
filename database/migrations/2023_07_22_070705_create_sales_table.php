@@ -15,9 +15,13 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->date('date_of_sale')->nullable();
             $table->enum('sales_type', ['service','product']);
             $table->integer('booking_id')->nullable();
             $table->string('customer_registration_number')->nullable();
+            $table->integer('service_category_id')->nullable();
+            $table->integer('service_type_id')->nullable();
+            $table->string('job_tracking_number')->nullable();
             $table->string('invoice_number')->nullable();
             $table->decimal('service_amount',10,2)->nullable();
             $table->decimal('discount',10,2)->nullable();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\PasswordReset;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
@@ -24,17 +25,51 @@ class AuthenticationController extends Controller
     public function login()
     {
         if (Session::get('user_id')) {
-            return redirect('/home');
+            if(Session::get('role_id')==4){ // If user is a customer
+                return redirect('/crm');
+            }
+            else{
+                return redirect('/dashboard');
+            }
+
         }
         return view('auth/login');
+    }
+
+    public function adminLogin()
+    {
+        if (Session::get('user_id')) {
+            return redirect('/home');
+        }
+        return view('auth/admin_login');
     }
 
     public function postLogin(Request $request)
     {
         $result = Auth::attempt([
+            'phone' => trim($request->phone),
+            'password' => $request->password,
+            'role' => [4],
+            'status' => ['active'],
+        ], $request->has('remember'));
+
+        if ($result) {
+             $user = Auth::user();
+
+             $this->createUserSession($user);
+
+             return ['status' => 200, 'reason' => 'Successfully Authenticated','user_id'=>$user->id,'role_id'=>$user->role];
+         } else {
+             return ['status' => 401, 'reason' => 'Invalid credentials'];
+         }
+    }
+
+    public function adminPostLogin(Request $request)
+    {
+        $result = Auth::attempt([
             'email' => trim($request->email),
             'password' => $request->password,
-            //'role' => [1,2,3,4],
+            'role' => [1,2,3],
             'status' => ['active'],
         ], $request->has('remember'));
 
@@ -171,6 +206,8 @@ class AuthenticationController extends Controller
 
     public function logout()
     {
+        $role_id = Session::get('role');
+
         Auth::logout();
 
         Session::forget('user_id');
@@ -179,6 +216,11 @@ class AuthenticationController extends Controller
         Session::forget('name');
         Session::forget('user_photo');
 
-        return redirect('login');
+        if($role_id==4){
+            return redirect('login');
+        }
+        else{
+            return redirect('admin/login');
+        }
     }
 }

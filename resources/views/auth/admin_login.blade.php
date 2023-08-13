@@ -43,41 +43,73 @@
 
 <body class=" login">
 
+<!--<div class="login-header">-->
+<!--    <div class="page-logo">-->
+<!--        <a href="{{url('/')}}" class="nav-item ajax_item item-1  " data-name="dashboard" data-item="1">-->
+<!--        <img style="width: 100%;" src="{{asset('assets/layouts/layout/img/logo.png')}}" alt="Vujadetec logo" class="logo-default">-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</div>-->
+
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form id="login_form" class="login-form" action="{{ url('admin/post_login') }}" method="post">
+    <form id="login_form" class="login-form" action="{{ url('admin/login') }}" method="post">
         {{csrf_field()}}
         <!-- BEGIN LOGO -->
-        <div class="logo">
-            <img src="{{asset('assets/layouts/layout/img/logoVujade.jpg')}}" alt="Vujadetec logo" alt="" />
-        </div>
+        <!-- <div class="logo">
+            <img src="../../assets/global/img/logo-invert.png" alt="" />
+        </div> -->
         <!-- END LOGO -->
-        <h3 class="form-title font-theme">Sign In</h3>
+        <div class="content-center" style="margin: 20px;">
 
-            <div class="alert alert-success" id="success_message" style="display:none"></div>
-            <div class="alert alert-danger" id="error_message" style="display: none"></div>
+        </div>
+        <div class="content-center">
+            <div class="row">
+                <div class="content-center col-12"
+                     style="text-align: center;
+                background: #561e74;
+                padding-bottom: 1px;
+                margin-bottom: 30px;
+                margin-left: -15px;
+                margin-right: -15px;
+                margin-top: -35px;
+                padding-top: 15px;">
+                    <img style="max-width: 140px;background: #561e74;" src="{{asset('assets/layouts/layout/img/arham-plastic-logo.png')}}" alt="Arham Plastic logo" class="login-logo">
+                    <h4 class="form-title uppercase" style="color: white;"><strong>Login</strong></h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="alert alert-success" id="success_message" style="display:none"></div>
+        <div class="alert alert-danger" id="error_message" style="display: none"></div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Email Address</label>
-            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Email Address" name="email" id="email" />        </div>
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
+            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" id="email" />        </div>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Password</label>
             <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="password" name="password" id="password" />        </div>
         <div class="form-actions">
 
-            <label class="rememberme check mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="remember" id="remember" value="1" />Remember
-                <span></span>
-            </label>
-            <button type="submit" class="btn uppercase theme-btn pull-right" id="login_button">Login</button>
+            <!--            <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                            <input type="checkbox" name="remember" id="remember" value="1" />Remember
+                            <span></span>
+                        </label>-->
+            <button type="submit" class="btn uppercase login_button_lg btn-success" id="login_button">Login</button>
+
             <!-- <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a> -->
         </div>
-        <div class="create-account theme-bg">
+        <!--        <div class="create-account theme-bg">
             <p>
                 <a href="{{ route('password.request') }}" id="register-btn" class="uppercase">Forgot Password?</a>
             </p>
-        </div>
+
+            <p>
+                <a href="{{url('registration')}}" id="" class="uppercase">Register Here</a>
+            </p>
+        </div>-->
     </form>
     <!-- END LOGIN FORM -->
 </div>
@@ -157,12 +189,7 @@
                         $("#success_message").show();
                         $("#error_message").hide();
                         $("#success_message").html(data.reason);
-                        if(data.role_id==1){
-                            window.location.href="{{url('admin/admin_users')}}";
-                        }
-                        else{
-                            window.location.href="{{url('admin/users')}}";
-                        }
+                        window.location.href="{{url('dashboard')}}";
                     } else {
                         $("#login_button").attr("disabled", false);
                         $("#success_message").hide();
@@ -183,7 +210,6 @@
             });
         } else {
             $("#login_button").attr("disabled", false);
-
             $("#success_message").hide();
             $("#error_message").show();
             $("#error_message").html(validate);

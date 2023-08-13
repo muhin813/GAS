@@ -16,21 +16,43 @@ use Illuminate\Support\Facades\Route;
 /*
  * User auth route
  * */
-Route::get('login', 'AuthenticationController@login');
-Route::post('post_login', 'AuthenticationController@postLogin');
+Route::get('registration', 'RegistrationController@index');
+Route::post('registration/store', 'RegistrationController@store');
+
+//Route::get('login', 'AuthenticationController@login')->name('login');
+//Route::post('post_login', 'AuthenticationController@postLogin');
 Route::get('logout', 'AuthenticationController@logout');
 
+Route::get('login', 'AuthenticationController@login')->name('login');
+Route::post('crm/post_login', 'AuthenticationController@postLogin');
+//Route::get('crm/logout', 'AuthenticationController@logout');
+
+Route::get('admin/login', 'AuthenticationController@adminLogin');
+Route::post('admin/post_login', 'AuthenticationController@adminPostLogin');
+//Route::get('admin/logout', 'AuthenticationController@adminLogout');
+
 Route::get('error_404', 'ErrorController@error404');
+
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
+Route::get('/home', 'Customer\HomeController@index')->name('home');
+Route::get('/crm', 'Customer\HomeController@index')->name('crm');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile', 'UserController@profile')->name('profile');
 Route::get('reset-password', 'UserController@resetPassword')->name('reset-password');
 Route::post('update_user', 'UserController@update');
 Route::post('update_password', 'UserController@updatePassword');
+
+Route::get('customer_packages', 'Customer\PackageController@index');
+
+Route::get('service_bookings', 'ServiceController@serviceBookingIndex');
+Route::get('service_bookings/create', 'ServiceController@serviceBookingcreate');
+Route::post('service_bookings/store', 'ServiceController@serviceBookingstore');
+Route::get('service_bookings/{id}', 'ServiceController@serviceBookingedit');
+Route::post('service_bookings/update', 'ServiceController@serviceBookingupdate');
+Route::post('service_bookings/delete', 'ServiceController@serviceBookingdelete');
 
 Route::get('customers', 'CustomerController@index');
 Route::get('customers/create', 'CustomerController@create');
@@ -38,6 +60,7 @@ Route::post('customers/store', 'CustomerController@store');
 Route::get('customers/{id}', 'CustomerController@edit');
 Route::post('customers/update', 'CustomerController@update');
 Route::post('customers/delete', 'CustomerController@delete');
+Route::post('customers/get_vehicles', 'CustomerController@getVehicles');
 
 Route::get('suppliers', 'SupplierController@index');
 Route::get('suppliers/create', 'SupplierController@create');
@@ -59,6 +82,7 @@ Route::post('service_types/store', 'ServiceController@serviceTypeStore');
 Route::get('service_types/{id}', 'ServiceController@serviceTypeEdit');
 Route::post('service_types/update', 'ServiceController@serviceTypeUpdate');
 Route::post('service_types/delete', 'ServiceController@serviceTypeDelete');
+Route::post('get_service_type_by_category', 'ServiceController@getServiceTypeByCategory');
 
 Route::get('items', 'ItemController@index');
 Route::get('items/create', 'ItemController@create');
@@ -87,6 +111,7 @@ Route::post('packages/store', 'PackageController@store');
 Route::get('packages/{id}', 'PackageController@edit');
 Route::post('packages/update', 'PackageController@update');
 Route::post('packages/delete', 'PackageController@delete');
+Route::post('packages/get_details', 'PackageController@getDetails');
 
 Route::get('package_uoms', 'PackageController@packageUomIndex');
 Route::get('package_uoms/create', 'PackageController@packageUomCreate');
@@ -102,7 +127,32 @@ Route::get('purchases/{id}', 'PurchaseController@edit');
 Route::post('purchases/update', 'PurchaseController@update');
 Route::post('purchases/delete', 'PurchaseController@delete');
 
-Route::get('cost_of_sales', 'AccountController@costOfSale');
+Route::get('sales', 'SaleController@index');
+Route::get('sales/create', 'SaleController@create');
+Route::post('sales/store', 'SaleController@store');
+Route::post('sales/get_details', 'SaleController@getDetails');
+Route::get('sales/{id}', 'SaleController@edit');
+Route::post('sales/update', 'SaleController@update');
+Route::post('sales/delete', 'SaleController@delete');
+
+Route::get('stock_record', 'InventoryController@stockRecord');
+
+Route::get('stock_issues', 'InventoryController@stockIssueIndex');
+Route::get('stock_issues/create', 'InventoryController@stockIssueCreate');
+Route::post('stock_issues/store', 'InventoryController@stockIssueStore');
+Route::get('stock_issues/{id}', 'InventoryController@stockIssueEdit');
+Route::post('stock_issues/update', 'InventoryController@stockIssueUpdate');
+Route::post('stock_issues/delete', 'InventoryController@stockIssueDelete');
+Route::post('stock_issues/get_purchase_details', 'InventoryController@getPurchaseDetails');
+
+Route::get('stock_returns', 'InventoryController@stockReturnIndex');
+Route::get('stock_returns/create', 'InventoryController@stockReturnCreate');
+Route::post('stock_returns/store', 'InventoryController@stockReturnStore');
+Route::get('stock_returns/{id}', 'InventoryController@stockReturnEdit');
+Route::post('stock_returns/update', 'InventoryController@stockReturnUpdate');
+Route::post('stock_returns/delete', 'InventoryController@stockReturnDelete');
+
+//Route::get('cost_of_sales', 'AccountController@costOfSale');
 
 Route::get('users', 'UserController@index');
 Route::get('users/create', 'UserController@create');

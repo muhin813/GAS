@@ -15,6 +15,7 @@ class CreateServiceTypesTable extends Migration
     {
         Schema::create('service_types', function (Blueprint $table) {
             $table->id();
+            $table->integer('service_category_id');
             $table->string('name')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();

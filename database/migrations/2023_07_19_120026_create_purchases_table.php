@@ -26,6 +26,7 @@ class CreatePurchasesTable extends Migration
             $table->integer('package_uom_id')->nullable();
             $table->decimal('unit_price',10,2)->nullable();
             $table->decimal('total_value',10,2)->nullable();
+            $table->integer('balance_quantity')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

@@ -66,7 +66,7 @@
         </div>
         <div class="content-center">
             <div class="row">
-                <div class="content-center col-12" 
+                <div class="content-center col-12"
                 style="text-align: center;
                 background: #561e74;
                 padding-bottom: 1px;
@@ -86,11 +86,11 @@
             <div class="alert alert-danger" id="error_message" style="display: none"></div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Email Address</label>
-            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Email Address" name="email" id="email" />        </div>
+            <label class="control-label visible-ie8 visible-ie9">Phone Number</label>
+            <input class="form-control form-control-solid placeholder-no-fix" type="text" autocomplete="off" placeholder="Phone Number" name="phone" id="phone" />        </div>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Password</label>
-            <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="password" name="password" id="password" />        </div>
+            <input class="form-control form-control-solid placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password" id="password" />        </div>
         <div class="form-actions">
 
 <!--            <label class="rememberme check mt-checkbox mt-checkbox-outline">
@@ -101,15 +101,15 @@
 
             <!-- <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a> -->
         </div>
-<!--        <div class="create-account theme-bg">
+        <div class="create-account theme-bg">
             <p>
-                <a href="{{ route('password.request') }}" id="register-btn" class="uppercase">Forgot Password?</a>
+                <a href="{{ url('admin/login') }}" id="register-btn" class="uppercase">Login as Admin</a>
             </p>
 
             <p>
                 <a href="{{url('registration')}}" id="" class="uppercase">Register Here</a>
             </p>
-        </div>-->
+        </div>
     </form>
     <!-- END LOGIN FORM -->
 </div>
@@ -164,13 +164,13 @@
 
         $("#login_button").attr("disabled", true);
 
-        var email = $("#email").val();
+        var phone = $("#phone").val();
         var password = $("#password").val();
 
         var validate = "";
 
-        if (email.trim() == "") {
-            validate = validate + "Email is required</br>";
+        if (phone.trim() == "") {
+            validate = validate + "Phone number is required</br>";
         }
         if (password.trim() == "") {
             validate = validate + "Password is required</br>";
@@ -178,7 +178,7 @@
 
         if (validate == "") {
             var formData = new FormData($("#login_form")[0]);
-            var url = "{{ url('post_login') }}";
+            var url = "{{ url('crm/post_login') }}";
 
             $.ajax({
                 type: "POST",
@@ -189,7 +189,8 @@
                         $("#success_message").show();
                         $("#error_message").hide();
                         $("#success_message").html(data.reason);
-                        window.location.href="{{url('dashboard')}}";
+                        window.location.href="{{url('crm')}}";
+
                     } else {
                         $("#login_button").attr("disabled", false);
                         $("#success_message").hide();

@@ -65,6 +65,12 @@
                                                     <input type="text" class="form-control" name="name" id="name" value="">
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Description</b></label>
+                                                    <input type="text" class="form-control" name="description" id="description" value="">
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group text-right">

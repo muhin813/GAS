@@ -50,6 +50,17 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label for=""><b>Service Category</b></label>
+                                                    <select name="service_category_id" id="service_category_id" class="form-control">
+                                                        <option value="">Select Category</option>
+                                                        @foreach($service_categories as $category)
+                                                            <option value="{{$category->id}}" >{{$category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label for=""><b>Name</b></label>
                                                     <input type="text" class="form-control" name="name" id="name" value="">
                                                 </div>
@@ -86,10 +97,14 @@
             event.preventDefault();
             show_loader();
 
+            var service_category_id = $("#service_category_id").val();
             var name = $("#name").val();
 
             var validate = "";
 
+            if (service_category_id.trim() == "") {
+                validate = validate + "Service category is required</br>";
+            }
             if (name.trim() == "") {
                 validate = validate + "Name is required</br>";
             }
