@@ -4,12 +4,24 @@ Login page
 ***/
 /* bg color */
 .login{
-    background-color: #364150 !important;
-    background-image: url('../../layouts/layout/img/login-banner.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+  background-color: #364150 !important;
+  /*background-image: url('../../layouts/layout/img/login-banner.jpg');*/
+  background-image: url('https://www.gaadizo.com/gaadizo-car-service-repairs/assets/media/components/b-main-slider/dent%20repairs.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+.content::after {
+  content: '';
+  display: block;
+  width: 100%;
+  position: fixed;
+  height: 100%;
+  background: #00000054;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
 body.login {
     display: flex;
