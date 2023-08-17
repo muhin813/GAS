@@ -123,6 +123,7 @@ Route::post('package_uoms/delete', 'PackageController@packageUomDelete');
 Route::get('purchases', 'PurchaseController@index');
 Route::get('purchases/create', 'PurchaseController@create');
 Route::post('purchases/store', 'PurchaseController@store');
+Route::post('purchases/get_details', 'PurchaseController@getDetails');
 Route::get('purchases/{id}', 'PurchaseController@edit');
 Route::post('purchases/update', 'PurchaseController@update');
 Route::post('purchases/delete', 'PurchaseController@delete');
@@ -151,6 +152,27 @@ Route::post('stock_returns/store', 'InventoryController@stockReturnStore');
 Route::get('stock_returns/{id}', 'InventoryController@stockReturnEdit');
 Route::post('stock_returns/update', 'InventoryController@stockReturnUpdate');
 Route::post('stock_returns/delete', 'InventoryController@stockReturnDelete');
+
+Route::get('supplier_payments', 'AccountController@supplierPayment');
+Route::get('supplier_payments/create', 'AccountController@supplierPaymentCreate');
+Route::post('supplier_payments/store', 'AccountController@supplierPaymentStore');
+Route::get('supplier_payments/{id}', 'AccountController@supplierPaymentEdit');
+Route::post('supplier_payments/update', 'AccountController@supplierPaymentUpdate');
+Route::post('supplier_payments/delete', 'AccountController@supplierPaymentDelete');
+
+/*Route::get('customer_payments', 'AccountController@customerPayment');
+Route::get('customer_payments/create', 'AccountController@customerPaymentCreate');
+Route::post('customer_payments/store', 'AccountController@customerPaymentStore');
+Route::post('customer_payments/update', 'AccountController@customerPaymentUpdate');
+Route::get('customer_payments/{id}', 'AccountController@customerPaymentEdit');
+Route::post('customer_payments/delete', 'AccountController@customerPaymentDelete');*/
+
+Route::get('other_payments', 'AccountController@otherPayment');
+Route::get('other_payments/create', 'AccountController@otherPaymentCreate');
+Route::post('other_payments/store', 'AccountController@otherPaymentStore');
+Route::get('other_payments/{id}', 'AccountController@otherPaymentEdit');
+Route::post('other_payments/update', 'AccountController@otherPaymentUpdate');
+Route::post('other_payments/delete', 'AccountController@otherPaymentDelete');
 
 //Route::get('cost_of_sales', 'AccountController@costOfSale');
 

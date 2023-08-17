@@ -22,6 +22,7 @@ class CreateOtherPaymentsTable extends Migration
             $table->string('voucher_number')->nullable();
             $table->string('remarks')->nullable();
             $table->date('payment_date')->nullable();
+            $table->enum('payment_type', ['Received','Paid'])->default('Paid');
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
