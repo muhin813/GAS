@@ -97,6 +97,18 @@ class PurchaseController extends Controller
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }
+    public function getDetails(Request $request)
+    {
+        try{
+            $purchase = Purchase::select('purchases.*')
+                ->where('purchases.challan_no',$request->invoice_number)
+                ->first();
+            return ['status'=>200, 'purchase'=>$purchase];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>$e->getMessage()];
+        }
+    }
 
     public function edit(Request $request)
     {

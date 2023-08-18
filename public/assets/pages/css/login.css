@@ -23,6 +23,17 @@ Login page
   top: 0;
   z-index: -1;
 }
+.content::after {
+    content: '';
+    display: block;
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    background: #00000054;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
 body.login {
     display: flex;
     height: 100vh;

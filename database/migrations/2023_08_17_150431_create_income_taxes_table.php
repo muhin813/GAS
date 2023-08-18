@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOtherPaymentsTable extends Migration
+class CreateIncomeTaxesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateOtherPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('other_payments', function (Blueprint $table) {
+        Schema::create('income_taxes', function (Blueprint $table) {
             $table->id();
-            $table->string('purpose_of_payment')->nullable();
-            $table->decimal('amount',10,2)->nullable();
-            $table->string('payment_mode')->nullable();
-            $table->string('voucher_number')->nullable();
-            $table->string('remarks')->nullable();
-            $table->date('payment_date')->nullable();
-            $table->enum('payment_type', ['Received','Paid'])->default('Paid');
+            $table->integer('year')->nullable();
+            $table->string('month')->nullable();
+            $table->decimal('tax_amount',10,2)->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -38,6 +34,6 @@ class CreateOtherPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('other_payments');
+        Schema::dropIfExists('income_taxes');
     }
 }

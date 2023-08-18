@@ -181,23 +181,22 @@
                 </a>
             </li>
 
-<!--            <li class="nav-item @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') open @endif">
+            <li class="nav-item @if($page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-pie-chart"></i>
                     <span class="title">Accounts</span>
                     <span class="arrow"></span>
                 </a>
-                <ul class="sub-menu" @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') style="display: block;" @endif>
+                <ul class="sub-menu" @if($page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') style="display: block;" @endif>
                     <li class="nav-item @if($page=='supplier_payments') active @endif">
                         <a href="{{url('supplier_payments')}}" class="nav-link">
                             <span class="title">Supplier Payments</span>
                             <span class="selected"></span>
                         </a>
                     </li>
-
-                    <li class="nav-item @if($page=='customer_payments') active @endif">
-                        <a href="{{url('customer_payments')}}" class="nav-link">
-                            <span class="title">Customer Payments</span>
+                    <li class="nav-item @if($page=='other_payments') active @endif">
+                        <a href="{{url('other_payments')}}" class="nav-link">
+                            <span class="title">Other Payments</span>
                             <span class="selected"></span>
                         </a>
                     </li>
@@ -207,14 +206,14 @@
                             <span class="selected"></span>
                         </a>
                     </li>
-                    <li class="nav-item @if($page=='cost_of_sales') active @endif">
-                        <a href="{{url('cost_of_sales')}}" class="nav-link">
-                            <span class="title">Cost of Sales</span>
+                    <li class="nav-item @if($page=='monthly_profit_losses') active @endif">
+                        <a href="{{url('monthly_profit_losses')}}" class="nav-link">
+                            <span class="title">Monthly Profit Loss</span>
                             <span class="selected"></span>
                         </a>
                     </li>
                 </ul>
-            </li>-->
+            </li>
 
             <li class="nav-item @if($page=='customers') active @endif">
                 <a href="{{url('customers')}}" class="nav-link">
