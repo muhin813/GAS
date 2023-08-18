@@ -239,7 +239,8 @@
   }
 
   .page-header.navbar {
-    background: linear-gradient(45deg, var(--primary-theme-color), #151b26) !important;
+    /* background: linear-gradient(45deg, var(--primary-theme-color), #151b26) !important; */
+    background: #2d323c !important;
   }
 
   .page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {

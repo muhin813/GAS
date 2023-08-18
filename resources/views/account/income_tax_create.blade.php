@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Other Payment')
+@section('title', 'Create Income Tax')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('other_payments')}}">Other Payments</a>
+                        <a href="{{url('monthly_salary_statements')}}">Income Taxes</a>
                         <i class=""></i>
                     </li>
                     <li>
@@ -37,7 +37,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="other_payment_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="income_tax_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
@@ -50,48 +50,29 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Payment Type</b></label>
-                                                    <select name="payment_type" id="payment_type" class="form-control">
-                                                        <option value="">Select Payment Type</option>
-                                                        <option value="Received">Received</option>
-                                                        <option value="Paid">Paid</option>
+                                                    <label for=""><b>Year</b></label>
+                                                    <select name="year" id="year" class="form-control">
+                                                        @for($year=date('Y'); $year>=2020; $year--)
+                                                            <option value="{{$year}}">{{$year}}</option>
+                                                        @endfor
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Purpose of Payment</b></label>
-                                                    <input type="text" class="form-control" name="purpose_of_payment" id="purpose_of_payment" value="" >
+                                                    <label for=""><b>Month</b></label>
+                                                    <select name="month" id="month" class="form-control">
+                                                        <option value="">Select Month</option>
+                                                        @foreach($months as $month)
+                                                        <option value="{{$month}}">{{$month}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Amount</b></label>
-                                                    <input type="number" class="form-control" name="amount" id="amount" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Payment Mode</b></label>
-                                                    <input type="text" class="form-control" name="payment_mode" id="payment_mode" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Voucher Number</b></label>
-                                                    <input type="text" class="form-control" name="voucher_number" id="voucher_number" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Remarks</b></label>
-                                                    <input type="text" class="form-control" name="remarks" id="remarks" value="">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Payment Date</b></label>
-                                                    <input type="text" class="form-control datepicker" name="payment_date" id="payment_date" value="">
+                                                    <label for=""><b>Tax Amount</b></label>
+                                                    <input type="text" class="form-control price" name="tax_amount" id="tax_amount" value="" >
                                                 </div>
                                             </div>
                                         </div>
@@ -122,33 +103,29 @@
 
         });
 
-        $(document).on("submit", "#other_payment_form", function(event) {
+        $(document).on("submit", "#income_tax_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var payment_type = $("#payment_type").val();
-            var purpose_of_payment = $("#purpose_of_payment").val();
-            var amount = $("#amount").val();
-            var payment_date = $("#payment_date").val();
+            var year = $("#year").val();
+            var month = $("#month").val();
+            var tax_amount = $("#tax_amount").val();
 
             var validate = "";
 
-            if (payment_type.trim() == "") {
-                validate = validate + "Payment type is required</br>";
+            if (year.trim() == "") {
+                validate = validate + "Year is required</br>";
             }
-            if (purpose_of_payment.trim() == "") {
-                validate = validate + "Purpose of payment is required</br>";
+            if (month.trim() == "") {
+                validate = validate + "Month is required</br>";
             }
-            if (amount.trim() == "") {
-                validate = validate + "Amount is required</br>";
-            }
-            if (payment_date.trim() == "") {
-                validate = validate + "Payment Date is required</br>";
+            if (tax_amount.trim() == "") {
+                validate = validate + "Tax amount is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#other_payment_form")[0]);
-                var url = "{{ url('other_payments/store') }}";
+                var formData = new FormData($("#income_tax_form")[0]);
+                var url = "{{ url('income_taxes/store') }}";
 
                 $.ajax({
                     type: "POST",
@@ -157,13 +134,13 @@
                     success: function(data) {
                         hide_loader();
                         if (data.status == 200) {
-                            $('#other_payment_form')[0].reset();
+                            $('#income_tax_form')[0].reset();
 
                             $("#success_message").show();
                             $("#error_message").hide();
                             $("#success_message").html(data.reason);
                             setTimeout(function(){
-                                window.location.href="{{url('other_payments')}}";
+                                window.location.href="{{url('income_taxes')}}";
                             },1000)
                         } else {
                             $("#success_message").hide();

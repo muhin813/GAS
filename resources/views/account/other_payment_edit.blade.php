@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Supplier Payment')
+@section('title', 'Edit Other Payment')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('supplier_payments')}}">Supplier Payment</a>
+                        <a href="{{url('other_payments')}}">Other Payment</a>
                         <i class=""></i>
                     </li>
                     <li>
@@ -37,52 +37,72 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="supplier_payment_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="other_payment_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <input type="hidden" name="id" value="{{$supplier_payment->id}}">
+                        <input type="hidden" name="id" value="{{$other_payment->id}}">
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
-
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Challan Number</b></label>
-                                    <select name="invoice_number" id="invoice_number" class="form-control">
-                                        <option value="">Select Challan Number</option>
-                                        @foreach($purchases as $purchase)
-                                            <option value="{{$purchase->challan_no}}" @if($supplier_payment->invoice_number==$purchase->challan_no) selected @endif>{{$purchase->challan_no}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Total Amount</b></label>
-                                    <input type="text" class="form-control" name="total_amount" id="total_amount" value="{{$supplier_payment->total_value}}" readonly >
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Paid Amount</b></label>
-                                    <input type="text" class="form-control price" name="paid_amount" id="paid_amount" value="{{$supplier_payment->paid_amount}}">
-                                </div>
-                            </div>
-<!--                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Due Amount</b></label>
-                                    <input type="text" class="form-control" name="due_amount" id="due_amount" value="{{$supplier_payment->due_amount}}" readonly >
-                                </div>
-                            </div>-->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Payment Date</b></label>
-                                    <input type="text" class="form-control datepicker" name="payment_date" id="payment_date" value="{{date('m/d/Y', strtotime($supplier_payment->payment_date))}}">
-                                </div>
-                            </div>
-                        </div>
+                            <div class="col-md-12">
+                                <!-- BEGIN PORTLET -->
+                                <div class="portlet light ">
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Payment Type</b></label>
+                                                    <select name="payment_type" id="payment_type" class="form-control">
+                                                        <option value="">Select Payment Type</option>
+                                                        <option value="Received" @if($other_payment->payment_type=='Received') selected @endif>Received</option>
+                                                        <option value="Paid" @if($other_payment->payment_type=='Paid') selected @endif>Paid</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Purpose of Payment</b></label>
+                                                    <input type="text" class="form-control" name="purpose_of_payment" id="purpose_of_payment" value="{{$other_payment->purpose_of_payment}}" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Amount</b></label>
+                                                    <input type="number" class="form-control" name="amount" id="amount" value="{{$other_payment->amount}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Payment Mode</b></label>
+                                                    <input type="text" class="form-control" name="payment_mode" id="payment_mode" value="{{$other_payment->payment_mode}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Voucher Number</b></label>
+                                                    <input type="text" class="form-control" name="voucher_number" id="voucher_number" value="{{$other_payment->voucher_number}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Remarks</b></label>
+                                                    <input type="text" class="form-control" name="remarks" id="remarks" value="{{$other_payment->remarks}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Payment Date</b></label>
+                                                    <input type="text" class="form-control datepicker" name="payment_date" id="payment_date" value="{{date('m/d/Y',strtotime($other_payment->payment_date))}}">
+                                                </div>
+                                            </div>
+                                        </div>
 
-                        <div class="form-group text-right">
-                            <button type="submit" class="btn green submit-btn" id="profile_button">Save</button>
+                                        <div class="form-group text-right">
+                                            <button type="submit" class="btn green submit-btn" id="profile_button">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PORTLET -->
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -102,54 +122,33 @@
 
         });
 
-        $(document).on('change', '#invoice_number', function(){
-            var invoice_number = $(this).val();
-            var url = "{{ url('purchases/get_details') }}";
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {invoice_number:invoice_number,'_token':'{{csrf_token()}}'},
-                success: function(data) {
-                    hide_loader();
-                    if (data.status == 200) {
-                        //var paid_amount = $('#paid_amount').val();
-                        //var due_amount = data.purchase.total_value-paid_amount;
-                        $('#total_amount').val(data.purchase.total_value);
-                        $('#due_amount').val(data.purchase.due_amount);
-                    } else {
-                        show_error_message('Something went wrong.');
-                    }
-                },
-                error: function(data) {
-                    hide_loader();
-                    show_error_message(data);
-                }
-            });
-        });
-
-        $(document).on("submit", "#supplier_payment_form", function(event) {
+        $(document).on("submit", "#other_payment_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var invoice_number = $("#invoice_number").val();
-            var paid_amount = $("#paid_amount").val();
+            var payment_type = $("#payment_type").val();
+            var purpose_of_payment = $("#purpose_of_payment").val();
+            var amount = $("#amount").val();
             var payment_date = $("#payment_date").val();
 
             var validate = "";
 
-            if (invoice_number.trim() == "") {
-                validate = validate + "Challan number is required</br>";
+            if (payment_type.trim() == "") {
+                validate = validate + "Payment type is required</br>";
             }
-            if (paid_amount.trim() == "") {
-                validate = validate + "Paid amount is required</br>";
+            if (purpose_of_payment.trim() == "") {
+                validate = validate + "Purpose of payment is required</br>";
+            }
+            if (amount.trim() == "") {
+                validate = validate + "Amount is required</br>";
             }
             if (payment_date.trim() == "") {
                 validate = validate + "Payment Date is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#supplier_payment_form")[0]);
-                var url = "{{ url('supplier_payments/update') }}";
+                var formData = new FormData($("#other_payment_form")[0]);
+                var url = "{{ url('other_payments/update') }}";
 
                 $.ajax({
                     type: "POST",

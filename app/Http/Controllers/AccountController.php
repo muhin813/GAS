@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IncomeTax;
+use App\Models\StockIssue;
+use App\Models\StockReturn;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Purchase;
@@ -172,8 +175,7 @@ class AccountController extends Controller
     public function otherPaymentCreate(Request $request)
     {
         try{
-            $purchases = Purchase::where('status','active')->get();
-            return view('account.other_payment_create',compact('purchases'));
+            return view('account.other_payment_create');
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -184,17 +186,14 @@ class AccountController extends Controller
     {
         try{
             $user = Auth::user();
-            $payment_data = OtherPayment::selectRaw("SUM(paid_amount) as total_paid_amount")
-                ->where('invoice_number',$request->invoice_number)
-                ->where('status','active')
-                ->first();
-            $due_amount = $request->total_amount-($payment_data->total_paid_amount+$request->paid_amount);
 
             $other_payment = NEW OtherPayment();
-            $other_payment->invoice_number = $request->invoice_number;
-            $other_payment->total_value = $request->total_amount;
-            $other_payment->paid_amount = $request->paid_amount;
-            $other_payment->due_amount = $due_amount;
+            $other_payment->purpose_of_payment = $request->purpose_of_payment;
+            $other_payment->amount = $request->amount;
+            $other_payment->payment_mode = $request->payment_mode;
+            $other_payment->voucher_number = $request->voucher_number;
+            $other_payment->remarks = $request->remarks;
+            $other_payment->payment_type = $request->payment_type;
             $other_payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
             $other_payment->created_by = $user->id;
             $other_payment->created_at = date('Y-m-d h:i:s');
@@ -211,12 +210,10 @@ class AccountController extends Controller
     public function otherPaymentEdit(Request $request)
     {
         try{
-            $purchases = Purchase::where('status','active')->get();
-            $other_payment = OtherPayment::select('other_payments.*','purchases.challan_no','purchases.total_value')
-                ->join('purchases','purchases.challan_no','=','other_payments.invoice_number')
+            $other_payment = OtherPayment::select('other_payments.*')
                 ->where('other_payments.id',$request->id)
                 ->first();
-            return view('account.other_payment_edit',compact('purchases','other_payment'));
+            return view('account.other_payment_edit',compact('other_payment'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -230,10 +227,12 @@ class AccountController extends Controller
             $due_amount = $request->total_amount-$request->paid_amount;
 
             $other_payment = OtherPayment::where('id',$request->id)->first();
-            $other_payment->invoice_number = $request->invoice_number;
-            $other_payment->total_value = $request->total_amount;
-            $other_payment->paid_amount = $request->paid_amount;
-            $other_payment->due_amount = $due_amount;
+            $other_payment->purpose_of_payment = $request->purpose_of_payment;
+            $other_payment->amount = $request->amount;
+            $other_payment->payment_mode = $request->payment_mode;
+            $other_payment->voucher_number = $request->voucher_number;
+            $other_payment->remarks = $request->remarks;
+            $other_payment->payment_type = $request->payment_type;
             $other_payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
             $other_payment->updated_by = $user->id;
             $other_payment->updated_at = date('Y-m-d h:i:s');
@@ -264,61 +263,52 @@ class AccountController extends Controller
         }
     }
 
-    /*public function customerPayment(Request $request)
+    public function incomeTax(Request $request)
     {
         try{
-            $customers = Customer::where('status','active')->get();
-            $sales = Sale::where('status','active')->get();
-
-            $customer_payments = CustomerPayment::select('customer_payments.*','sales.invoice_number','sales.total_value','customers.name as customer_name');
-            $customer_payments = $customer_payments->join('sales','sales.id','=','customer_payments.sales_id');
-            $customer_payments = $customer_payments->join('customers','customers.id','=','sales.customer_id');
-            $customer_payments = $customer_payments->where('customer_payments.status','active');
-            if($request->invoice_number != ''){
-                $customer_payments = $customer_payments->where('sales.invoice_number',$request->invoice_number);
+            $income_taxes = IncomeTax::select('income_taxes.*');
+            $income_taxes = $income_taxes->where('income_taxes.status','active');
+            if($request->year != ''){
+                $income_taxes = $income_taxes->where('income_taxes.year',$request->year);
             }
-            if($request->customer_id != ''){
-                $customer_payments = $customer_payments->where('sales.customer_id',$request->customer_id);
-            }
-            $customer_payments = $customer_payments->orderBy('sales.invoice_number','ASC');
-            $customer_payments = $customer_payments->orderBy('customer_payments.id','ASC');
-            $customer_payments = $customer_payments->paginate(100);
-            return view('account.customer_payment',compact('customers','sales','customer_payments'));
+            $income_taxes = $income_taxes->paginate(50);
+            return view('account.income_tax',compact('income_taxes'));
         }
         catch(\Exception $e){
             return redirect('error_404');
         }
     }
 
-    public function customerPaymentCreate(Request $request)
+    public function incomeTaxCreate(Request $request)
     {
         try{
-            $sales = Sale::where('status','active')->get();
-            return view('account.customer_payment_create',compact('sales'));
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return view('account.income_tax_create',compact('months'));
         }
         catch(\Exception $e){
             return redirect('error_404');
         }
     }
 
-    public function customerPaymentStore(Request $request)
+    public function incomeTaxStore(Request $request)
     {
         try{
             $user = Auth::user();
-            $payment_data = CustomerPayment::selectRaw("SUM(received_amount) as total_received_amount")
-                ->where('sales_id',$request->sales_id)
-                ->where('status','active')
-                ->first();
-            $due_amount = $request->total_amount-($payment_data->total_received_amount+$request->received_amount);
 
-            $customer_payment = NEW CustomerPayment();
-            $customer_payment->sales_id = $request->sales_id;
-            $customer_payment->received_amount = $request->received_amount;
-            $customer_payment->due_amount = $due_amount;
-            $customer_payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
-            $customer_payment->created_by = $user->id;
-            $customer_payment->created_at = date('Y-m-d h:i:s');
-            $customer_payment->save();
+            $duplicate_income_tax = IncomeTax::where('income_taxes.year',$request->year)
+                ->where('income_taxes.month',$request->month)
+                ->first();
+            if(!empty($duplicate_income_tax)){
+                return ['status'=>401, 'reason'=>"You have already saved this month's income tax. Instead you can update this month's tax if you want."];
+            }
+
+            $income_tax = NEW IncomeTax();
+            $income_tax->month = $request->month;
+            $income_tax->year = $request->year;
+            $income_tax->tax_amount = (float)$request->tax_amount;
+            $income_tax->created_by = $user->id;
+            $income_tax->created_at = date('Y-m-d h:i:s');
+            $income_tax->save();
 
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
@@ -328,35 +318,39 @@ class AccountController extends Controller
         }
     }
 
-    public function customerPaymentEdit(Request $request)
+    public function incomeTaxEdit(Request $request)
     {
         try{
-            $sales = Sale::where('status','active')->get();
-            $customer_payment = CustomerPayment::select('customer_payments.*','sales.invoice_number','sales.total_value')
-                ->join('sales','sales.id','=','customer_payments.sales_id')
-                ->where('customer_payments.id',$request->id)
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            $income_tax = IncomeTax::select('income_taxes.*')
+                ->where('income_taxes.id',$request->id)
                 ->first();
-            return view('account.customer_payment_edit',compact('sales','customer_payment'));
+            return view('account.income_tax_edit',compact('months','income_tax'));
         }
         catch(\Exception $e){
             return redirect('error_404');
         }
     }
 
-    public function customerPaymentUpdate(Request $request)
+    public function incomeTaxUpdate(Request $request)
     {
         try{
             $user = Auth::user();
-            $due_amount = $request->total_amount-$request->received_amount;
 
-            $customer_payment = CustomerPayment::where('id',$request->id)->first();
-            $customer_payment->sales_id = $request->sales_id;
-            $customer_payment->received_amount = $request->received_amount;
-            $customer_payment->due_amount = $due_amount;
-            $customer_payment->payment_date = date('Y-m-d', strtotime($request->payment_date));
-            $customer_payment->updated_by = $user->id;
-            $customer_payment->updated_at = date('Y-m-d h:i:s');
-            $customer_payment->save();
+            $duplicate_income_tax = IncomeTax::where('income_taxes.year',$request->year)
+                ->where('income_taxes.month',$request->month)
+                ->first();
+            if(!empty($duplicate_income_tax) && $duplicate_income_tax->id != $request->id){
+                return ['status'=>401, 'reason'=>"You have already saved this month's income tax."];
+            }
+
+            $income_tax = IncomeTax::where('id',$request->id)->first();
+            $income_tax->month = $request->month;
+            $income_tax->year = $request->year;
+            $income_tax->tax_amount = (float)$request->tax_amount;
+            $income_tax->updated_by = $user->id;
+            $income_tax->updated_at = date('Y-m-d h:i:s');
+            $income_tax->save();
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
         }
@@ -365,27 +359,27 @@ class AccountController extends Controller
         }
     }
 
-    public function customerPaymentDelete(Request $request)
+    public function incomeTaxDelete(Request $request)
     {
         try{
             $user = Auth::user();
 
-            $customer_payment = CustomerPayment::where('id',$request->customer_payment_id)->first();
-            $customer_payment->status = 'deleted';
-            $customer_payment->deleted_by = $user->id;
-            $customer_payment->deleted_at = date('Y-m-d h:i:s');
-            $customer_payment->save();
+            $income_tax = IncomeTax::where('id',$request->income_tax_id)->first();
+            $income_tax->status = 'deleted';
+            $income_tax->deleted_by = $user->id;
+            $income_tax->deleted_at = date('Y-m-d h:i:s');
+            $income_tax->save();
 
             return ['status'=>200, 'reason'=>'Successfully deleted'];
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
-    }*/
+    }
 
     public function monthlyProfitLoss(Request $request)
     {
-        try{
+        //try{
             $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             $year = $request->year;
             $month = $request->month;
@@ -397,7 +391,7 @@ class AccountController extends Controller
                 /*
                  * Getting sales record for this month
                  * */
-                $sales = Sale::selectRaw("SUM(total_value) as total_sale_amount")
+                $sales = Sale::selectRaw("SUM(total_amount) as total_sale_amount")
                     ->where('sales.status','active')
                     ->where('date_of_sale','>=',$start_date)
                     ->where('date_of_sale','<=',$end_date)
@@ -412,21 +406,19 @@ class AccountController extends Controller
                 /*
                  * Getting cost of sales record for this month
                  * */
-                $productions_issue = Production::selectRaw("SUM(amount) as total_amount")
-                    ->where('productions.type','issue')
-                ->where('productions.status','active')
-                ->where('productions.date_of_issue','>=',$start_date)
-                ->where('productions.date_of_issue','<=',$end_date)
+                $productions_issue = StockIssue::selectRaw("SUM(total_value) as total_amount")
+                ->where('stock_issues.status','active')
+                ->where('stock_issues.date_of_issue','>=',$start_date)
+                ->where('stock_issues.date_of_issue','<=',$end_date)
                 ->first();
                 if(empty($productions_issue)){
                     $profit_loss[$month]['cost_of_sales'] = '';
                 }
                 else{
-                    $productions_return = Production::selectRaw("SUM(amount) as total_amount")
-                        ->where('productions.type','return')
-                        ->where('productions.status','active')
-                        ->where('productions.date_of_issue','>=',$start_date)
-                        ->where('productions.date_of_issue','<=',$end_date)
+                    $productions_return = StockReturn::selectRaw("SUM(total_value) as total_amount")
+                        ->where('stock_returns.status','active')
+                        ->where('stock_returns.date_of_return','>=',$start_date)
+                        ->where('stock_returns.date_of_return','<=',$end_date)
                         ->first();
 
                     $profit_loss[$month]['cost_of_sales'] = $productions_issue->total_amount-$productions_return->total_amount;
@@ -446,24 +438,21 @@ class AccountController extends Controller
                 /*
                  * Getting salary expense record for this month
                  * */
-                $salary_expense = MonthlySalaryStatement::selectRaw("SUM(total_amount) as total_expense_amount")
-                    ->where('year',$year)
-                    ->where('month',$month)
-                    ->where('status','active')
-                    ->first();
-                if(empty($salary_expense)){
+
+                if($profit_loss[$month]['gross_profit']==''){
                     $profit_loss[$month]['salary_expense'] = '';
                 }
                 else{
-                    $profit_loss[$month]['salary_expense'] = $salary_expense->total_expense_amount;
+                    $profit_loss[$month]['salary_expense'] = (float)$request->salary;
                 }
 
                 /*
                  * Getting other expense record for this month
                  * */
-                $other_expense = DailyExpense::selectRaw("SUM(amount) as total_expense_amount")
-                    ->where('date_of_expense','>=',$start_date)
-                    ->where('date_of_expense','<=',$end_date)
+                $other_expense = OtherPayment::selectRaw("SUM(amount) as total_expense_amount")
+                    ->where('payment_type','=','Paid')
+                    ->where('payment_date','>=',$start_date)
+                    ->where('payment_date','<=',$end_date)
                     ->where('status','active')
                     ->first();
                 if(empty($other_expense)) {
@@ -507,10 +496,10 @@ class AccountController extends Controller
                 }
             }
             return view('account.monthly_profit_loss',compact('months','profit_loss'));
-        }
+        /*}
         catch(\Exception $e){
             return redirect('error_404');
-        }
+        }*/
     }
 
     public function costOfSale(Request $request)

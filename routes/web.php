@@ -174,6 +174,15 @@ Route::get('other_payments/{id}', 'AccountController@otherPaymentEdit');
 Route::post('other_payments/update', 'AccountController@otherPaymentUpdate');
 Route::post('other_payments/delete', 'AccountController@otherPaymentDelete');
 
+Route::get('income_taxes', 'AccountController@incomeTax');
+Route::get('income_taxes/create', 'AccountController@incomeTaxCreate');
+Route::post('income_taxes/store', 'AccountController@incomeTaxStore');
+Route::post('income_taxes/update', 'AccountController@incomeTaxUpdate');
+Route::get('income_taxes/{id}', 'AccountController@incomeTaxEdit');
+Route::post('income_taxes/delete', 'AccountController@incomeTaxDelete');
+
+Route::get('monthly_profit_losses', 'AccountController@monthlyProfitLoss');
+
 //Route::get('cost_of_sales', 'AccountController@costOfSale');
 
 Route::get('users', 'UserController@index');
