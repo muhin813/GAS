@@ -52,7 +52,7 @@
 
 
 <div class="page-footer">
-<div class="page-footer-inner text-center w-100"> © All rights reserved to <a target="_blank" href="{{url('/')}}"><strong>Arham Plastic</strong></a></div>
+<div class="page-footer-inner text-center w-100"> © All rights reserved to <a target="_blank" href="{{url('/')}}"><strong>Grand Auto Service</strong></a></div>
 <div class="page-footer-inner text-center w-100" style="float:right"> Powered by <a target="_blank" href="http://xarray.io/"><strong>xarray.io</strong></a></div>
 <div class="scroll-to-top">
     <i class="icon-arrow-up"></i>
