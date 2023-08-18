@@ -58,14 +58,24 @@
     <!-- BEGIN LOGIN FORM -->
     <form  id="customer_form" method="post" action="" enctype="multipart/form-data">
         {{csrf_field()}}
-
+        <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN PORTLET -->
-                <div class="portlet light ">
+                <div class="portlet light " style="padding: 30px;">
                     <div class="alert alert-success" id="success_message" style="display:none"></div>
                     <div class="alert alert-danger" id="error_message" style="display: none"></div>
                     <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 style="
+                                    margin: 0;
+                                    margin: 0 30px 30px 30px;
+                                    text-align: center;
+                                    font-weight: 500;
+                                ">User Registration</h3>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -118,23 +128,25 @@
                                 </div>
                             </div>
                             <div class="col-md-12" id="vehicle_credentials_area">
-                                <div class="row vehicle_credentials" style="border: 1px solid;padding: 10px; margin:5px">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for=""><b>Vehicle Name</b></label>
-                                            <input type="text" class="form-control vehicleName" name="vehicle_name[]" id="vehicle_name" value="">
+                                <div style="padding: 20px; margin-bottom: 15px; border: 1px solid #c2cad8; border-radius: 4px;">
+                                    <div class="row vehicle_credentials">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for=""><b>Vehicle Name</b></label>
+                                                <input type="text" class="form-control vehicleName" name="vehicle_name[]" id="vehicle_name" value="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for=""><b>Vehicle Registration Number</b></label>
-                                            <input type="text" class="form-control vehicleRegistrationNumber" name="vehicle_registration_number[]" id="vehicle_registration_number" value="">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for=""><b>Vehicle Registration Number</b></label>
+                                                <input type="text" class="form-control vehicleRegistrationNumber" name="vehicle_registration_number[]" id="vehicle_registration_number" value="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for=""><b>Vehicle Model</b></label>
-                                            <input type="text" class="form-control vehicleModel" name="vehicle_model[]" id="vehicle_model" value="">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for=""><b>Vehicle Model</b></label>
+                                                <input type="text" class="form-control vehicleModel" name="vehicle_model[]" id="vehicle_model" value="">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -151,6 +163,7 @@
                 </div>
                 <!-- END PORTLET -->
             </div>
+        </div>
         </div>
     </form>
     <!-- END LOGIN FORM -->
@@ -248,7 +261,8 @@
 
     $(document).on('click', '.add_button', function(){
         var html = '';
-        html +='<div class="row vehicle_credentials" style="border: 1px solid;padding: 10px; margin:5px">';
+        html +='<div class="vehicle_credentials_wrapper" style="padding: 20px; margin-bottom: 15px; border: 1px solid #c2cad8; border-radius: 4px;">';
+        html +='<div class="row vehicle_credentials">';
         html +='<div class="col-md-6">';
         html +='<div class="form-group">';
         html +='<label for=""><b>Vehicle Name</b></label>';
@@ -271,13 +285,14 @@
         html +='<button type="button" class="btn btn-danger remove_button">Remove</button>';
         html +='</div>';
         html +='</div>';
+        html +='</div>';
 
         $('#vehicle_credentials_area').append(html);
 
     });
 
     $(document).on('click', '.remove_button', function(){
-        $(this).parents('.vehicle_credentials').remove();
+        $(this).parents('.vehicle_credentials_wrapper').remove();
     });
 
     $(document).on("submit", "#customer_form", function(event) {

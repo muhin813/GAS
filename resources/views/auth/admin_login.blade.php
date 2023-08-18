@@ -66,17 +66,17 @@
         </div>
         <div class="content-center">
             <div class="row">
-                <div class="content-center col-12"
-                     style="text-align: center;
-                background: #561e74;
+                 <div class="content-center col-12"
+                style="text-align: center;
+                background: #dde3ec;
                 padding-bottom: 1px;
                 margin-bottom: 30px;
                 margin-left: -15px;
                 margin-right: -15px;
                 margin-top: -35px;
                 padding-top: 15px;">
-                    <img style="max-width: 140px;background: #561e74;" src="{{asset('assets/layouts/layout/img/arham-plastic-logo.png')}}" alt="Arham Plastic logo" class="login-logo">
-                    <h4 class="form-title uppercase" style="color: white;"><strong>Login</strong></h4>
+                    <img style="max-width: 140px;" src="{{asset('assets/layouts/layout/img/gas.png')}}" alt="GAS logo" class="login-logo">
+                    <h4 class="form-title uppercase"><strong>Login</strong></h4>
                 </div>
 
             </div>
