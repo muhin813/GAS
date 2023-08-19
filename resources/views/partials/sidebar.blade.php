@@ -181,40 +181,52 @@ $page = $uri[1];
                     </a>
                 </li>
 
-                <!--            <li class="nav-item @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') open @endif">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-pie-chart"></i>
-                    <span class="title">Accounts</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu" @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') style="display: block;" @endif>
-                    <li class="nav-item @if($page=='supplier_payments') active @endif">
-                        <a href="{{url('supplier_payments')}}" class="nav-link">
-                            <span class="title">Supplier Payments</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
+                <li style="display:none" class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses') open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-pie-chart"></i>
+                        <span class="title">Accounts</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses') style="display: block;" @endif>
+                        <li class="nav-item @if($page=='cash_books') active @endif">
+                            <a href="{{url('cash_books')}}" class="nav-link">
+                                <span class="title">Cash Books</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='bank_books') active @endif">
+                            <a href="{{url('bank_books')}}" class="nav-link">
+                                <span class="title">Bank Books</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='supplier_payments') active @endif">
+                            <a href="{{url('supplier_payments')}}" class="nav-link">
+                                <span class="title">Supplier Payments</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
 
-                    <li class="nav-item @if($page=='customer_payments') active @endif">
-                        <a href="{{url('customer_payments')}}" class="nav-link">
-                            <span class="title">Customer Payments</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='income_taxes') active @endif">
-                        <a href="{{url('income_taxes')}}" class="nav-link">
-                            <span class="title">Income Taxes</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='cost_of_sales') active @endif">
-                        <a href="{{url('cost_of_sales')}}" class="nav-link">
-                            <span class="title">Cost of Sales</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>-->
+                        <li class="nav-item @if($page=='other_payments') active @endif">
+                            <a href="{{url('other_payments')}}" class="nav-link">
+                                <span class="title">Other Payments</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='income_taxes') active @endif">
+                            <a href="{{url('income_taxes')}}" class="nav-link">
+                                <span class="title">Income Taxes</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='monthly_profit_losses') active @endif">
+                            <a href="{{url('monthly_profit_losses')}}" class="nav-link">
+                                <span class="title">Monthly Profit Loss</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
 
                 <!--<li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">-->

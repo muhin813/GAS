@@ -174,13 +174,6 @@ Route::get('supplier_payments/{id}', 'AccountController@supplierPaymentEdit');
 Route::post('supplier_payments/update', 'AccountController@supplierPaymentUpdate');
 Route::post('supplier_payments/delete', 'AccountController@supplierPaymentDelete');
 
-/*Route::get('customer_payments', 'AccountController@customerPayment');
-Route::get('customer_payments/create', 'AccountController@customerPaymentCreate');
-Route::post('customer_payments/store', 'AccountController@customerPaymentStore');
-Route::post('customer_payments/update', 'AccountController@customerPaymentUpdate');
-Route::get('customer_payments/{id}', 'AccountController@customerPaymentEdit');
-Route::post('customer_payments/delete', 'AccountController@customerPaymentDelete');*/
-
 Route::get('other_payments', 'AccountController@otherPayment');
 Route::get('other_payments/create', 'AccountController@otherPaymentCreate');
 Route::post('other_payments/store', 'AccountController@otherPaymentStore');
