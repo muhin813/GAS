@@ -181,13 +181,25 @@
                 </a>
             </li>
 
-            <li class="nav-item @if($page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') open @endif">
+            <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-pie-chart"></i>
                     <span class="title">Accounts</span>
                     <span class="arrow"></span>
                 </a>
-                <ul class="sub-menu" @if($page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') style="display: block;" @endif>
+                <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') style="display: block;" @endif>
+                    <li class="nav-item @if($page=='cash_books') active @endif">
+                        <a href="{{url('cash_books')}}" class="nav-link">
+                            <span class="title">Cash Books</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if($page=='bank_books') active @endif">
+                        <a href="{{url('bank_books')}}" class="nav-link">
+                            <span class="title">Bank Book</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
                     <li class="nav-item @if($page=='supplier_payments') active @endif">
                         <a href="{{url('supplier_payments')}}" class="nav-link">
                             <span class="title">Supplier Payments</span>

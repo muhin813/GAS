@@ -153,6 +153,20 @@ Route::get('stock_returns/{id}', 'InventoryController@stockReturnEdit');
 Route::post('stock_returns/update', 'InventoryController@stockReturnUpdate');
 Route::post('stock_returns/delete', 'InventoryController@stockReturnDelete');
 
+Route::get('cash_books', 'AccountController@cashBook');
+Route::get('cash_books/create', 'AccountController@cashBookCreate');
+Route::post('cash_books/store', 'AccountController@cashBookStore');
+Route::get('cash_books/{id}', 'AccountController@cashBookEdit');
+Route::post('cash_books/update', 'AccountController@cashBookUpdate');
+Route::post('cash_books/delete', 'AccountController@cashBookDelete');
+
+Route::get('bank_books', 'AccountController@bankBook');
+Route::get('bank_books/create', 'AccountController@bankBookCreate');
+Route::post('bank_books/store', 'AccountController@bankBookStore');
+Route::get('bank_books/{id}', 'AccountController@bankBookEdit');
+Route::post('bank_books/update', 'AccountController@bankBookUpdate');
+Route::post('bank_books/delete', 'AccountController@bankBookDelete');
+
 Route::get('supplier_payments', 'AccountController@supplierPayment');
 Route::get('supplier_payments/create', 'AccountController@supplierPaymentCreate');
 Route::post('supplier_payments/store', 'AccountController@supplierPaymentStore');

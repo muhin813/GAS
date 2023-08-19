@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Edit Customer Payment')
+@section('title', 'Edit Cash Book')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('customer_payments')}}">Customer Payment</a>
+                        <a href="{{url('cash_books')}}">Cash Book</a>
                         <i class=""></i>
                     </li>
                     <li>
@@ -37,46 +37,41 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="customer_payment_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="cash_book_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
-                        <input type="hidden" name="id" value="{{$customer_payment->id}}">
+                        <input type="hidden" name="id" value="{{$cash_book->id}}">
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for=""><b>Invoice Number</b></label>
-                                    <select name="sales_id" id="sales_id" class="form-control">
-                                        <option value="">Select Invoice Number</option>
-                                        @foreach($sales as $sale)
-                                            <option value="{{$sale->id}}" @if($customer_payment->sales_id==$sale->id) selected @endif>{{$sale->invoice_number}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for=""><b>Date</b></label>
+                                    <input type="text" class="form-control datepicker" name="date" id="date" value="{{date('m/d/Y',strtotime($cash_book->date))}}" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for=""><b>Total Amount</b></label>
-                                    <input type="text" class="form-control" name="total_amount" id="total_amount" value="{{$customer_payment->total_value}}" readonly >
+                                    <label for=""><b>Debit Party</b></label>
+                                    <input type="text" class="form-control" name="debit_party" id="debit_party" value="{{$cash_book->debit_party}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for=""><b>Received Amount</b></label>
-                                    <input type="text" class="form-control price" name="received_amount" id="received_amount" value="{{$customer_payment->received_amount}}">
+                                    <label for=""><b>Credit Party</b></label>
+                                    <input type="text" class="form-control" name="credit_party" id="credit_party" value="{{$cash_book->credit_party}}" >
                                 </div>
                             </div>
-<!--                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for=""><b>Due Amount</b></label>
-                                    <input type="text" class="form-control" name="due_amount" id="due_amount" value="{{$customer_payment->due_amount}}" readonly >
-                                </div>
-                            </div>-->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for=""><b>Payment Date</b></label>
-                                    <input type="text" class="form-control datepicker" name="payment_date" id="payment_date" value="{{date('m/d/Y', strtotime($customer_payment->payment_date))}}">
+                                    <label for=""><b>Amount</b></label>
+                                    <input type="number" class="form-control" name="amount" id="amount" value="{{$cash_book->amount}}" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for=""><b>Narration</b></label>
+                                    <input type="text" class="form-control" name="narration" id="narration" value="{{$cash_book->narration}}" >
                                 </div>
                             </div>
                         </div>
@@ -102,54 +97,33 @@
 
         });
 
-        $(document).on('change', '#sales_id', function(){
-            var sales_id = $(this).val();
-            var url = "{{ url('sales/get_details') }}";
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {sales_id:sales_id,'_token':'{{csrf_token()}}'},
-                success: function(data) {
-                    hide_loader();
-                    if (data.status == 200) {
-                        var received_amount = $('#received_amount').val();
-                        var due_amount = data.sale.total_value-received_amount;
-                        $('#total_amount').val(data.sale.total_value);
-                        $('#due_amount').val(due_amount.toFixed(2));
-                    } else {
-                        show_error_message('Something went wrong.');
-                    }
-                },
-                error: function(data) {
-                    hide_loader();
-                    show_error_message(data);
-                }
-            });
-        });
-
-        $(document).on("submit", "#customer_payment_form", function(event) {
+        $(document).on("submit", "#cash_book_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var sales_id = $("#sales_id").val();
-            var received_amount = $("#received_amount").val();
-            var payment_date = $("#payment_date").val();
+            var date = $("#date").val();
+            var debit_party = $("#debit_party").val();
+            var credit_party = $("#credit_party").val();
+            var amount = $("#amount").val();
 
             var validate = "";
 
-            if (sales_id.trim() == "") {
-                validate = validate + "Invoice number is required</br>";
+            if (date.trim() == "") {
+                validate = validate + "Date is required</br>";
             }
-            if (received_amount.trim() == "") {
-                validate = validate + "Received amount is required</br>";
+            if (debit_party.trim() == "") {
+                validate = validate + "Debit party is required</br>";
             }
-            if (payment_date.trim() == "") {
-                validate = validate + "Payment Date is required</br>";
+            if (credit_party.trim() == "") {
+                validate = validate + "Credit party is required</br>";
+            }
+            if (amount.trim() == "") {
+                validate = validate + "Amount is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#customer_payment_form")[0]);
-                var url = "{{ url('customer_payments/update') }}";
+                var formData = new FormData($("#cash_book_form")[0]);
+                var url = "{{ url('cash_books/update') }}";
 
                 $.ajax({
                     type: "POST",

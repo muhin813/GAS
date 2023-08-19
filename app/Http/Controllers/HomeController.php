@@ -26,17 +26,13 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         try{
-            return view('dashboard');
-        }
-        catch(\Exception $e){
-            return redirect('error_404');
-        }
-    }
+            if(Auth::user()->role != 4){
+                return view('dashboard');
+            }
+            else{
+                return redirect('crm');
+            }
 
-    public function customerDashboard(Request $request)
-    {
-        try{
-            return view('customer_dashboard');
         }
         catch(\Exception $e){
             return redirect('error_404');

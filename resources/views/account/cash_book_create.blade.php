@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Customer Payment')
+@section('title', 'Create Cash Book')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('customer_payments')}}">Customer Payments</a>
+                        <a href="{{url('cash_books')}}">Cash Books</a>
                         <i class=""></i>
                     </li>
                     <li>
@@ -37,7 +37,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="customer_payment_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="cash_book_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
@@ -50,37 +50,32 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Invoice Number</b></label>
-                                                    <select name="sales_id" id="sales_id" class="form-control">
-                                                        <option value="">Select Invoice Number</option>
-                                                        @foreach($sales as $sale)
-                                                        <option value="{{$sale->id}}">{{$sale->invoice_number}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <label for=""><b>Date</b></label>
+                                                    <input type="text" class="form-control datepicker" name="date" id="date" value="" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Total Amount</b></label>
-                                                    <input type="text" class="form-control" name="total_amount" id="total_amount" value="" readonly >
+                                                    <label for=""><b>Debit Party</b></label>
+                                                    <input type="text" class="form-control" name="debit_party" id="debit_party" value="" >
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Received Amount</b></label>
-                                                    <input type="text" class="form-control price" name="received_amount" id="received_amount" value="">
+                                                    <label for=""><b>Credit Party</b></label>
+                                                    <input type="text" class="form-control" name="credit_party" id="credit_party" value="" >
                                                 </div>
                                             </div>
-<!--                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Due Amount</b></label>
-                                                    <input type="text" class="form-control" name="due_amount" id="due_amount" value="" readonly >
-                                                </div>
-                                            </div>-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Payment Date</b></label>
-                                                    <input type="text" class="form-control datepicker" name="payment_date" id="payment_date" value="">
+                                                    <label for=""><b>Amount</b></label>
+                                                    <input type="number" class="form-control" name="amount" id="amount" value="" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Narration</b></label>
+                                                    <input type="text" class="form-control" name="narration" id="narration" value="" >
                                                 </div>
                                             </div>
                                         </div>
@@ -111,54 +106,33 @@
 
         });
 
-        $(document).on('change', '#sales_id', function(){
-            var sales_id = $(this).val();
-            var url = "{{ url('sales/get_details') }}";
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {sales_id:sales_id,'_token':'{{csrf_token()}}'},
-                success: function(data) {
-                    hide_loader();
-                    if (data.status == 200) {
-                        //var received_amount = $('#received_amount').val();
-                        //var due_amount = data.sale.total_value-received_amount;
-                        $('#total_amount').val(data.sale.total_value);
-                        $('#due_amount').val(data.sale.due_amount);
-                    } else {
-                        show_error_message('Something went wrong.');
-                    }
-                },
-                error: function(data) {
-                    hide_loader();
-                    show_error_message(data);
-                }
-            });
-        });
-
-        $(document).on("submit", "#customer_payment_form", function(event) {
+        $(document).on("submit", "#cash_book_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var sales_id = $("#sales_id").val();
-            var received_amount = $("#received_amount").val();
-            var payment_date = $("#payment_date").val();
+            var date = $("#date").val();
+            var debit_party = $("#debit_party").val();
+            var credit_party = $("#credit_party").val();
+            var amount = $("#amount").val();
 
             var validate = "";
 
-            if (sales_id.trim() == "") {
-                validate = validate + "Invoice number is required</br>";
+            if (date.trim() == "") {
+                validate = validate + "Date is required</br>";
             }
-            if (received_amount.trim() == "") {
-                validate = validate + "Received amount is required</br>";
+            if (debit_party.trim() == "") {
+                validate = validate + "Debit party is required</br>";
             }
-            if (payment_date.trim() == "") {
-                validate = validate + "Payment Date is required</br>";
+            if (credit_party.trim() == "") {
+                validate = validate + "Credit party is required</br>";
+            }
+            if (amount.trim() == "") {
+                validate = validate + "Amount is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#customer_payment_form")[0]);
-                var url = "{{ url('customer_payments/store') }}";
+                var formData = new FormData($("#cash_book_form")[0]);
+                var url = "{{ url('cash_books/store') }}";
 
                 $.ajax({
                     type: "POST",
@@ -167,13 +141,13 @@
                     success: function(data) {
                         hide_loader();
                         if (data.status == 200) {
-                            $('#customer_payment_form')[0].reset();
+                            $('#cash_book_form')[0].reset();
 
                             $("#success_message").show();
                             $("#error_message").hide();
                             $("#success_message").html(data.reason);
                             setTimeout(function(){
-                                window.location.href="{{url('customer_payments')}}";
+                                window.location.href="{{url('cash_books')}}";
                             },1000)
                         } else {
                             $("#success_message").hide();

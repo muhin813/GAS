@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Models\IncomeTax;
 use App\Models\StockIssue;
 use App\Models\StockReturn;
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Purchase;
 use App\Models\Supplier;
+use App\Models\CashBook;
+use App\Models\BankBook;
 use App\Models\SupplierPayment;
 use App\Models\Customer;
 use App\Models\Sale;
@@ -32,6 +35,217 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function cashBook(Request $request)
+    {
+        try{
+            $cash_books = CashBook::select('cash_books.*');
+            $cash_books = $cash_books->where('cash_books.status','active');
+            $cash_books = $cash_books->orderBy('cash_books.id','ASC');
+            $cash_books = $cash_books->paginate(100);
+            return view('account.cash_book',compact('cash_books'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function cashBookCreate(Request $request)
+    {
+        try{
+            return view('account.cash_book_create');
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function cashBookStore(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $cash_book = NEW CashBook();
+            $cash_book->date = date('Y-m-d', strtotime($request->date));
+            $cash_book->debit_party = $request->debit_party;
+            $cash_book->credit_party = $request->credit_party;
+            $cash_book->amount = $request->amount;
+            $cash_book->narration = $request->narration;
+            $cash_book->created_by = $user->id;
+            $cash_book->created_at = date('Y-m-d h:i:s');
+            $cash_book->save();
+
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function cashBookEdit(Request $request)
+    {
+        try{
+            $cash_book = CashBook::select('cash_books.*')
+                ->where('cash_books.id',$request->id)
+                ->first();
+            return view('account.cash_book_edit',compact('cash_book'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function cashBookUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $due_amount = $request->total_amount-$request->paid_amount;
+
+            $cash_book = CashBook::where('id',$request->id)->first();
+            $cash_book->date = date('Y-m-d', strtotime($request->date));
+            $cash_book->debit_party = $request->debit_party;
+            $cash_book->credit_party = $request->credit_party;
+            $cash_book->amount = $request->amount;
+            $cash_book->narration = $request->narration;
+            $cash_book->updated_by = $user->id;
+            $cash_book->updated_at = date('Y-m-d h:i:s');
+            $cash_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function cashBookDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $cash_book = CashBook::where('id',$request->cash_book_id)->first();
+            $cash_book->status = 'deleted';
+            $cash_book->deleted_by = $user->id;
+            $cash_book->deleted_at = date('Y-m-d h:i:s');
+            $cash_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankBook(Request $request)
+    {
+        try{
+            $bank_books = BankBook::select('bank_books.*');
+            //$bank_books = $bank_books->join('purchases','purchases.challan_no','=','bank_books.invoice_number');
+            $bank_books = $bank_books->where('bank_books.status','active');
+            $bank_books = $bank_books->orderBy('bank_books.id','ASC');
+            $bank_books = $bank_books->paginate(100);
+            return view('account.bank_book',compact('bank_books'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankBookCreate(Request $request)
+    {
+        try{
+            $bank_accounts = BankAccount::where('status','active')->get();
+            return view('account.bank_book_create',compact('bank_accounts'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankBookStore(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $bank_book = NEW BankBook();
+            $bank_book->date = date('Y-m-d', strtotime($request->date));
+            $bank_book->bank_id = $request->bank_id;
+            $bank_book->account_number = $request->account_number;
+            $bank_book->cheque_book_number = $request->cheque_book_number;
+            $bank_book->cheque_number = $request->cheque_number;
+            $bank_book->party = $request->party;
+            $bank_book->amount = $request->amount;
+            $bank_book->narration = $request->narration;
+            $bank_book->created_by = $user->id;
+            $bank_book->created_at = date('Y-m-d h:i:s');
+            $bank_book->save();
+
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankBookEdit(Request $request)
+    {
+        try{
+            $bank_accounts = BankAccount::where('status','active')->get();
+            $bank_book = BankBook::select('bank_books.*','purchases.challan_no','purchases.total_value')
+                ->join('purchases','purchases.challan_no','=','bank_books.invoice_number')
+                ->where('bank_books.id',$request->id)
+                ->first();
+            return view('account.bank_book_edit',compact('bank_accounts','bank_book'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankBookUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $due_amount = $request->total_amount-$request->paid_amount;
+
+            $bank_book = BankBook::where('id',$request->id)->first();
+            $bank_book->date = date('Y-m-d', strtotime($request->date));
+            $bank_book->bank_id = $request->bank_id;
+            $bank_book->account_number = $request->account_number;
+            $bank_book->cheque_book_number = $request->cheque_book_number;
+            $bank_book->cheque_number = $request->cheque_number;
+            $bank_book->party = $request->party;
+            $bank_book->amount = $request->amount;
+            $bank_book->updated_by = $user->id;
+            $bank_book->updated_at = date('Y-m-d h:i:s');
+            $bank_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankBookDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $bank_book = BankBook::where('id',$request->bank_book_id)->first();
+            $bank_book->status = 'deleted';
+            $bank_book->deleted_by = $user->id;
+            $bank_book->deleted_at = date('Y-m-d h:i:s');
+            $bank_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
     public function supplierPayment(Request $request)
     {
         try{

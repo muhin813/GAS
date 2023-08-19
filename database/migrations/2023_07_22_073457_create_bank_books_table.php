@@ -17,10 +17,11 @@ class CreateBankBooksTable extends Migration
             $table->id();
             $table->timestamp('date')->nullable();
             $table->integer('bank_id')->nullable();
-            $table->integer('account_id')->nullable();
-            $table->integer('cheque_book_id')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('cheque_book_number')->nullable();
             $table->string('cheque_number')->nullable();
             $table->integer('party',)->nullable();
+            $table->decimal('amount',10,2)->nullable();
             $table->string('narration')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();

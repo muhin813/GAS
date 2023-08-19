@@ -160,6 +160,9 @@
                             <button type="submit" class="btn green submit-btn" id="profile_button">Save</button>
                         </div>
                     </div>
+                    <div>
+                        Already have an account? <a href="{{'login'}}">Login here</a>
+                    </div>
                 </div>
                 <!-- END PORTLET -->
             </div>

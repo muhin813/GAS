@@ -16,8 +16,8 @@ class CreateCashBooksTable extends Migration
         Schema::create('cash_books', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date')->nullable();
-            $table->integer('debit_party')->nullable();
-            $table->integer('credit_party')->nullable();
+            $table->string('debit_party')->nullable();
+            $table->string('credit_party')->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->string('narration')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');

@@ -13,6 +13,12 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->role != 4) {
+                return redirect('error_404');
+            }
+            return $next($request);
+        });
     }
 
     /**
