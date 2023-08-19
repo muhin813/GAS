@@ -86,14 +86,14 @@
 
             <li class="nav-item @if($page=='service_bookings') active @endif">
                 <a href="{{url('service_bookings')}}" class="nav-link">
-                    <i class="icon-users"></i>
+                    <i class="icon-calendar"></i>
                     <span class="title">Service Bookings</span>
                     <span class="selected"></span>
                 </a>
             </li>
             <li class="nav-item @if($page=='customer_packages') active @endif">
                 <a href="{{url('customer_packages')}}" class="nav-link">
-                    <i class="icon-users"></i>
+                    <i class="icon-layers"></i>
                     <span class="title">Packages</span>
                     <span class="selected"></span>
                 </a>
