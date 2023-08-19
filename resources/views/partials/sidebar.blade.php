@@ -1,10 +1,10 @@
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-sidebar-fixed page-container-bg-solid ">
 <!-- BEGIN HEADER -->
 <?php
-    $current_url = $_SERVER['REQUEST_URI'];
-    $current_url = explode('?',$current_url);
-    $uri = explode('/',$current_url[0]);
-    $page = $uri[1];
+$current_url = $_SERVER['REQUEST_URI'];
+$current_url = explode('?',$current_url);
+$uri = explode('/',$current_url[0]);
+$page = $uri[1];
 ?>
 <div class="page-header navbar navbar-fixed-top">
     <!-- BEGIN HEADER INNER -->
@@ -14,7 +14,7 @@
             <a href="{{url('dashboard')}}" class="nav-item item-1  @if($page=='dashboard') active @endif" data-name="dashboard" data-item="1">
                 <!--<img style="width: 114%;" src="{{asset('assets/layouts/layout/img/logo.png')}}" alt="logo" class="logo-default" />-->
                 <p style="color: white; font-size: 19px; font-weight: 700;     margin: 11px auto;">GAS</p>
-                </a>
+            </a>
             <div class="menu-toggler sidebar-toggler">
                 <span></span>
             </div>
@@ -54,45 +54,45 @@
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 
-<div class="page-sidebar-wrapper">
-    <!-- BEGIN SIDEBAR -->
-    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-    <div class="page-sidebar navbar-collapse collapse">
-        <!-- BEGIN SIDEBAR MENU -->
-        <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-        <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-        <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <div class="page-sidebar-wrapper">
+        <!-- BEGIN SIDEBAR -->
         <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-        <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-        <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
-            <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
-            <li class="sidebar-toggler-wrapper hide">
-                <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-                <div class="sidebar-toggler">
-                    <span></span>
-                </div>
-                <!-- END SIDEBAR TOGGLER BUTTON -->
-            </li>
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+            <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+            <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+            <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+            <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+            <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+            <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper hide">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                        <span></span>
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
 
-            <li class="nav-item item-1  @if($page=='dashboard') active @endif" data-name="dashboard" data-item="1">
-                <a href="{{url('dashboard')}}" class="nav-link">
-                    <i class="icon-home"></i>
-                    <span class="title">Dashboard</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+                <li class="nav-item item-1  @if($page=='dashboard') active @endif" data-name="dashboard" data-item="1">
+                    <a href="{{url('dashboard')}}" class="nav-link">
+                        <i class="icon-home"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
 
-            <li class="nav-item @if($page=='purchases') active @endif">
-                <a href="{{url('purchases')}}" class="nav-link">
-                    <i class="icon-layers"></i>
-                    <span class="title">Purchases</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+                <li class="nav-item @if($page=='purchases') active @endif">
+                    <a href="{{url('purchases')}}" class="nav-link">
+                        <i class="icon-layers"></i>
+                        <span class="title">Purchases</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
 
-<!--            <li class="nav-item @if($page=='productions_issue' || $page=='productions_report' || $page=='wastage_report' || $page=='productions_issue_return' || $page=='productions_report_return') open @endif">
+                <!--            <li class="nav-item @if($page=='productions_issue' || $page=='productions_report' || $page=='wastage_report' || $page=='productions_issue_return' || $page=='productions_report_return') open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-product"></i>
                     <span class="title">Productions</span>
@@ -141,74 +141,63 @@
                 </ul>
             </li>-->
 
-            <li class="nav-item @if($page=='stock_record' || $page=='stock_issues' || $page=='stock_returns') open @endif">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-list"></i>
-                    <span class="title">Inventory</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu" @if($page=='stock_record' || $page=='stock_issues' || $page=='stock_returns') style="display: block;" @endif>
-                    <li class="nav-item @if($page=='stock_record') active @endif">
-                        <a href="{{url('stock_record')}}" class="nav-link">
-<!--                            <i class="icon-product"></i>-->
-                            <span class="title">Stock Record</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
+                <li class="nav-item @if($page=='stock_record' || $page=='stock_issues' || $page=='stock_returns') open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-list"></i>
+                        <span class="title">Inventory</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" @if($page=='stock_record' || $page=='stock_issues' || $page=='stock_returns') style="display: block;" @endif>
+                        <li class="nav-item @if($page=='stock_record') active @endif">
+                            <a href="{{url('stock_record')}}" class="nav-link">
+                                <!--                            <i class="icon-product"></i>-->
+                                <span class="title">Stock Record</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
 
-                    <li class="nav-item @if($page=='stock_issues') active @endif">
-                        <a href="{{url('stock_issues')}}" class="nav-link">
-<!--                            <i class="icon-product"></i>-->
-                            <span class="title">Stock Issues</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='stock_returns') active @endif">
-                        <a href="{{url('stock_returns')}}" class="nav-link">
-<!--                            <i class="icon-product"></i>-->
-                            <span class="title">Stock Returns</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                        <li class="nav-item @if($page=='stock_issues') active @endif">
+                            <a href="{{url('stock_issues')}}" class="nav-link">
+                                <!--                            <i class="icon-product"></i>-->
+                                <span class="title">Stock Issues</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='stock_returns') active @endif">
+                            <a href="{{url('stock_returns')}}" class="nav-link">
+                                <!--                            <i class="icon-product"></i>-->
+                                <span class="title">Stock Returns</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-            <li class="nav-item @if($page=='sales') active @endif">
-                <a href="{{url('sales')}}" class="nav-link">
-                    <i class="icon-basket-loaded"></i>
-                    <span class="title">Sales</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+                <li class="nav-item @if($page=='sales') active @endif">
+                    <a href="{{url('sales')}}" class="nav-link">
+                        <i class="icon-basket-loaded"></i>
+                        <span class="title">Sales</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
 
-            <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') open @endif">
+                <!--            <li class="nav-item @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-pie-chart"></i>
                     <span class="title">Accounts</span>
                     <span class="arrow"></span>
                 </a>
-                <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='supplier_payments' || $page=='customer_payments' || $page=='other_payments' || $page=='monthly_profit_losses' || $page=='income_taxes') style="display: block;" @endif>
-                    <li class="nav-item @if($page=='cash_books') active @endif">
-                        <a href="{{url('cash_books')}}" class="nav-link">
-                            <span class="title">Cash Books</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='bank_books') active @endif">
-                        <a href="{{url('bank_books')}}" class="nav-link">
-                            <span class="title">Bank Book</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
+                <ul class="sub-menu" @if($page=='supplier_payments' || $page=='customer_payments' || $page=='income_taxes' || $page=='cost_of_sales') style="display: block;" @endif>
                     <li class="nav-item @if($page=='supplier_payments') active @endif">
                         <a href="{{url('supplier_payments')}}" class="nav-link">
                             <span class="title">Supplier Payments</span>
                             <span class="selected"></span>
                         </a>
                     </li>
-                    <li class="nav-item @if($page=='other_payments') active @endif">
-                        <a href="{{url('other_payments')}}" class="nav-link">
-                            <span class="title">Other Payments</span>
+
+                    <li class="nav-item @if($page=='customer_payments') active @endif">
+                        <a href="{{url('customer_payments')}}" class="nav-link">
+                            <span class="title">Customer Payments</span>
                             <span class="selected"></span>
                         </a>
                     </li>
@@ -218,131 +207,162 @@
                             <span class="selected"></span>
                         </a>
                     </li>
-                    <li class="nav-item @if($page=='monthly_profit_losses') active @endif">
-                        <a href="{{url('monthly_profit_losses')}}" class="nav-link">
-                            <span class="title">Monthly Profit Loss</span>
+                    <li class="nav-item @if($page=='cost_of_sales') active @endif">
+                        <a href="{{url('cost_of_sales')}}" class="nav-link">
+                            <span class="title">Cost of Sales</span>
                             <span class="selected"></span>
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
 
-            <li class="nav-item @if($page=='customers') active @endif">
-                <a href="{{url('customers')}}" class="nav-link">
-                    <i class="icon-users"></i>
-                    <span class="title">Customers</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
 
-            <li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-product"></i>
-                    <span class="title">Items</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu" @if($page=='items' || $page=='item_categories' || $page=='item_uoms') style="display: block;" @endif>
-                    <li class="nav-item @if($page=='items') active @endif">
-                        <a href="{{url('items')}}" class="nav-link">
-                            <!--                            <i class="icon-users"></i>-->
-                            <span class="title">Item List</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='item_categories') active @endif">
-                        <a href="{{url('item_categories')}}" class="nav-link">
-                            <!--                            <i class="icon-users"></i>-->
-                            <span class="title">Item Categories</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='item_uoms') active @endif">
-                        <a href="{{url('item_uoms')}}" class="nav-link">
-                            <!--                            <i class="icon-users"></i>-->
-                            <span class="title">Item UOM</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                <!--<li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">-->
+                <!--    <a href="javascript:;" class="nav-link nav-toggle">-->
+                <!--        <i class="icon-product"></i>-->
+                <!--        <span class="title">Items</span>-->
+                <!--        <span class="arrow"></span>-->
+                <!--    </a>-->
+                <!--    <ul class="sub-menu" @if($page=='items' || $page=='item_categories' || $page=='item_uoms') style="display: block;" @endif>-->
+                <!--        <li class="nav-item @if($page=='items') active @endif">-->
+                <!--            <a href="{{url('items')}}" class="nav-link">-->
+                <!--                            <i class="icon-users"></i>-->
+                <!--                <span class="title">Item List</span>-->
+                <!--                <span class="selected"></span>-->
+                <!--            </a>-->
+                <!--        </li>-->
+                <!--        <li class="nav-item @if($page=='item_categories') active @endif">-->
+                <!--            <a href="{{url('item_categories')}}" class="nav-link">-->
+                <!--                            <i class="icon-users"></i>-->
+                <!--                <span class="title">Item Categories</span>-->
+                <!--                <span class="selected"></span>-->
+                <!--            </a>-->
+                <!--        </li>-->
+                <!--        <li class="nav-item @if($page=='item_uoms') active @endif">-->
+                <!--            <a href="{{url('item_uoms')}}" class="nav-link">-->
+                <!--                            <i class="icon-users"></i>-->
+                <!--                <span class="title">Item UOM</span>-->
+                <!--                <span class="selected"></span>-->
+                <!--            </a>-->
+                <!--        </li>-->
+                <!--    </ul>-->
+                <!--</li>-->
 
-            <li class="nav-item @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages') open @endif">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-settings"></i>
-                    <span class="title">Settings</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu" @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages') style="display: block;" @endif>
-                    <li class="nav-item @if($page=='items') active @endif">
-                        <a href="{{url('items')}}" class="nav-link">
-<!--                            <i class="icon-product"></i>-->
-                            <span class="title">Items</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='suppliers') active @endif">
-                        <a href="{{url('suppliers')}}" class="nav-link">
-<!--                            <i class="icon-users"></i>-->
-                            <span class="title">Suppliers</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='service_categories') active @endif">
-                        <a href="{{url('service_categories')}}" class="nav-link">
-<!--                            <i class="icon-users"></i>-->
-                            <span class="title">Service Categories</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='service_types') active @endif">
-                        <a href="{{url('service_types')}}" class="nav-link">
-<!--                            <i class="icon-users"></i>-->
-                            <span class="title">Service Types</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='package_uoms') active @endif">
-                        <a href="{{url('package_uoms')}}" class="nav-link">
-<!--                            <i class="icon-users"></i>-->
-                            <span class="title">Package UOM</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item @if($page=='packages') active @endif">
-                        <a href="{{url('packages')}}" class="nav-link">
-<!--                            <i class="icon-users"></i>-->
-                            <span class="title">Packages</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                <li class="nav-item @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages') open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-settings"></i>
+                        <span class="title">Settings</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages') style="display: block;" @endif>
 
-            <li class="nav-item @if($page=='users') active @endif" data-name="users">
-                <a href="{{url('users')}}" class="nav-link">
-                    <i class="icon-users"></i>
-                    <span class="title">Users</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+                        <li class="nav-item @if($page=='customers') active @endif">
+                            <a href="{{url('customers')}}" class="nav-link">
+                                <!--<i class="icon-users"></i>-->
+                                <span class="title">Customers</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <!--<i class="icon-product"></i>-->
+                                <span class="title">Items</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu" @if($page=='items' || $page=='item_categories' || $page=='item_uoms') style="display: block;" @endif>
+                                <li class="nav-item @if($page=='items') active @endif">
+                                    <a href="{{url('items')}}" class="nav-link">
+                                        <!--                            <i class="icon-users"></i>-->
+                                        <span class="title">Item List</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item @if($page=='item_categories') active @endif">
+                                    <a href="{{url('item_categories')}}" class="nav-link">
+                                        <!--                            <i class="icon-users"></i>-->
+                                        <span class="title">Item Categories</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item @if($page=='item_uoms') active @endif">
+                                    <a href="{{url('item_uoms')}}" class="nav-link">
+                                        <!--                            <i class="icon-users"></i>-->
+                                        <span class="title">Item UOM</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--                    <li class="nav-item @if($page=='items') active @endif">-->
+                        <!--                        <a href="{{url('items')}}" class="nav-link">-->
+                        <!--                            <i class="icon-product"></i>-->
+                        <!--                            <span class="title">Items</span>-->
+                        <!--                            <span class="selected"></span>-->
+                        <!--                        </a>-->
+                        <!--                    </li>-->
+                        <li class="nav-item @if($page=='suppliers') active @endif">
+                            <a href="{{url('suppliers')}}" class="nav-link">
+                                <!--                            <i class="icon-users"></i>-->
+                                <span class="title">Suppliers</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='service_categories') active @endif">
+                            <a href="{{url('service_categories')}}" class="nav-link">
+                                <!--                            <i class="icon-users"></i>-->
+                                <span class="title">Service Categories</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='service_types') active @endif">
+                            <a href="{{url('service_types')}}" class="nav-link">
+                                <!--                            <i class="icon-users"></i>-->
+                                <span class="title">Service Types</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='package_uoms') active @endif">
+                            <a href="{{url('package_uoms')}}" class="nav-link">
+                                <!--                            <i class="icon-users"></i>-->
+                                <span class="title">Package UOM</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='packages') active @endif">
+                            <a href="{{url('packages')}}" class="nav-link">
+                                <!--                            <i class="icon-users"></i>-->
+                                <span class="title">Packages</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
-            <li class="nav-item  @if($page=='profile') active @endif" data-name="profile" data-item="1">
-                <a href="{{url('profile')}}" class="nav-link">
-                    <i class="icon-user"></i>
-                    <span class="title">Profile</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a  href="{{ url('logout') }}" class="nav-link">
-                    <i class="icon-logout"></i>
-                    <span class="title">Log Out</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-        </ul>
-        <!-- END SIDEBAR MENU -->
-        <!-- END SIDEBAR MENU -->
+                <li class="nav-item @if($page=='users') active @endif" data-name="users">
+                    <a href="{{url('users')}}" class="nav-link">
+                        <i class="icon-users"></i>
+                        <span class="title">Users</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+
+                <li class="nav-item  @if($page=='profile') active @endif" data-name="profile" data-item="1">
+                    <a href="{{url('profile')}}" class="nav-link">
+                        <i class="icon-user"></i>
+                        <span class="title">Profile</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  href="{{ url('logout') }}" class="nav-link">
+                        <i class="icon-logout"></i>
+                        <span class="title">Log Out</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
     </div>
-    <!-- END SIDEBAR -->
-</div>
