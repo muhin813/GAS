@@ -216,14 +216,6 @@
                 </ul>
             </li>-->
 
-            <li class="nav-item @if($page=='customers') active @endif">
-                <a href="{{url('customers')}}" class="nav-link">
-                    <i class="icon-users"></i>
-                    <span class="title">Customers</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-
             <!--<li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">-->
             <!--    <a href="javascript:;" class="nav-link nav-toggle">-->
             <!--        <i class="icon-product"></i>-->
@@ -262,6 +254,13 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu" @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages') style="display: block;" @endif>
+                    <li class="nav-item @if($page=='customers') active @endif">
+                        <a href="{{url('customers')}}" class="nav-link">
+                            <i class="icon-users"></i>
+                            <span class="title">Customers</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
                     <li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <!--<i class="icon-product"></i>-->
