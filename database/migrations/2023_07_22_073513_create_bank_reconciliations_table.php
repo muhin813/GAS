@@ -28,6 +28,8 @@ class CreateBankReconciliationsTable extends Migration
             $table->decimal('other_payment_amount',10,2)->nullable();
             $table->json('other_deposits')->nullable();
             $table->decimal('other_deposit_amount',10,2)->nullable();
+            $table->decimal('closing_balance_bank_book',10,2)->nullable();
+            $table->decimal('opening_variance',10,2)->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

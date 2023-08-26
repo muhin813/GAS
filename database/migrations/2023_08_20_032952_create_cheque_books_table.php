@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBankAccountsTable extends Migration
+class CreateChequeBooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateBankAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bank_accounts', function (Blueprint $table) {
+        Schema::create('cheque_books', function (Blueprint $table) {
             $table->id();
-            $table->integer('bank_id')->nullable();
-            $table->integer('branch_id')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('account_name')->nullable();
-            $table->decimal('opening_balance',10,2)->nullable();
+            $table->integer('bank_account_id')->nullable();
+            $table->string('book_number')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
@@ -36,6 +33,6 @@ class CreateBankAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_accounts');
+        Schema::dropIfExists('cheque_books');
     }
 }

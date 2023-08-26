@@ -163,9 +163,18 @@ Route::post('cash_books/delete', 'AccountController@cashBookDelete');
 Route::get('bank_books', 'AccountController@bankBook');
 Route::get('bank_books/create', 'AccountController@bankBookCreate');
 Route::post('bank_books/store', 'AccountController@bankBookStore');
+Route::post('bank_books/get_cheques_by_month', 'AccountController@getBankBookByMonth');
 Route::get('bank_books/{id}', 'AccountController@bankBookEdit');
 Route::post('bank_books/update', 'AccountController@bankBookUpdate');
 Route::post('bank_books/delete', 'AccountController@bankBookDelete');
+
+Route::get('bank_reconciliations', 'AccountController@bankReconciliation');
+Route::get('bank_reconciliations/create', 'AccountController@bankReconciliationCreate');
+Route::post('bank_reconciliations/store', 'AccountController@bankReconciliationStore');
+Route::post('bank_reconciliations/get_details', 'AccountController@getDetails');
+Route::get('bank_reconciliations/{id}', 'AccountController@bankReconciliationEdit');
+Route::post('bank_reconciliations/update', 'AccountController@bankReconciliationUpdate');
+Route::post('bank_reconciliations/delete', 'AccountController@bankReconciliationDelete');
 
 Route::get('supplier_payments', 'AccountController@supplierPayment');
 Route::get('supplier_payments/create', 'AccountController@supplierPaymentCreate');
@@ -191,6 +200,41 @@ Route::post('income_taxes/delete', 'AccountController@incomeTaxDelete');
 Route::get('monthly_profit_losses', 'AccountController@monthlyProfitLoss');
 
 //Route::get('cost_of_sales', 'AccountController@costOfSale');
+
+Route::get('banks','BankController@index');
+Route::get('banks/create', 'BankController@create');
+Route::post('banks/store', 'BankController@store');
+Route::post('banks/update', 'BankController@update');
+Route::get('banks/{id}', 'BankController@edit');
+Route::post('banks/delete', 'BankController@delete');
+
+Route::get('bank_branches','BankController@bankBranch');
+Route::get('bank_branches/create', 'BankController@bankBranchCreate');
+Route::post('bank_branches/store', 'BankController@bankBranchStore');
+Route::post('bank_branches/update', 'BankController@bankBranchUpdate');
+Route::get('bank_branches/{id}', 'BankController@bankBranchEdit');
+Route::post('bank_branches/delete', 'BankController@bankBranchDelete');
+
+Route::get('bank_accounts','BankController@bankAccount');
+Route::get('bank_accounts/create', 'BankController@bankAccountCreate');
+Route::post('bank_accounts/store', 'BankController@bankAccountStore');
+Route::post('bank_accounts/update', 'BankController@bankAccountUpdate');
+Route::get('bank_accounts/{id}', 'BankController@bankAccountEdit');
+Route::post('bank_accounts/delete', 'BankController@bankAccountDelete');
+
+Route::get('party_categories','BankController@partyCategories');
+Route::get('party_categories/create', 'BankController@partyCategoryCreate');
+Route::post('party_categories/store', 'BankController@partyCategoryStore');
+Route::post('party_categories/update', 'BankController@partyCategoryUpdate');
+Route::get('party_categories/{id}', 'BankController@partyCategoryEdit');
+Route::post('party_categories/delete', 'BankController@partyCategoryDelete');
+
+Route::get('parties','BankController@parties');
+Route::get('parties/create', 'BankController@partyCreate');
+Route::post('parties/store', 'BankController@partyStore');
+Route::post('parties/update', 'BankController@partyUpdate');
+Route::get('parties/{id}', 'BankController@partyEdit');
+Route::post('parties/delete', 'BankController@partyDelete');
 
 Route::get('users', 'UserController@index');
 Route::get('users/create', 'UserController@create');

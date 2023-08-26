@@ -55,8 +55,8 @@
                                     <label for=""><b>Bank</b></label>
                                     <select name="bank_id" id="bank_id" class="form-control">
                                         <option value="">Select Bank</option>
-                                        @foreach($bank_accounts as $bank_account)
-                                            <option value="{{$bank_account->id}}" @if($bank_account->id == $bank_book->bank_id) selected @endif>{{$bank_account->bank_name}}</option>
+                                        @foreach($banks as $bank)
+                                            <option value="{{$bank->id}}" @if($bank->id == $bank_book->bank_id) selected @endif>{{$bank->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,20 +78,15 @@
                                     <select name="cheque_book_number" id="cheque_book_number" class="form-control">
                                         <option value="">Select Cheque Book Number</option>
                                         @foreach($cheque_books as $cheque_book)
-                                            <option value="{{$cheque_book->number}}" @if($cheque_book->number == $bank_book->cheque_book_number) selected @endif>{{$cheque_book->number}}</option>
+                                            <option value="{{$cheque_book->book_number}}" @if($cheque_book->book_number == $bank_book->cheque_book_number) selected @endif>{{$cheque_book->book_number}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for=""><b>Cheque</b></label>
-                                    <select name="cheque_number" id="cheque_number" class="form-control">
-                                        <option value="">Select Cheque Number</option>
-                                        @foreach($checks as $check)
-                                            <option value="{{$check->number}}" @if($check->number == $bank_book->cheque_number) selected @endif>{{$check->number}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for=""><b>Cheque Number</b></label>
+                                    <input type="text" class="form-control" name="cheque_number" id="cheque_number" value="{{$bank_book->cheque_number}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -100,7 +95,7 @@
                                     <select name="party" id="party" class="form-control">
                                         <option value="">Select Party</option>
                                         @foreach($parties as $party)
-                                            <option value="{{$party->id}}" @if($party->id == $bank_book->party) selected @endif>{{$party->name}}</option>
+                                            <option value="{{$party->id}}" @if($party->id == $bank_book->party) selected @endif>{{$party->party_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -148,7 +143,7 @@
             var bank_id = $("#bank_id").val();
             var account_number = $("#account_number").val();
             var cheque_book_number = $("#cheque_book_number").val();
-            var check_number = $("#check_number").val();
+            var cheque_number = $("#cheque_number").val();
             var party = $("#party").val();
             var amount = $("#amount").val();
 
@@ -158,15 +153,15 @@
                 validate = validate + "Date is required</br>";
             }
             if (bank_id.trim() == "") {
-                validate = validate + "Account number is required</br>";
+                validate = validate + "Bank is required</br>";
             }
             if (account_number.trim() == "") {
-                validate = validate + "Bank is required</br>";
+                validate = validate + "Account number is required</br>";
             }
             if (cheque_book_number.trim() == "") {
                 validate = validate + "Cheque book number is required</br>";
             }
-            if (check_number.trim() == "") {
+            if (cheque_number.trim() == "") {
                 validate = validate + "Cheque number is required</br>";
             }
             if (party.trim() == "") {

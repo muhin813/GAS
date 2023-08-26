@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use App\Models\BankAccount;
+use App\Models\ChequeBook;
 use App\Models\IncomeTax;
+use App\Models\Party;
 use App\Models\StockIssue;
 use App\Models\StockReturn;
 use Illuminate\Database\Eloquent\Model;
@@ -12,10 +15,9 @@ use App\Models\Purchase;
 use App\Models\Supplier;
 use App\Models\CashBook;
 use App\Models\BankBook;
+use App\Models\BankReconciliation;
 use App\Models\SupplierPayment;
-use App\Models\Customer;
 use App\Models\Sale;
-use App\Models\CustomerPayment;
 use App\Models\OtherPayment;
 use App\Common;
 use Auth;
@@ -139,8 +141,9 @@ class AccountController extends Controller
     public function bankBook(Request $request)
     {
         try{
-            $bank_books = BankBook::select('bank_books.*');
-            //$bank_books = $bank_books->join('purchases','purchases.challan_no','=','bank_books.invoice_number');
+            $bank_books = BankBook::select('bank_books.*','banks.name as bank_name','parties.party_name');
+            $bank_books = $bank_books->join('banks','banks.id','=','bank_books.bank_id');
+            $bank_books = $bank_books->join('parties','parties.id','=','bank_books.party');
             $bank_books = $bank_books->where('bank_books.status','active');
             $bank_books = $bank_books->orderBy('bank_books.id','ASC');
             $bank_books = $bank_books->paginate(100);
@@ -151,11 +154,30 @@ class AccountController extends Controller
         }
     }
 
+    public function getBankBookByMonth(Request $request)
+    {
+        try{
+            $bank_books = BankBook::select('bank_books.*');
+            $bank_books = $bank_books->whereMonth('bank_books.date',$request->month);
+            $bank_books = $bank_books->whereYear('bank_books.date',$request->year);
+            $bank_books = $bank_books->where('bank_books.status','active');
+            $bank_books = $bank_books->orderBy('bank_books.id','ASC');
+            $bank_books = $bank_books->get();
+            return ['status'=>200, 'bank_books'=>$bank_books];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
     public function bankBookCreate(Request $request)
     {
         try{
+            $banks = Bank::where('status','active')->get();
             $bank_accounts = BankAccount::where('status','active')->get();
-            return view('account.bank_book_create',compact('bank_accounts'));
+            $cheque_books = ChequeBook::where('status','active')->get();
+            $parties = Party::where('status','active')->get();
+            return view('account.bank_book_create',compact('banks','bank_accounts','cheque_books','parties'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -191,12 +213,14 @@ class AccountController extends Controller
     public function bankBookEdit(Request $request)
     {
         try{
+            $banks = Bank::where('status','active')->get();
             $bank_accounts = BankAccount::where('status','active')->get();
-            $bank_book = BankBook::select('bank_books.*','purchases.challan_no','purchases.total_value')
-                ->join('purchases','purchases.challan_no','=','bank_books.invoice_number')
+            $cheque_books = ChequeBook::where('status','active')->get();
+            $parties = Party::where('status','active')->get();
+            $bank_book = BankBook::select('bank_books.*')
                 ->where('bank_books.id',$request->id)
                 ->first();
-            return view('account.bank_book_edit',compact('bank_accounts','bank_book'));
+            return view('account.bank_book_edit',compact('banks','cheque_books','bank_accounts','parties','bank_book'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -207,7 +231,6 @@ class AccountController extends Controller
     {
         try{
             $user = Auth::user();
-            $due_amount = $request->total_amount-$request->paid_amount;
 
             $bank_book = BankBook::where('id',$request->id)->first();
             $bank_book->date = date('Y-m-d', strtotime($request->date));
@@ -217,6 +240,7 @@ class AccountController extends Controller
             $bank_book->cheque_number = $request->cheque_number;
             $bank_book->party = $request->party;
             $bank_book->amount = $request->amount;
+            $bank_book->narration = $request->narration;
             $bank_book->updated_by = $user->id;
             $bank_book->updated_at = date('Y-m-d h:i:s');
             $bank_book->save();
@@ -238,6 +262,172 @@ class AccountController extends Controller
             $bank_book->deleted_by = $user->id;
             $bank_book->deleted_at = date('Y-m-d h:i:s');
             $bank_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankReconciliation(Request $request)
+    {
+        try{
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            $bank_reconciliations = BankReconciliation::select('bank_reconciliations.*','banks.name as bank_name','bank_accounts.account_number');
+            $bank_reconciliations = $bank_reconciliations->leftJoin('banks','banks.id','=','bank_reconciliations.bank_id');
+            $bank_reconciliations = $bank_reconciliations->leftJoin('bank_accounts','bank_accounts.id','=','bank_reconciliations.account_id');
+            $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.status','active');
+            if($request->year != ''){
+                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.year',$request->year);
+            }
+            if($request->month != ''){
+                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.month',$request->month);
+            }
+            $bank_reconciliations = $bank_reconciliations->orderBy('bank_reconciliations.id','ASC');
+            $bank_reconciliations = $bank_reconciliations->first();
+            return view('account.bank_reconciliation',compact('months','bank_reconciliations'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankReconciliationCreate(Request $request)
+    {
+        try{
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            $banks = Bank::where('status','active')->get();
+            $bank_accounts = BankAccount::where('status','active')->get();
+            $cheque_books = ChequeBook::where('status','active')->get();
+            $parties = Party::where('status','active')->get();
+            return view('account.bank_reconciliation_create',compact('months','banks','bank_accounts','cheque_books','parties'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankReconciliationStore(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            //echo "<pre>"; print_r($request->all()); echo "</pre>"; exit();
+
+            $bank_reconciliation = NEW BankReconciliation();
+            $bank_reconciliation->year = $request->year;
+            $bank_reconciliation->month = $request->month;
+            $bank_reconciliation->bank_id = $request->bank_id;
+            $bank_reconciliation->account_id = $request->account_id;
+            $bank_reconciliation->bank_statement_closing_balance = $request->bank_statement_closing_balance;
+
+            $bank_reconciliation->outstanding_cheques = implode(',',$request->outstanding_cheques);
+            $bank_reconciliation->outstanding_cheque_amount = $request->outstanding_cheque_amount;
+
+            $bank_reconciliation->outstanding_deposits = json_encode($request->outstanding_deposit);
+            $bank_reconciliation->outstanding_deposit_amount = $request->total_outstanding_deposit_amount;
+
+            $bank_reconciliation->other_payments = json_encode($request->other_payment);
+            $bank_reconciliation->other_payment_amount = $request->total_other_payment_amount;
+
+            $bank_reconciliation->other_deposits = json_encode($request->other_deposit);
+            $bank_reconciliation->other_deposit_amount = $request->total_other_deposit_amount;
+
+            $bank_reconciliation->closing_balance_bank_book = $request->closing_balance_bank_book;
+            $bank_reconciliation->opening_variance = $request->opening_variance;
+
+            $bank_reconciliation->created_by = $user->id;
+            $bank_reconciliation->created_at = date('Y-m-d h:i:s');
+            $bank_reconciliation->save();
+
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function getDetails(Request $request)
+    {
+        try{
+            $bank_reconciliation = BankReconciliation::select('bank_reconciliations.*')
+                ->where('bank_reconciliations.id',$request->id)
+                ->first();
+            return ['status'=>200, 'bank_reconciliation'=>$bank_reconciliation];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankReconciliationEdit(Request $request)
+    {
+        try{
+            $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            $banks = Bank::where('status','active')->get();
+            $bank_accounts = BankAccount::where('status','active')->get();
+            $cheque_books = ChequeBook::where('status','active')->get();
+            $parties = Party::where('status','active')->get();
+            $bank_reconciliation = BankReconciliation::select('bank_reconciliations.*')
+                ->where('bank_reconciliations.id',$request->id)
+                ->first();
+            return view('account.bank_reconciliation_edit',compact('months','banks','cheque_books','bank_accounts','parties','bank_reconciliation'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bankReconciliationUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $bank_reconciliation = BankReconciliation::where('id',$request->id)->first();
+            $bank_reconciliation->year = $request->year;
+            $bank_reconciliation->month = $request->month;
+            $bank_reconciliation->bank_id = $request->bank_id;
+            $bank_reconciliation->account_id = $request->account_id;
+            $bank_reconciliation->bank_statement_closing_balance = $request->bank_statement_closing_balance;
+
+            $bank_reconciliation->outstanding_cheques = implode(',',$request->outstanding_cheques);
+            $bank_reconciliation->outstanding_cheque_amount = $request->outstanding_cheque_amount;
+
+            $bank_reconciliation->outstanding_deposits = json_encode($request->outstanding_deposit);
+            $bank_reconciliation->outstanding_deposit_amount = $request->total_outstanding_deposit_amount;
+
+            $bank_reconciliation->other_payments = json_encode($request->other_payment);
+            $bank_reconciliation->other_payment_amount = $request->total_other_payment_amount;
+
+            $bank_reconciliation->other_deposits = json_encode($request->other_deposit);
+            $bank_reconciliation->other_deposit_amount = $request->total_other_deposit_amount;
+
+            $bank_reconciliation->closing_balance_bank_book = $request->closing_balance_bank_book;
+            $bank_reconciliation->opening_variance = $request->opening_variance;
+
+            $bank_reconciliation->updated_by = $user->id;
+            $bank_reconciliation->updated_at = date('Y-m-d h:i:s');
+            $bank_reconciliation->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bankReconciliationDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $bank_reconciliation = BankReconciliation::where('id',$request->bank_reconciliation_id)->first();
+            $bank_reconciliation->status = 'deleted';
+            $bank_reconciliation->deleted_by = $user->id;
+            $bank_reconciliation->deleted_at = date('Y-m-d h:i:s');
+            $bank_reconciliation->save();
 
             return ['status'=>200, 'reason'=>'Successfully deleted'];
         }

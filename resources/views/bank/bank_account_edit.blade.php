@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Bank Book')
+@section('title', 'Edit Bank Account')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,11 +15,11 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('bank_books')}}">Bank Books</a>
+                        <a href="{{url('bank_accounts')}}">Bank Accounts</a>
                         <i class=""></i>
                     </li>
                     <li>
-                        <span>Create</span>
+                        <span>Edit</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -37,8 +37,9 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="bank_book_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="bank_account_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
+                        <input type="hidden" name="id" value="{{$bank_account->id}}">
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
 
@@ -50,70 +51,36 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Date</b></label>
-                                                    <input type="text" class="form-control datepicker" name="date" id="date" value="" autocomplete="off">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
                                                     <label for=""><b>Bank</b></label>
                                                     <select name="bank_id" id="bank_id" class="form-control">
                                                         <option value="">Select Bank</option>
                                                         @foreach($banks as $bank)
-                                                            <option value="{{$bank->id}}">{{$bank->name}}</option>
+                                                            <option value="{{$bank->id}}" @if($bank->id==$bank_account->bank_id) selected @endif>{{$bank->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Account</b></label>
-                                                    <select name="account_number" id="account_number" class="form-control">
-                                                        <option value="">Select Account</option>
-                                                        @foreach($bank_accounts as $bank_account)
-                                                            <option value="{{$bank_account->account_number}}">{{$bank_account->account_number}}</option>
+                                                    <label for=""><b>Bank Branch</b></label>
+                                                    <select name="branch_id" id="branch_id" class="form-control">
+                                                        <option value="">Select Branch</option>
+                                                        @foreach($bank_branches as $bank_branch)
+                                                            <option value="{{$bank_branch->id}}" @if($bank_branch->id==$bank_account->branch_id) selected @endif >{{$bank_branch->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Cheque Book</b></label>
-                                                    <select name="cheque_book_number" id="cheque_book_number" class="form-control">
-                                                        <option value="">Select Cheque Book Number</option>
-                                                        @foreach($cheque_books as $cheque_book)
-                                                            <option value="{{$cheque_book->book_number}}">{{$cheque_book->book_number}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <label for=""><b>Account Name</b></label>
+                                                    <input type="text" class="form-control" name="account_name" id="account_name" value="{{$bank_account->account_name}}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Cheque Number</b></label>
-                                                    <input type="text" class="form-control" name="cheque_number" id="cheque_number" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Party</b></label>
-                                                    <select name="party" id="party" class="form-control">
-                                                        <option value="">Select Party</option>
-                                                        @foreach($parties as $party)
-                                                            <option value="{{$party->id}}">{{$party->party_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Amount</b></label>
-                                                    <input type="number" class="form-control" name="amount" id="amount" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Narration</b></label>
-                                                    <input type="text" class="form-control" name="narration" id="narration" value="" >
+                                                    <label for=""><b>Account Number</b></label>
+                                                    <input type="text" class="form-control" name="account_number" id="account_number" value="{{$bank_account->account_number}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -144,45 +111,33 @@
 
         });
 
-        $(document).on("submit", "#bank_book_form", function(event) {
+        $(document).on("submit", "#bank_account_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var date = $("#date").val();
             var bank_id = $("#bank_id").val();
+            var branch_id = $("#branch_id").val();
+            var account_name = $("#account_name").val();
             var account_number = $("#account_number").val();
-            var cheque_book_number = $("#cheque_book_number").val();
-            var cheque_number = $("#cheque_number").val();
-            var party = $("#party").val();
-            var amount = $("#amount").val();
 
             var validate = "";
 
-            if (date.trim() == "") {
-                validate = validate + "Date is required</br>";
-            }
             if (bank_id.trim() == "") {
                 validate = validate + "Bank is required</br>";
             }
+            if (branch_id.trim() == "") {
+                validate = validate + "Bank Branch is required</br>";
+            }
+            if (account_name.trim() == "") {
+                validate = validate + "Account Name is required</br>";
+            }
             if (account_number.trim() == "") {
-                validate = validate + "Account number is required</br>";
-            }
-            if (cheque_book_number.trim() == "") {
-                validate = validate + "Cheque book number is required</br>";
-            }
-            if (cheque_number.trim() == "") {
-                validate = validate + "Cheque number is required</br>";
-            }
-            if (party.trim() == "") {
-                validate = validate + "Party is required</br>";
-            }
-            if (amount.trim() == "") {
-                validate = validate + "Amount is required</br>";
+                validate = validate + "Account Number is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#bank_book_form")[0]);
-                var url = "{{ url('bank_books/store') }}";
+                var formData = new FormData($("#bank_account_form")[0]);
+                var url = "{{ url('bank_accounts/update') }}";
 
                 $.ajax({
                     type: "POST",
@@ -191,13 +146,11 @@
                     success: function(data) {
                         hide_loader();
                         if (data.status == 200) {
-                            $('#bank_book_form')[0].reset();
-
                             $("#success_message").show();
                             $("#error_message").hide();
                             $("#success_message").html(data.reason);
                             setTimeout(function(){
-                                window.location.href="{{url('bank_books')}}";
+                                $("#success_message").hide();
                             },1000)
                         } else {
                             $("#success_message").hide();
