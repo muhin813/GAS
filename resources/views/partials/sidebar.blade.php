@@ -266,14 +266,21 @@ $page = $uri[1];
                 <!--    </ul>-->
                 <!--</li>-->
 
-                <li class="nav-item @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages' || $page=='cheque_books' || $page=='parties' || $page=='party_categories' || $page=='banks' || $page=='bank_branches' || $page=='bank_accounts') open @endif">
+                <li class="nav-item @if($page=='general_settings' || $page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages' || $page=='cheque_books' || $page=='parties' || $page=='party_categories' || $page=='banks' || $page=='bank_branches' || $page=='bank_accounts') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-settings"></i>
                         <span class="title">Settings</span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu" @if($page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages' || $page=='cheque_books' || $page=='parties' || $page=='party_categories' || $page=='banks' || $page=='bank_branches' || $page=='bank_accounts') style="display: block;" @endif>
+                    <ul class="sub-menu" @if($page=='general_settings' || $page=='items' || $page=='suppliers' || $page=='service_categories' || $page=='service_types' || $page=='package_uoms' || $page=='packages' || $page=='cheque_books' || $page=='parties' || $page=='party_categories' || $page=='banks' || $page=='bank_branches' || $page=='bank_accounts') style="display: block;" @endif>
 
+                        <li class="nav-item @if($page=='general_settings') active @endif">
+                            <a href="{{url('general_settings')}}" class="nav-link">
+                                <!--<i class="icon-users"></i>-->
+                                <span class="title">General</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
                         <li class="nav-item @if($page=='customers') active @endif">
                             <a href="{{url('customers')}}" class="nav-link">
                                 <!--<i class="icon-users"></i>-->

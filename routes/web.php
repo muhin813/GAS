@@ -242,3 +242,6 @@ Route::post('users/store', 'UserController@store');
 Route::get('users/{id}', 'UserController@edit');
 Route::post('users/update', 'UserController@update');
 Route::post('users/delete', 'UserController@delete');
+
+Route::get('general_settings', 'SettingController@generalSetting');
+Route::post('general_settings/update', 'SettingController@generalSettingUpdate');

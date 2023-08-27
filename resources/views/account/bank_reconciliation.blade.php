@@ -99,41 +99,76 @@
                                     </div> -->
                                     <div class="portlet-body">
                                         <div class="row">
-                                            <table id="monthly_salary_statement_table" class="table table-striped table-bordered table-hover data-table focus-table">
+                                            <table id="monthly_salary_statement_table" class="table table-striped table-bordered data-table">
                                                 <thead>
                                                 <tr>
+                                                    <th colspan="2" class="text-center">
+                                                        BANK RECONCILIATION STATEMENT Month of
+                                                        @if(!empty($bank_reconciliations))
+                                                            {{$months[request('month')-1]." ".request('year')}}
+                                                            <a style="float: right" href="{{url('bank_reconciliations/'.$bank_reconciliations->id)}}" class="btn btn-success"><i class="icon-bank_book"></i>Edit</a>
+                                                        @endif
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" class="text-center">
+                                                        @if(!empty($bank_reconciliations))
+                                                            {{$bank_reconciliations->bank_name}}
+                                                        @endif
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2" class="text-center">
+                                                        @if(!empty($bank_reconciliations))
+                                                        {{$bank_reconciliations->account_number}}
+                                                        @endif
+                                                    </th>
+                                                </tr>
+                                                <tr>
                                                     <th class="text-center">Statement Date</th>
-                                                    <th class="text-center"></th>
+                                                    <th class="text-center">
+                                                        @if(!empty($bank_reconciliations))
+                                                        {{$months[request('month')-1]}}
+                                                        @endif
+                                                    </th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Statement</td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->bank_statement_closing_balance}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->bank_statement_closing_balance}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Book</td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->closing_balance_bank_book}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->closing_balance_bank_book}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Opening Variance</td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->opening_variance}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->opening_variance}}@endif</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"><a href="javascript:void(0)" onclick="view_outstanding_cheques({{$bank_reconciliations->id}})">Less: Outstanding Cheques</a></td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->outstanding_cheque_amount}}@endif</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_outstanding_cheques({{$bank_reconciliations->id}})" @endif>Less: Outstanding Cheques</a>
+                                                    </td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->outstanding_cheque_amount}}@endif</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"><a href="javascript:void(0)" onclick="view_outstanding_deposits({{$bank_reconciliations->id}})">Add: Outstanding Deposits</a></td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->outstanding_deposit_amount}}@endif</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_outstanding_deposits({{$bank_reconciliations->id}})" @endif>Add: Outstanding Deposits</a>
+                                                    </td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->outstanding_deposit_amount}}@endif</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"><a href="javascript:void(0)" onclick="view_other_payments({{$bank_reconciliations->id}})">Less: Other Payments</a></td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->other_payment_amount}}@endif</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_other_payments({{$bank_reconciliations->id}})" @endif>Less: Other Payments</a>
+                                                    </td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->other_payment_amount}}@endif</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center"><a href="javascript:void(0)" onclick="view_other_deposits({{$bank_reconciliations->id}})">Add: Other Deposits</a></td>
-                                                    <td class="text-center">@if(request('month') != ''){{$bank_reconciliations->other_deposit_amount}}@endif</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_other_deposits({{$bank_reconciliations->id}})" @endif>Add: Other Deposits</a>
+                                                    </td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->other_deposit_amount}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"></td>
@@ -141,7 +176,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Book</td>
-                                                    <td class="text-center">@if(request('month') != '') @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)) @endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"></td>
@@ -149,7 +184,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Variance</td>
-                                                    <td class="text-center">@if(request('month') != '') @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)) @endif</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

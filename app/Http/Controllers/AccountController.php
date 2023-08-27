@@ -19,6 +19,7 @@ use App\Models\BankReconciliation;
 use App\Models\SupplierPayment;
 use App\Models\Sale;
 use App\Models\OtherPayment;
+use App\Models\Setting;
 use App\Common;
 use Auth;
 use File;
@@ -75,6 +76,19 @@ class AccountController extends Controller
             $cash_book->created_by = $user->id;
             $cash_book->created_at = date('Y-m-d h:i:s');
             $cash_book->save();
+
+            /*
+             * Update system cash in hand
+             * */
+            $general_settings = Setting::first();
+            if($request->debit_party=='cash' || $request->debit_party=='Cash'){
+                $general_settings->cash_in_hand_opening_balance = $general_settings->cash_in_hand_opening_balance+$request->amount;
+            }
+            else if($request->credit_party=='cash' || $request->credit_party=='Cash'){
+                $general_settings->cash_in_hand_opening_balance = $general_settings->cash_in_hand_opening_balance-$request->amount;
+            }
+            $general_settings->updated_at = date('Y-m-d h:i:s');
+            $general_settings->save();
 
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
@@ -274,18 +288,22 @@ class AccountController extends Controller
     {
         try{
             $months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            $bank_reconciliations = BankReconciliation::select('bank_reconciliations.*','banks.name as bank_name','bank_accounts.account_number');
-            $bank_reconciliations = $bank_reconciliations->leftJoin('banks','banks.id','=','bank_reconciliations.bank_id');
-            $bank_reconciliations = $bank_reconciliations->leftJoin('bank_accounts','bank_accounts.id','=','bank_reconciliations.account_id');
-            $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.status','active');
-            if($request->year != ''){
-                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.year',$request->year);
+            if($request->year != '' && $request->month != '') {
+                $bank_reconciliations = BankReconciliation::select('bank_reconciliations.*', 'banks.name as bank_name',
+                    'bank_accounts.account_number');
+                $bank_reconciliations = $bank_reconciliations->leftJoin('banks', 'banks.id', '=',
+                    'bank_reconciliations.bank_id');
+                $bank_reconciliations = $bank_reconciliations->leftJoin('bank_accounts', 'bank_accounts.id', '=',
+                    'bank_reconciliations.account_id');
+                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.status', 'active');
+                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.year', $request->year);
+                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.month', $request->month);
+                $bank_reconciliations = $bank_reconciliations->orderBy('bank_reconciliations.id', 'ASC');
+                $bank_reconciliations = $bank_reconciliations->first();
             }
-            if($request->month != ''){
-                $bank_reconciliations = $bank_reconciliations->where('bank_reconciliations.month',$request->month);
+            else{
+                $bank_reconciliations = [];
             }
-            $bank_reconciliations = $bank_reconciliations->orderBy('bank_reconciliations.id','ASC');
-            $bank_reconciliations = $bank_reconciliations->first();
             return view('account.bank_reconciliation',compact('months','bank_reconciliations'));
         }
         catch(\Exception $e){
@@ -313,7 +331,10 @@ class AccountController extends Controller
         try{
             $user = Auth::user();
 
-            //echo "<pre>"; print_r($request->all()); echo "</pre>"; exit();
+            $old_bank_reconciliation = BankReconciliation::where('year',$request->year)->where('month',$request->month)->first();
+            if(!empty($old_bank_reconciliation)){
+                return ['status'=>401, 'reason'=>'Bank reconciliation for this month and year already stored'];
+            }
 
             $bank_reconciliation = NEW BankReconciliation();
             $bank_reconciliation->year = $request->year;
@@ -384,6 +405,11 @@ class AccountController extends Controller
     {
         try{
             $user = Auth::user();
+
+            $old_bank_reconciliation = BankReconciliation::where('year',$request->year)->where('month',$request->month)->first();
+            if(!empty($old_bank_reconciliation) && $old_bank_reconciliation->id != $request->id){
+                return ['status'=>401, 'reason'=>'Bank reconciliation for this month and year already stored'];
+            }
 
             $bank_reconciliation = BankReconciliation::where('id',$request->id)->first();
             $bank_reconciliation->year = $request->year;

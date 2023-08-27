@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Cash Book')
+@section('title', 'General Settings')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,11 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <a href="{{url('cash_books')}}">Cash Books</a>
-                        <i class=""></i>
-                    </li>
-                    <li>
-                        <span>Create</span>
+                        <span>General Settings</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -37,7 +33,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <form  id="cash_book_form" method="post" action="" enctype="multipart/form-data">
+                    <form  id="general_settings_form" method="post" action="" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="alert alert-success" id="success_message" style="display:none"></div>
                         <div class="alert alert-danger" id="error_message" style="display: none"></div>
@@ -50,32 +46,14 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Date</b></label>
-                                                    <input type="text" class="form-control datepicker" name="date" id="date" value="" autocomplete="off">
+                                                    <label for=""><b>Company Name</b></label>
+                                                    <input type="text" class="form-control" name="company_name" id="company_name" value="{{$general_settings->company_name}}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Debit Party</b></label>
-                                                    <input type="text" class="form-control" name="debit_party" id="debit_party" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Credit Party</b></label>
-                                                    <input type="text" class="form-control" name="credit_party" id="credit_party" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Amount</b></label>
-                                                    <input type="number" class="form-control" name="amount" id="amount" value="" >
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Narration</b></label>
-                                                    <input type="text" class="form-control" name="narration" id="narration" value="" >
+                                                    <label for=""><b>Cash In Hand Opening Balance</b></label>
+                                                    <input type="text" class="form-control" name="cash_in_hand_opening_balance" id="cash_in_hand_opening_balance" value="{{$general_settings->cash_in_hand_opening_balance}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -106,36 +84,25 @@
 
         });
 
-        $(document).on("submit", "#cash_book_form", function(event) {
+        $(document).on("submit", "#general_settings_form", function(event) {
             event.preventDefault();
             show_loader();
 
-            var date = $("#date").val();
-            var debit_party = $("#debit_party").val();
-            var credit_party = $("#credit_party").val();
-            var amount = $("#amount").val();
+            var company_name = $("#company_name").val();
+            var cash_in_hand_opening_balance = $("#cash_in_hand_opening_balance").val();
 
             var validate = "";
 
-            if (date.trim() == "") {
-                validate = validate + "Date is required</br>";
+            if (company_name.trim() == "") {
+                validate = validate + "Company name is required</br>";
             }
-            if (debit_party.trim() == "") {
-                validate = validate + "Debit party is required</br>";
-            }
-            if (credit_party.trim() == "") {
-                validate = validate + "Credit party is required</br>";
-            }
-            if (debit_party.trim() != "cash" && debit_party.trim() != "Cash" && credit_party.trim() != "cash" && credit_party.trim() != "Cash") {
-                validate = validate + "Either debit party or credit party must have a value named as 'Cash'</br>";
-            }
-            if (amount.trim() == "") {
-                validate = validate + "Amount is required</br>";
+            if (cash_in_hand_opening_balance.trim() == "") {
+                validate = validate + "Cash In Hand Opening Balance is required</br>";
             }
 
             if (validate == "") {
-                var formData = new FormData($("#cash_book_form")[0]);
-                var url = "{{ url('cash_books/store') }}";
+                var formData = new FormData($("#general_settings_form")[0]);
+                var url = "{{ url('general_settings/update') }}";
 
                 $.ajax({
                     type: "POST",
@@ -144,13 +111,12 @@
                     success: function(data) {
                         hide_loader();
                         if (data.status == 200) {
-                            $('#cash_book_form')[0].reset();
-
                             $("#success_message").show();
                             $("#error_message").hide();
                             $("#success_message").html(data.reason);
                             setTimeout(function(){
-                                window.location.href="{{url('cash_books')}}";
+                                $("#success_message").hide();
+                                //window.location.href="{{url('general_settings')}}";
                             },1000)
                         } else {
                             $("#success_message").hide();
