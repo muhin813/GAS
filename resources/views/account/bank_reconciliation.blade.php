@@ -99,11 +99,18 @@
                                     </div> -->
                                     <div class="portlet-body">
                                         <div class="row">
+                                            <?php
+                                            if(!empty($bank_reconciliations)){
+                                                $opening_variance = $bank_reconciliations->bank_statement_closing_balance-$bank_reconciliations->closing_balance_bank_book;
+                                                $closing_balance_bank_book = $opening_variance-$bank_reconciliations->outstanding_cheque_amount+$bank_reconciliations->outstanding_deposit_amount-$bank_reconciliations->other_payment_amount+$bank_reconciliations->other_deposit_amount;
+                                                $closing_variance = $bank_reconciliations->bank_statement_closing_balance-$closing_balance_bank_book;
+                                            }
+                                            ?>
                                             <table id="monthly_salary_statement_table" class="table table-striped table-bordered data-table">
                                                 <thead>
                                                 <tr>
                                                     <th colspan="2" class="text-center">
-                                                        BANK RECONCILIATION STATEMENT Month of
+                                                        Bank Reconciliation Statement For The Month Of
                                                         @if(!empty($bank_reconciliations))
                                                             {{$months[request('month')-1]." ".request('year')}}
                                                             <a style="float: right" href="{{url('bank_reconciliations/'.$bank_reconciliations->id)}}" class="btn btn-success"><i class="icon-bank_book"></i>Edit</a>
@@ -144,7 +151,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Opening Variance</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->opening_variance}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$opening_variance, 2, '.', '')}}@endif </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">
@@ -176,7 +183,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Book</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)) @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$closing_balance_bank_book, 2, '.', '') }} @endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"></td>
@@ -184,7 +191,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Variance</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)) @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{ $closing_variance }} @endif</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
