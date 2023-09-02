@@ -236,6 +236,20 @@ Route::post('parties/update', 'BankController@partyUpdate');
 Route::get('parties/{id}', 'BankController@partyEdit');
 Route::post('parties/delete', 'BankController@partyDelete');
 
+Route::get('jobs','OperationController@job');
+Route::get('jobs/create', 'OperationController@jobCreate');
+Route::post('jobs/store', 'OperationController@jobStore');
+Route::post('jobs/update', 'OperationController@jobUpdate');
+Route::get('jobs/{id}', 'OperationController@jobEdit');
+Route::post('jobs/delete', 'OperationController@jobDelete');
+
+Route::get('mechanics', 'SettingController@mechanic');
+Route::get('mechanics/create', 'SettingController@mechanicCreate');
+Route::post('mechanics/store', 'SettingController@mechanicStore');
+Route::get('mechanics/{id}', 'SettingController@mechanicEdit');
+Route::post('mechanics/update', 'SettingController@mechanicUpdate');
+Route::post('mechanics/delete', 'SettingController@mechanicDelete');
+
 Route::get('users', 'UserController@index');
 Route::get('users/create', 'UserController@create');
 Route::post('users/store', 'UserController@store');

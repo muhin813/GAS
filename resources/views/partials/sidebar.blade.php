@@ -234,6 +234,55 @@ $page = $uri[1];
                     </ul>
                 </li>
 
+                <li class="nav-item @if($page=='booking_schedules' || $page=='booking_confirmations' || $page=='jobs' || $page=='job_duration_trackings') open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-pie-chart"></i>
+                        <span class="title">Operations</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" @if($page=='booking_schedules' || $page=='booking_confirmations' || $page=='jobs' || $page=='job_duration_trackings') style="display: block;" @endif>
+                        <li class="nav-item @if($page=='booking_schedules' || $page=='booking_confirmations') open @endif">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <!--<i class="icon-product"></i>-->
+                                <span class="title">Bookings</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu" @if($page=='booking_schedules' || $page=='booking_confirmations') style="display: block;" @endif>
+                                <li class="nav-item @if($page=='booking_schedules') active @endif">
+                                    <a href="{{url('booking_schedules')}}" class="nav-link">
+                                        <span class="title">Booking Schedule</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item @if($page=='booking_confirmations') active @endif">
+                                    <a href="{{url('booking_confirmations')}}" class="nav-link">
+                                        <span class="title">Booking Confirmation</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item @if($page=='jobs') active @endif">
+                            <a href="{{url('jobs')}}" class="nav-link">
+                                <span class="title">Jobs</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='job_duration_trackings') active @endif">
+                            <a href="{{url('job_duration_trackings')}}" class="nav-link">
+                                <span class="title">Job Wise Time Duration Tracking</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='job_wise_profitability') active @endif">
+                            <a href="{{url('job_wise_profitability')}}" class="nav-link">
+                                <span class="title">Job Wise Profitability</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
 
                 <!--<li class="nav-item @if($page=='items' || $page=='item_categories' || $page=='item_uoms') open @endif">-->
                 <!--    <a href="javascript:;" class="nav-link nav-toggle">-->

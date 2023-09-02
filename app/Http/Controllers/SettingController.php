@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use App\Models\Mechanic;
 use App\Common;
 use Auth;
 use Session;
@@ -44,6 +45,112 @@ class SettingController extends Controller
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Please try again later.'];
+        }
+    }
+
+    public function mechanic(Request $request)
+    {
+        try{
+            $mechanics = Mechanic::select('mechanics.*','customers.name as customer_name');
+            $mechanics = $mechanics->where('mechanics.status','active');
+            $mechanics = $mechanics->orderBy('mechanics.id','ASc');
+            $mechanics = $mechanics->paginate(100);
+            return view('operation.mechanic_index',compact('mechanics'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function mechanicCreate(Request $request)
+    {
+        try{
+            $service_categories = ServiceCategory::where('status','active')->get();
+            $customers = Customer::where('status','active')->get();
+            return view('operation.mechanic_create',compact('service_categories','customers'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function mechanicStore(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $old_mechanic = Mechanic::where('name',$request->name)->first();
+            if(!empty($old_mechanic)){
+                return ['status'=>401, 'reason'=>'mechanic with this name already exists'];
+            }
+
+            $mechanic = NEW Mechanic();
+            $mechanic->name = $request->name;
+            $mechanic->created_by = $user->id;
+            $mechanic->created_at = date('Y-m-d h:i:s');
+            $mechanic->save();
+
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function mechanicEdit(Request $request)
+    {
+        try{
+            $service_categories = ServiceCategory::where('status','active')->get();
+            $customers = Customer::where('status','active')->get();
+            $mechanic = Mechanic::select('mechanics.*')
+                ->where('mechanics.id',$request->id)
+                ->first();
+            return view('operation.mechanic_edit',compact('service_categories','customers','mechanic'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function mechanicUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $old_mechanic = Mechanic::where('name',$request->name)->first();
+            if(!empty($old_mechanic) && $old_mechanic->id != $request->id){
+                return ['status'=>401, 'reason'=>'mechanic with this name already exists'];
+            }
+
+            $mechanic = Mechanic::where('id',$request->id)->first();
+            $mechanic->name = $request->name;
+            $mechanic->updated_by = $user->id;
+            $mechanic->updated_at = date('Y-m-d h:i:s');
+            $mechanic->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function mechanicDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $mechanic = Mechanic::where('id',$request->mechanic_id)->first();
+            $mechanic->status = 'deleted';
+            $mechanic->deleted_by = $user->id;
+            $mechanic->deleted_at = date('Y-m-d h:i:s');
+            $mechanic->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }
 }
