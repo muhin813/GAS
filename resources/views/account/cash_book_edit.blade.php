@@ -54,18 +54,21 @@
                                 <div class="form-group">
                                     <label for=""><b>Debit Party</b></label>
                                     <input type="text" class="form-control" name="debit_party" id="debit_party" value="{{$cash_book->debit_party}}" >
+                                    <input type="hidden" class="" name="debit_party_old" id="debit_party_old" value="{{$cash_book->debit_party}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><b>Credit Party</b></label>
                                     <input type="text" class="form-control" name="credit_party" id="credit_party" value="{{$cash_book->credit_party}}" >
+                                    <input type="hidden" class="" name="credit_party_old" id="credit_party_old" value="{{$cash_book->credit_party}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for=""><b>Amount</b></label>
                                     <input type="number" class="form-control" name="amount" id="amount" value="{{$cash_book->amount}}" >
+                                    <input type="hidden" class="" name="amount_old" id="amount_old" value="{{$cash_book->amount}}" >
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -136,7 +139,7 @@
                             $("#error_message").hide();
                             $("#success_message").html(data.reason);
                             setTimeout(function(){
-                                $("#success_message").hide();
+                                location.reload();
                             },1000)
                         } else {
                             $("#success_message").hide();

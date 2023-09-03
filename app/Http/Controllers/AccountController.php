@@ -115,7 +115,7 @@ class AccountController extends Controller
     {
         try{
             $user = Auth::user();
-            $due_amount = $request->total_amount-$request->paid_amount;
+
 
             $cash_book = CashBook::where('id',$request->id)->first();
             $cash_book->date = date('Y-m-d', strtotime($request->date));
@@ -126,6 +126,29 @@ class AccountController extends Controller
             $cash_book->updated_by = $user->id;
             $cash_book->updated_at = date('Y-m-d h:i:s');
             $cash_book->save();
+
+            /*
+             * Update system cash in hand
+             * */
+            $general_settings = Setting::first();
+            //First revert to original cash_in_hand_opening_balance
+            if($request->debit_party_old=='cash' || $request->debit_party_old=='Cash'){
+                $cash_in_hand_opening_balance = $general_settings->cash_in_hand_opening_balance-$request->amount_old; // Revert to original amount by substracting added amount (as debit party was cash)
+            }
+            else if($request->credit_party_old=='cash' || $request->credit_party_old=='Cash'){
+                $cash_in_hand_opening_balance = $general_settings->cash_in_hand_opening_balance+$request->amount_old; // Revert to original amount by adding substracted amount (as credit party was cash)
+            }
+
+            // Now calculate and update cash_in_hand_opening_balance with edited amount and party
+            if($request->debit_party=='cash' || $request->debit_party=='Cash'){
+                $general_settings->cash_in_hand_opening_balance = $cash_in_hand_opening_balance+$request->amount;
+            }
+            else if($request->credit_party=='cash' || $request->credit_party=='Cash'){
+                $general_settings->cash_in_hand_opening_balance = $cash_in_hand_opening_balance-$request->amount;
+            }
+
+            $general_settings->updated_at = date('Y-m-d h:i:s');
+            $general_settings->save();
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
         }
