@@ -19,7 +19,8 @@ class CreateJobsTable extends Migration
             $table->timestamp('opening_time')->nullable();
             $table->integer('job_category')->nullable();
             $table->integer('job_type')->nullable();
-            $table->string('customer_registration_number')->nullable();
+            $table->integer('customer_id')->nullable();
+            $table->integer('customer_vehicle_credential_id')->nullable();
             $table->integer('job_assigned_person_id')->nullable();
             $table->timestamp('job_closing_date')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');

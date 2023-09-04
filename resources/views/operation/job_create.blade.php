@@ -51,7 +51,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Opening Date Time</b></label>
-                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="">
+                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -61,6 +61,7 @@
                                                         <option value="">Select Category</option>
                                                         @foreach($service_categories as $s_category)
                                                         <option value="{{$s_category->id}}">{{$s_category->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -75,11 +76,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Customer</b></label>
-                                                    <select name="customer_registration_number" id="customer_registration_number" class="form-control">
+                                                    <select name="customer_id" id="customer_id" class="form-control">
                                                         <option value="">Select Customer</option>
                                                         @foreach($customers as $customer)
-                                                            <option value="{{$customer->customer_registration_number}}">{{$customer->first_name." ".$customer->last_name}}</option>
+                                                            <option value="{{$customer->id}}">{{$customer->first_name." ".$customer->last_name}}</option>
                                                         @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for=""><b>Customer Vehicle</b></label>
+                                                    <select name="customer_vehicle_credential_id" id="customer_vehicle_credential_id" class="form-control">
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -88,15 +97,18 @@
                                                     <label for=""><b>Job Assigned Person</b></label>
                                                     <select name="job_assigned_person_id" id="job_assigned_person_id" class="form-control">
                                                         <option value="">Select Person</option>
+                                                        @foreach($mechanics as $mechanic)
+                                                            <option value="{{$mechanic->id}}">{{$mechanic->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+<!--                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Job Closing Date Time</b></label>
                                                     <input type="text" class="form-control datepicker" name="job_closing_date" id="job_closing_date" value="">
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
 
                                         <div class="form-group text-right">
@@ -125,6 +137,62 @@
 
         });
 
+        $(document).on('change', '#job_category', function(){
+            var job_category_id = $(this).val();
+            var url = "{{ url('get_service_type_by_category') }}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {service_category_id:job_category_id,'_token':'{{csrf_token()}}'},
+                success: function(data) {
+                    hide_loader();
+                    if (data.status == 200) {
+                        var service_types = data.service_types;
+                        var options = '<option value="">Select Type</option>';
+                        $.each(service_types , function(index, type) {
+                            options +='<option value="'+type.id+'">'+type.name+'</option>';
+                        });
+                        $('#job_type').html(options);
+
+                    } else {
+                        show_error_message('Something went wrong.');
+                    }
+                },
+                error: function(data) {
+                    hide_loader();
+                    show_error_message(data);
+                }
+            });
+        });
+
+        $(document).on('change', '#customer_id', function(){
+            var customer_id = $(this).val();
+            var url = "{{ url('customers/get_vehicles') }}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {customer_id:customer_id,'_token':'{{csrf_token()}}'},
+                success: function(data) {
+                    hide_loader();
+                    if (data.status == 200) {
+                        var vehicles = data.vehicles;
+                        var options = '';
+                        $.each(vehicles , function(index, vehicle) {
+                            options +='<option value="'+vehicle.id+'">'+vehicle.name+' '+vehicle.model+' '+vehicle.registration_number+'</option>';
+                        });
+                        $('#customer_vehicle_credential_id').html(options);
+
+                    } else {
+                        show_error_message('Something went wrong.');
+                    }
+                },
+                error: function(data) {
+                    hide_loader();
+                    show_error_message(data);
+                }
+            });
+        });
+
         $(document).on("submit", "#job_form", function(event) {
             event.preventDefault();
             show_loader();
@@ -132,7 +200,7 @@
             var opening_time = $("#opening_time").val();
             var job_category = $("#job_category").val();
             var job_type = $("#job_type").val();
-            var customer_registration_number = $("#customer_registration_number").val();
+            var customer_id = $("#customer_id").val();
             var job_assigned_person_id = $("#job_assigned_person_id").val();
             var job_closing_date = $("#job_closing_date").val();
 
@@ -147,15 +215,15 @@
             if (job_type.trim() == "") {
                 validate = validate + "Job type is required</br>";
             }
-            if (customer_registration_number.trim() == "") {
+            if (customer_id.trim() == "") {
                 validate = validate + "Customer is required</br>";
             }
             if (job_assigned_person_id.trim() == "") {
                 validate = validate + "Job assigned persion is required</br>";
             }
-            if (job_closing_date.trim() == "") {
+            /*if (job_closing_date.trim() == "") {
                 validate = validate + "Job closing daten is required</br>";
-            }
+            }*/
 
             if (validate == "") {
                 var formData = new FormData($("#job_form")[0]);

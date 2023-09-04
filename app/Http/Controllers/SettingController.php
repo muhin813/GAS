@@ -51,11 +51,11 @@ class SettingController extends Controller
     public function mechanic(Request $request)
     {
         try{
-            $mechanics = Mechanic::select('mechanics.*','customers.name as customer_name');
+            $mechanics = Mechanic::select('mechanics.*');
             $mechanics = $mechanics->where('mechanics.status','active');
             $mechanics = $mechanics->orderBy('mechanics.id','ASc');
             $mechanics = $mechanics->paginate(100);
-            return view('operation.mechanic_index',compact('mechanics'));
+            return view('mechanic.index',compact('mechanics'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -65,9 +65,7 @@ class SettingController extends Controller
     public function mechanicCreate(Request $request)
     {
         try{
-            $service_categories = ServiceCategory::where('status','active')->get();
-            $customers = Customer::where('status','active')->get();
-            return view('operation.mechanic_create',compact('service_categories','customers'));
+            return view('mechanic.create');
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -79,7 +77,7 @@ class SettingController extends Controller
         try{
             $user = Auth::user();
 
-            $old_mechanic = Mechanic::where('name',$request->name)->first();
+            $old_mechanic = Mechanic::where('name',$request->name)->where('status','!=','deleted')->first();
             if(!empty($old_mechanic)){
                 return ['status'=>401, 'reason'=>'mechanic with this name already exists'];
             }
@@ -101,12 +99,10 @@ class SettingController extends Controller
     public function mechanicEdit(Request $request)
     {
         try{
-            $service_categories = ServiceCategory::where('status','active')->get();
-            $customers = Customer::where('status','active')->get();
             $mechanic = Mechanic::select('mechanics.*')
                 ->where('mechanics.id',$request->id)
                 ->first();
-            return view('operation.mechanic_edit',compact('service_categories','customers','mechanic'));
+            return view('mechanic.edit',compact('mechanic'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -118,7 +114,7 @@ class SettingController extends Controller
         try{
             $user = Auth::user();
 
-            $old_mechanic = Mechanic::where('name',$request->name)->first();
+            $old_mechanic = Mechanic::where('name',$request->name)->where('status','!=','deleted')->first();
             if(!empty($old_mechanic) && $old_mechanic->id != $request->id){
                 return ['status'=>401, 'reason'=>'mechanic with this name already exists'];
             }

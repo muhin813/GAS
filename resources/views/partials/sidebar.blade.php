@@ -445,6 +445,12 @@ $page = $uri[1];
                                 <span class="selected"></span>
                             </a>
                         </li>
+                        <li class="nav-item @if($page=='mechanics') active @endif">
+                            <a href="{{url('mechanics')}}" class="nav-link">
+                                <span class="title">Mechanics</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

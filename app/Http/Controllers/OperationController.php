@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Mechanic;
 use App\Models\ServiceCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -31,8 +32,12 @@ class OperationController extends Controller
     public function job(Request $request)
     {
         try{
-            $jobs = Job::select('jobs.*','customers.name as customer_name');
-            $jobs = $jobs->join('customers','customers.registration_number','=','jobs.customer_registration_number');
+            $jobs = Job::select('jobs.*','service_categories.name as job_category_name','service_types.name as job_type_name','customers.first_name','customers.last_name','customers.registration_number as customer_registration_number','mechanics.name as assigned_person','customer_vehicle_credentials.name as vehicle_name','customer_vehicle_credentials.registration_number as vehicle_registration_number','customer_vehicle_credentials.model as vehicle_model');
+            $jobs = $jobs->leftJoin('service_categories','service_categories.id','=','jobs.job_category');
+            $jobs = $jobs->leftJoin('service_types','service_types.id','=','jobs.job_type');
+            $jobs = $jobs->leftJoin('customers','customers.id','=','jobs.customer_id');
+            $jobs = $jobs->leftJoin('customer_vehicle_credentials','customer_vehicle_credentials.id','=','jobs.customer_vehicle_credential_id');
+            $jobs = $jobs->leftJoin('mechanics','mechanics.id','=','jobs.job_assigned_person_id');
             $jobs = $jobs->where('jobs.status','active');
             $jobs = $jobs->orderBy('jobs.id','ASc');
             $jobs = $jobs->paginate(100);
@@ -48,7 +53,8 @@ class OperationController extends Controller
         try{
             $service_categories = ServiceCategory::where('status','active')->get();
             $customers = Customer::where('status','active')->get();
-            return view('operation.job_create',compact('service_categories','customers'));
+            $mechanics = Mechanic::where('status','active')->get();
+            return view('operation.job_create',compact('service_categories','customers','mechanics'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -60,16 +66,23 @@ class OperationController extends Controller
         try{
             $user = Auth::user();
 
-            $old_job = Job::where('name',$request->name)->first();
-            if(!empty($old_job)){
-                return ['status'=>401, 'reason'=>'job with this name already exists'];
-            }
-
             $job = NEW Job();
-            $job->name = $request->name;
+            $job->opening_time = date('Y-m-d h:i:s',strtotime($request->opening_time));
+            $job->job_category = $request->job_category;
+            $job->job_type = $request->job_type;
+            $job->customer_id = $request->customer_id;
+            $job->customer_vehicle_credential_id = $request->customer_vehicle_credential_id;
+            $job->job_assigned_person_id = $request->job_assigned_person_id;
             $job->created_by = $user->id;
             $job->created_at = date('Y-m-d h:i:s');
             $job->save();
+
+            /*
+             * Update job tracking number
+             * */
+            $job_update = Job::where('id',$job->id)->first();
+            $job_update->tracking_number = 'Job'.Common::addLeadingZero($job->id,5);
+            $job_update->save();
 
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
@@ -84,10 +97,11 @@ class OperationController extends Controller
         try{
             $service_categories = ServiceCategory::where('status','active')->get();
             $customers = Customer::where('status','active')->get();
+            $mechanics = Mechanic::where('status','active')->get();
             $job = Job::select('jobs.*')
                 ->where('jobs.id',$request->id)
                 ->first();
-            return view('operation.job_edit',compact('service_categories','customers','job'));
+            return view('operation.job_edit',compact('service_categories','customers','mechanics','job'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -99,13 +113,19 @@ class OperationController extends Controller
         try{
             $user = Auth::user();
 
-            $old_job = Job::where('name',$request->name)->first();
-            if(!empty($old_job) && $old_job->id != $request->id){
-                return ['status'=>401, 'reason'=>'job with this name already exists'];
-            }
-
             $job = Job::where('id',$request->id)->first();
-            $job->name = $request->name;
+            $job->opening_time = date('Y-m-d h:i:s',strtotime($request->opening_time));
+            $job->job_category = $request->job_category;
+            $job->job_type = $request->job_type;
+            $job->customer_id = $request->customer_id;
+            $job->customer_vehicle_credential_id = $request->customer_vehicle_credential_id;
+            $job->job_assigned_person_id = $request->job_assigned_person_id;
+            if($request->job_closing_date != ''){
+                $job->job_closing_date = date('Y-m-d h:i:s',strtotime($request->job_closing_date));
+            }
+            else{
+                $job->job_closing_date = '';
+            }
             $job->updated_by = $user->id;
             $job->updated_at = date('Y-m-d h:i:s');
             $job->save();
