@@ -226,7 +226,10 @@ class AccountController extends Controller
         try{
             $user = Auth::user();
 
+            DB::beginTransaction();
+
             $bank_book = NEW BankBook();
+            $bank_book->transaction_type = $request->transaction_type;
             $bank_book->date = date('Y-m-d', strtotime($request->date));
             $bank_book->bank_id = $request->bank_id;
             $bank_book->account_number = $request->account_number;
@@ -239,10 +242,26 @@ class AccountController extends Controller
             $bank_book->created_at = date('Y-m-d h:i:s');
             $bank_book->save();
 
+            /*
+             * Update bank account opening balance
+             * */
+            $bank_account = BankAccount::where('account_number',$request->account_number)->first();
+            if($request->transaction_type=='Receive'){
+                $bank_account->opening_balance = $bank_account->opening_balance+$request->amount;
+            }
+            else{
+                $bank_account->opening_balance = $bank_account->opening_balance-$request->amount;
+            }
+            $bank_account->updated_at = date('Y-m-d h:i:s');
+            $bank_account->save();
+
+            DB::commit();
+
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
         }
         catch(\Exception $e){
+            DB::rollback();
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }
@@ -269,7 +288,10 @@ class AccountController extends Controller
         try{
             $user = Auth::user();
 
+            DB::beginTransaction();
+
             $bank_book = BankBook::where('id',$request->id)->first();
+            $bank_book->transaction_type = $request->transaction_type;
             $bank_book->date = date('Y-m-d', strtotime($request->date));
             $bank_book->bank_id = $request->bank_id;
             $bank_book->account_number = $request->account_number;
@@ -282,9 +304,37 @@ class AccountController extends Controller
             $bank_book->updated_at = date('Y-m-d h:i:s');
             $bank_book->save();
 
+            /*
+             * Update bank account opening balance
+             * */
+
+            // First revert old back account opening balance transaction
+            $bank_account_old = BankAccount::where('account_number',$request->account_number_old)->first();
+            if($request->transaction_type_old=='Receive'){
+                $bank_account_old->opening_balance = $bank_account_old->opening_balance-$request->amount_old;
+            }
+            else{
+                $bank_account_old->opening_balance = $bank_account_old->opening_balance+$request->amount;
+            }
+            $bank_account_old->save();
+
+            // Now calculate and update back account opening balance new transaction
+            $bank_account = BankAccount::where('account_number',$request->account_number)->first();
+            if($request->transaction_type=='Receive'){
+                $bank_account->opening_balance = $bank_account->opening_balance+$request->amount;
+            }
+            else{
+                $bank_account->opening_balance = $bank_account->opening_balance-$request->amount;
+            }
+            $bank_account->updated_at = date('Y-m-d h:i:s');
+            $bank_account->save();
+
+            DB::commit();
+
             return ['status'=>200, 'reason'=>'Successfully saved'];
         }
         catch(\Exception $e){
+            DB::rollback();
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }

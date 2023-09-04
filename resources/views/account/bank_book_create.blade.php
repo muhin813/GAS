@@ -56,6 +56,16 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
+                                                    <label for=""><b>Transaction Type</b></label>
+                                                    <select name="transaction_type" id="transaction_type" class="form-control">
+                                                        <option value="">Select Type</option>
+                                                        <option value="Receive">Receive</option>
+                                                        <option value="Issue">Issue</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label for=""><b>Bank</b></label>
                                                     <select name="bank_id" id="bank_id" class="form-control">
                                                         <option value="">Select Bank</option>
@@ -149,6 +159,7 @@
             show_loader();
 
             var date = $("#date").val();
+            var transaction_type = $("#transaction_type").val();
             var bank_id = $("#bank_id").val();
             var account_number = $("#account_number").val();
             var cheque_book_number = $("#cheque_book_number").val();
@@ -161,16 +172,19 @@
             if (date.trim() == "") {
                 validate = validate + "Date is required</br>";
             }
+            if (transaction_type.trim() == "") {
+                validate = validate + "Transaction type is required</br>";
+            }
             if (bank_id.trim() == "") {
                 validate = validate + "Bank is required</br>";
             }
             if (account_number.trim() == "") {
                 validate = validate + "Account number is required</br>";
             }
-            if (cheque_book_number.trim() == "") {
+            if (cheque_book_number.trim() == "" && transaction_type=="Issue") {
                 validate = validate + "Cheque book number is required</br>";
             }
-            if (cheque_number.trim() == "") {
+            if (cheque_number.trim() == "" && transaction_type=="Issue") {
                 validate = validate + "Cheque number is required</br>";
             }
             if (party.trim() == "") {

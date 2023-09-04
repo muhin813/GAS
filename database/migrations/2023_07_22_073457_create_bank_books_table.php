@@ -15,6 +15,7 @@ class CreateBankBooksTable extends Migration
     {
         Schema::create('bank_books', function (Blueprint $table) {
             $table->id();
+            $table->enum('transaction_type', ['Receive','Issue'])->default('Receive');
             $table->timestamp('date')->nullable();
             $table->integer('bank_id')->nullable();
             $table->string('account_number')->nullable();

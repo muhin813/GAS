@@ -71,6 +71,7 @@
                                                     <tr>
                                                         <th class="text-center">Date</th>
                                                         <th class="text-center">Month</th>
+                                                        <th class="text-center">Transaction Type</th>
                                                         <th class="text-center">Bank</th>
                                                         <th class="text-center">Account</th>
                                                         <th class="text-center">Cheque Book</th>
@@ -86,6 +87,7 @@
                                                         <tr id="bank_book_{{$b_book->id}}">
                                                             <td class="text-center">{{date('d/m/Y',strtotime($b_book->date))}}</td>
                                                             <td class="text-center">{{date('F/Y',strtotime($b_book->date))}}</td>
+                                                            <td class="text-center">{{$b_book->transaction_type}}</td>
                                                             <td class="text-center">{{$b_book->bank_name}}</td>
                                                             <td class="text-center">{{$b_book->account_number}}</td>
                                                             <td class="text-center">{{$b_book->cheque_book_number}}</td>
