@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerVehicleCredential;
 use App\Models\Mechanic;
 use App\Models\ServiceCategory;
+use App\Models\ServiceBooking;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Job;
@@ -147,6 +149,79 @@ class OperationController extends Controller
             $job->deleted_by = $user->id;
             $job->deleted_at = date('Y-m-d h:i:s');
             $job->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    /*##################################### Job section #######################################*/
+
+    public function booking(Request $request)
+    {
+        try{
+            $bookings = ServiceBooking::select('service_bookings.*','service_categories.name as service_category','service_types.name as service_type','customers.first_name','customers.last_name','customers.phone','customer_vehicle_credentials.name as vehicle_name','customer_vehicle_credentials.model as vehicle_model');
+            $bookings = $bookings->leftJoin('service_categories','service_categories.id','service_bookings.service_category_id');
+            $bookings = $bookings->leftJoin('service_types','service_types.id','service_bookings.service_type_id');
+            $bookings = $bookings->leftJoin('customers','customers.id','service_bookings.customer_id');
+            $bookings = $bookings->leftJoin('customer_vehicle_credentials','customer_vehicle_credentials.id','service_bookings.vehicle_credential_id');
+            $bookings = $bookings->whereIn('service_bookings.status',['active','inactive']);
+            $bookings = $bookings->paginate(50);
+            return view('operation.booking_index',compact('bookings'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bookingEdit(Request $request)
+    {
+        try{
+            $booking = ServiceBooking::select('service_bookings.*','service_categories.name as service_category','service_types.name as service_type','customers.first_name','customers.last_name','customers.phone','customer_vehicle_credentials.name as vehicle_name','customer_vehicle_credentials.model as vehicle_model')
+                ->leftJoin('service_categories','service_categories.id','service_bookings.service_category_id')
+                ->leftJoin('service_types','service_types.id','service_bookings.service_type_id')
+                ->leftJoin('customers','customers.id','service_bookings.customer_id')
+                ->leftJoin('customer_vehicle_credentials','customer_vehicle_credentials.id','service_bookings.vehicle_credential_id')
+                ->where('service_bookings.id',$request->id)
+                ->first();
+            return view('operation.booking_edit',compact('booking'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function bookingUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $booking = ServiceBooking::where('id',$request->id)->first();
+            $booking->confirmation_status = 'confirmed';
+            $booking->confirmation_date = date('Y-m-d', strtotime($request->confirmation_date));
+            $booking->confirmation_time = $request->confirmation_time;
+            $booking->confirmed_by = $user->id;
+            $booking->updated_at = date('Y-m-d h:i:s');
+            $booking->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function bookingDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $booking = ServiceBooking::where('id',$request->booking_id)->first();
+            $booking->status = 'deleted';
+            $booking->deleted_at = date('Y-m-d h:i:s');
+            $booking->save();
 
             return ['status'=>200, 'reason'=>'Successfully deleted'];
         }

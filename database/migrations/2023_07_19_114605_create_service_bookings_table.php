@@ -28,6 +28,7 @@ class CreateServiceBookingsTable extends Migration
             $table->enum('confirmation_status', ['pending','confirmed'])->default('pending');
             $table->date('confirmation_date')->nullable();
             $table->time('confirmation_time')->nullable();
+            $table->integer('confirmed_by')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();

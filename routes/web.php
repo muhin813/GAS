@@ -236,6 +236,11 @@ Route::post('parties/update', 'BankController@partyUpdate');
 Route::get('parties/{id}', 'BankController@partyEdit');
 Route::post('parties/delete', 'BankController@partyDelete');
 
+Route::get('bookings','OperationController@booking');
+Route::get('bookings/{id}', 'OperationController@bookingEdit');
+Route::post('bookings/update', 'OperationController@bookingUpdate');
+Route::post('bookings/delete', 'OperationController@bookingDelete');
+
 Route::get('jobs','OperationController@job');
 Route::get('jobs/create', 'OperationController@jobCreate');
 Route::post('jobs/store', 'OperationController@jobStore');
