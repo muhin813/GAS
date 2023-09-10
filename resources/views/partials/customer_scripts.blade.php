@@ -52,6 +52,10 @@
 <script src="{{ asset('assets/global/plugins/select2/js/select2.min.js') }}"></script>
 <!-- END SELECT2 PLUGIN -->
 
+<!-- BEGIN GLOABL TIMEPICKER SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.1/jquery.timepicker.min.js"></script>
+<!-- END GLOABL TIMEPICKER SCRIPTS -->
+
 <script src="{{ asset('assets/holdon/holdon.min.js')}}"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 <script src="{{asset('assets/global/plugins/summernote/summernote.min.js')}}"></script>
