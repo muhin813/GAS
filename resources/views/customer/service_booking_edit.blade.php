@@ -69,6 +69,26 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Perfered Date</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Perfered Time</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control timepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Vehicle Credential</b></label>
                                                     <select name="vehicle_credential_id" id="vehicle_credential_id" class="form-control">
@@ -86,7 +106,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group mt-1">
                                                     <input type="checkbox" class="" name="emergency" id="emergency" value="Yes" @if($service_booking->emergency=='Yes') checked @endif>
                                                     <label for="emergency"><b>Emergency</b></label>
                                                     <br><span id="emergency_message" @if($service_booking->emergency=='No') style="display:none" @endif>Minimum Emergency service is BDT 0000, Actual amount is subject to the based on the nature of emergency</span>
@@ -120,6 +140,11 @@
             var service_category_id = '{{$service_booking->service_category_id}}';
             var service_type_id = '{{$service_booking->service_type_id}}';
             populate_service_type(service_category_id,service_type_id);
+
+            $('.timepicker').timepicker();
+            $(document).on('change', '.timepicker', function(){
+               alert( $('.timepicker').val()); 
+            });
         });
 
         $(document).on('change', '#service_category_id', function(){
