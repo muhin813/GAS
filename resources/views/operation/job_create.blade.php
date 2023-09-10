@@ -2,6 +2,8 @@
 @section('title', 'Create Job')
 @section('content')
 
+// Timepicker documentation  https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery
+
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -49,9 +51,23 @@
                                     <div class="portlet-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Opening Date Time</b></label>
-                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Opening Date</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Opening Time</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control timepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -134,7 +150,10 @@
 
     <script>
         $(document).ready(function(){
-
+            $('.timepicker').timepicker();
+            $(document).on('change', '.timepicker', function(){
+               alert( $('.timepicker').val()); 
+            });
         });
 
         $(document).on('change', '#job_category', function(){
