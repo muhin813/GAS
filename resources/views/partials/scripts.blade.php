@@ -56,6 +56,10 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 <script src="{{asset('assets/global/plugins/summernote/summernote.min.js')}}"></script>
 
+<!-- BEGIN GLOABL TIMEPICKER SCRIPTS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.1/jquery.timepicker.min.js"></script>
+<!-- END GLOABL TIMEPICKER SCRIPTS -->
+
 <!-- BEGIN GLOABL CUSTOM SCRIPTS -->
 <script src="{{asset('assets/global/scripts/custom.js')}}" type="text/javascript"></script>
 <!-- END GLOABL CUSTOM SCRIPTS -->
