@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use App\Models\Customer;
 use App\Models\CustomerVehicleCredential;
 use App\Models\Mechanic;
+use App\Models\Sale;
 use App\Models\ServiceCategory;
 use App\Models\ServiceBooking;
+use App\Models\ServiceType;
+use App\Models\Setting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Job;
@@ -83,7 +87,7 @@ class OperationController extends Controller
              * Update job tracking number
              * */
             $job_update = Job::where('id',$job->id)->first();
-            $job_update->tracking_number = 'Job'.Common::addLeadingZero($job->id,5);
+            $job_update->tracking_number = 'Job-'.Common::addLeadingZero($job->id,5);
             $job_update->save();
 
 
@@ -227,6 +231,39 @@ class OperationController extends Controller
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    /*##################################### Job duration tracking section #######################################*/
+
+    public function jobDurationTracking(Request $request)
+    {
+        try{
+            $service_categories = ServiceCategory::where('status','active')->get();
+            $service_types = ServiceType::where('status','active')->get();
+
+            $jobs = Job::select('jobs.*','service_categories.name as job_category_name','service_types.name as job_type_name','customers.first_name','customers.last_name','customers.registration_number as customer_registration_number','mechanics.name as assigned_person','customer_vehicle_credentials.name as vehicle_name','customer_vehicle_credentials.registration_number as vehicle_registration_number','customer_vehicle_credentials.model as vehicle_model');
+            $jobs = $jobs->leftJoin('service_categories','service_categories.id','=','jobs.job_category');
+            $jobs = $jobs->leftJoin('service_types','service_types.id','=','jobs.job_type');
+            $jobs = $jobs->leftJoin('customers','customers.id','=','jobs.customer_id');
+            $jobs = $jobs->leftJoin('customer_vehicle_credentials','customer_vehicle_credentials.id','=','jobs.customer_vehicle_credential_id');
+            $jobs = $jobs->leftJoin('mechanics','mechanics.id','=','jobs.job_assigned_person_id');
+            if($request->job_category != ''){
+                $jobs = $jobs->where('jobs.job_category',$request->job_category);
+            }
+            if($request->job_type != ''){
+                $jobs = $jobs->where('jobs.job_type',$request->job_type);
+            }
+            if($request->tracking_number != ''){
+                $jobs = $jobs->where('jobs.tracking_number','like','%'.$request->tracking_number.'%');
+            }
+            $jobs = $jobs->where('jobs.status','active');
+            $jobs = $jobs->orderBy('jobs.id','ASc');
+            $jobs = $jobs->paginate(100);
+            return view('operation.job_duration_tracking',compact('service_categories','service_types','jobs'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
         }
     }
 

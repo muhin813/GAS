@@ -55,9 +55,9 @@
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
-                                                            <span data-counter="counterup" data-value="100">100</span>
+                                                            <span data-counter="counterup" data-value="{{$product_sale}}">{{$product_sale}}</span>
                                                         </div>
-                                                        <div class="desc"> Item1 </div>
+                                                        <div class="desc"> Daily Product Sales </div>
                                                     </div>
                                                 </a>
                                             </div>
@@ -68,8 +68,8 @@
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
-                                                            <span data-counter="counterup" data-value="200">200</span> </div>
-                                                        <div class="desc"> Item2 </div>
+                                                            <span data-counter="counterup" data-value="{{$service_sale}}">{{$service_sale}}</span> </div>
+                                                        <div class="desc"> Daily Service Sales </div>
                                                     </div>
                                                 </a>
                                             </div>
@@ -80,9 +80,9 @@
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
-                                                            <span data-counter="counterup" data-value="300">300</span>
+                                                            <span data-counter="counterup" data-value="{{$ongoing_jobs}}">{{$ongoing_jobs}}</span>
                                                         </div>
-                                                        <div class="desc"> Item3 </div>
+                                                        <div class="desc"> Current Ongoing Job </div>
                                                     </div>
                                                 </a>
                                             </div>
@@ -93,8 +93,46 @@
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
-                                                            <span data-counter="counterup" data-value="400">400</span></div>
-                                                        <div class="desc"> Item4 </div>
+                                                            <span data-counter="counterup" data-value="{{$new_job_received}}">{{$new_job_received}}</span></div>
+                                                        <div class="desc"> Daily New Job Received </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
+                                                <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0)">
+                                                    <div class="visual">
+                                                        <i class="icon-bag icons"></i>
+                                                    </div>
+                                                    <div class="details">
+                                                        <div class="number">
+                                                            <span data-counter="counterup" data-value="{{$new_job_completed}}">{{$new_job_completed}}</span>
+                                                        </div>
+                                                        <div class="desc">Daily New Job Completed</div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
+                                                <a class="dashboard-stat dashboard-stat-v2 purple" href="javascript:void(0)">
+                                                    <div class="visual">
+                                                        <i class="icon-globe icons"></i>
+                                                    </div>
+                                                    <div class="details">
+                                                        <div class="number">
+                                                            <span data-counter="counterup" data-value="{{number_format($settings->cash_in_hand_opening_balance, 2, '.', ',')}}">{{number_format($settings->cash_in_hand_opening_balance, 2, '.', ',')}}</span></div>
+                                                        <div class="desc"> Cash at Hand </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
+                                                <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0)">
+                                                    <div class="visual">
+                                                        <i class="icon-feed icons"></i>
+                                                    </div>
+                                                    <div class="details">
+                                                        <div class="number">
+                                                            <span data-counter="counterup" data-value="{{number_format($bank_account->cash_at_bank, 2, '.', ',')}}">{{number_format($bank_account->cash_at_bank, 2, '.', ',')}}</span>
+                                                        </div>
+                                                        <div class="desc"> Cash at Bank </div>
                                                     </div>
                                                 </a>
                                             </div>

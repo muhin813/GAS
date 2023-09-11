@@ -248,6 +248,8 @@ Route::post('jobs/update', 'OperationController@jobUpdate');
 Route::get('jobs/{id}', 'OperationController@jobEdit');
 Route::post('jobs/delete', 'OperationController@jobDelete');
 
+Route::get('job_duration_trackings','OperationController@jobDurationTracking');
+
 Route::get('mechanics', 'SettingController@mechanic');
 Route::get('mechanics/create', 'SettingController@mechanicCreate');
 Route::post('mechanics/store', 'SettingController@mechanicStore');

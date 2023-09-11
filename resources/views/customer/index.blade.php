@@ -46,6 +46,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="portlet light ">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form id="search_form" method="get" action="">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{request('name')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="registration_number" id="registration_number" placeholder="Registration Number" value="{{request('registration_number')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone" value="{{request('phone')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{url('customers')}}" class="btn btn-success">Clear Filter</a>
+                            </div>
+                        </div>
+                    </div>
                     <!-- BEGIN PROFILE SIDEBAR -->
                     <!-- <div class="profile-sidebar">
 

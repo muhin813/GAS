@@ -46,6 +46,42 @@
                             </div>
                         </div>
                     </div>
+                    <div class="portlet light ">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form id="search_form" method="get" action="">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="item" id="item" class="form-control">
+                                                <option value="">Select Item</option>
+                                                @foreach($items as $item)
+                                                    <option value="{{$item->id}}" @if($item->id==request('item')) selected @endif>{{$item->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <select name="supplier" id="supplier" class="form-control">
+                                                <option value="">Select Supplier</option>
+                                                @foreach($suppliers as $supplier)
+                                                    <option value="{{$supplier->id}}" @if($supplier->id==request('supplier')) selected @endif>{{$supplier->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{url('purchases')}}" class="btn btn-success">Clear Filter</a>
+                            </div>
+                        </div>
+                    </div>
                     <!-- BEGIN PROFILE SIDEBAR -->
                     <!-- <div class="profile-sidebar">
 

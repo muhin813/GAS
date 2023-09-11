@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Jobs')
+@section('title', 'Job wise time duration tracking')
 @section('content')
 
     <!-- BEGIN CONTENT -->
@@ -15,7 +15,7 @@
                         <i class=""></i>
                     </li>
                     <li>
-                        <span>Jobs</span>
+                        <span>Job wise time duration tracking</span>
                     </li>
                 </ul>
                 <div class="page-toolbar">
@@ -37,12 +37,50 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="page-top-header">
-                                    <h3 class="page-title">All Jobs</h3>
-
-                                    <div class="portlet-body patients-info">
-                                        <a href="{{url('jobs/create')}}" class="btn btn-primary"><i class="icon-job"></i>&nbsp; Add Jobs</a>
-                                    </div>
+                                    <h3 class="page-title">All Job wise time duration tracking</h3>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portlet light ">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form id="search_form" method="get" action="">
+                                    <div class="col-md-3">
+                                        <div class="form-group mb-0">
+                                            <select name="job_category" id="job_category" class="form-control">
+                                                <option value="">Select Job Category</option>
+                                                @foreach($service_categories as $s_category)
+                                                    <option value="{{$s_category->id}}" @if($s_category->id==request('job_category')) selected @endif>{{$s_category->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <select name="job_type" id="job_type" class="form-control">
+                                                <option value="">Select Job Type</option>
+                                                @foreach($service_types as $s_type)
+                                                    <option value="{{$s_type->id}}" @if($s_type->id==request('job_type')) selected @endif>{{$s_type->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="tracking_number" id="tracking_number" placeholder="Tracking Number" value="{{request('tracking_number')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-primary">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{url('job_duration_trackings')}}" class="btn btn-success">Clear Filter</a>
                             </div>
                         </div>
                     </div>
@@ -69,52 +107,44 @@
                                             <table id="job_table" class="table table-striped table-bordered table-hover data-table focus-table">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center">Job Tracking Number</th>
                                                         <th class="text-center">Job Opening Date</th>
                                                         <th class="text-center">Job Opening Time</th>
                                                         <th class="text-center">Job Category</th>
                                                         <th class="text-center">Job Type</th>
                                                         <th class="text-center">Customer Name</th>
-                                                        <th class="text-center">Customer Registration Number</th>
-                                                        <th class="text-center">Vehicle Name</th>
-                                                        <th class="text-center">Vehicle Model</th>
-                                                        <th class="text-center">Vehicle Number</th>
                                                         <th class="text-center">Job Assigned Person</th>
-                                                        <th class="text-center">Job Closing Date</th>
                                                         <th class="text-center">Job Closing Time</th>
-                                                        <th class="text-center">Action</th>
+                                                        <th class="text-center">Time Taken</th>
+                                                        <th class="text-center">Job Tracking Number</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($jobs as $key=>$job)
+                                                    <?php foreach($jobs as $key=>$job){
+                                                        if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00'){
+                                                            $datediff = strtotime($job->job_closing_date) - strtotime($job->opening_time);
+                                                            $time_taken = round($datediff / (60 * 60 * 24)).' Days';
+                                                        }
+                                                        else{
+                                                            $time_taken = '';
+                                                        }
+
+                                                    ?>
                                                         <tr id="job_{{$job->id}}">
-                                                            <td class="text-center">{{$job->tracking_number}}</td>
                                                             <td class="text-center">{{date('d/m/Y',strtotime($job->opening_time))}}</td>
                                                             <td class="text-center">{{date('h:i a',strtotime($job->opening_time))}}</td>
                                                             <td class="text-center">{{$job->job_category_name}}</td>
                                                             <td class="text-center">{{$job->job_type_name}}</td>
                                                             <td class="text-center">{{$job->first_name.' '.$job->last_name}}</td>
-                                                            <td class="text-center">{{$job->customer_registration_number}}</td>
-                                                            <td class="text-center">{{$job->vehicle_name}}</td>
-                                                            <td class="text-center">{{$job->vehicle_model}}</td>
-                                                            <td class="text-center">{{$job->vehicle_registration_number}}</td>
                                                             <td class="text-center">{{$job->assigned_person}}</td>
                                                             <td class="text-center">
                                                                 @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00')
-                                                                {{date('d/m/Y',strtotime($job->job_closing_date))}}
+                                                                {{date('d/m/Y h:i a',strtotime($job->job_closing_date))}}
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center">
-                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00')
-                                                                {{date('h:i a',strtotime($job->job_closing_date))}}
-                                                                @endif
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <a class="btn btn-success btn-sm" href="{{url('jobs',$job->id)}}" title="Edit"><i class="icon-pencil"></i></a>
-                                                                <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_job({{$job->id}})"><i class="icon-trash"></i></a>
-                                                            </td>
+                                                            <td class="text-center">{{$time_taken}}</td>
+                                                            <td class="text-center">{{$job->tracking_number}}</td>
                                                         </tr>
-                                                    @endforeach
+                                                    <?php } ?>
                                                     </tbody>
                                                 </table>
 

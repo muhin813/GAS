@@ -32,6 +32,15 @@ class CustomerController extends Controller
             $customers = Customer::with('vehicles');
             $customers = $customers->select('customers.*');
             $customers = $customers->whereIn('customers.status',['active','inactive']);
+            if($request->name != ''){
+                $customers = $customers->where('customers.first_name','like','%'.$request->name.'%');
+            }
+            if($request->registration_number != ''){
+                $customers = $customers->where('customers.registration_number',$request->registration_number);
+            }
+            if($request->phone != ''){
+                $customers = $customers->where('customers.phone',$request->phone);
+            }
             $customers = $customers->paginate(50);
             return view('customer.index',compact('customers'));
         }

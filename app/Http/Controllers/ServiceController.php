@@ -247,7 +247,7 @@ class ServiceController extends Controller
             $service_bookings = $service_bookings->join('customer_vehicle_credentials','customer_vehicle_credentials.id','service_bookings.vehicle_credential_id');
             $service_bookings = $service_bookings->whereIn('service_bookings.status',['active','inactive']);
             $service_bookings = $service_bookings->paginate(50);
-            return view('customer.booking_index',compact('service_bookings'));
+            return view('customer.service_booking_index',compact('service_bookings'));
         }
         catch(\Exception $e){
             return redirect('error_404');
@@ -260,7 +260,7 @@ class ServiceController extends Controller
             $customer_details = Customer::where('user_id',Auth::user()->id)->first();
             $service_categories = ServiceCategory::where('status','active')->get();
             $vehicle_credentials = CustomerVehicleCredential::where('customer_id',$customer_details->id)->get();
-            return view('customer.booking_create',compact('service_categories','vehicle_credentials'));
+            return view('customer.service_booking_create',compact('service_categories','vehicle_credentials'));
         }
         catch(\Exception $e){
             return redirect('error_404');

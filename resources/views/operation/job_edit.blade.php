@@ -51,7 +51,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Opening Date Time</b></label>
-                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="{{date('d/m/Y',strtotime($job->opening_time))}}" autocomplete="off">
+                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="{{date('m/d/Y',strtotime($job->opening_time))}}" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -106,7 +106,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Job Closing Date Time</b></label>
-                                                    <input type="text" class="form-control datepicker" name="job_closing_date" id="job_closing_date" value="@if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00') {{date('d/m/Y',strtotime($job->job_closing_date))}} @endif">
+                                                    <input type="text" class="form-control datepicker" name="job_closing_date" id="job_closing_date" value="@if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00') {{date('m/d/Y',strtotime($job->job_closing_date))}} @endif">
                                                 </div>
                                             </div>
                                         </div>

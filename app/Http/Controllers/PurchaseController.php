@@ -33,6 +33,9 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         try{
+            $items = Item::whereIn('items.status',['active'])->get();
+            $suppliers = Supplier::whereIn('suppliers.status',['active'])->get();
+
             $purchases = Purchase::select('purchases.*','items.name as item_name','item_categories.name as category_name','suppliers.name as supplier_name','item_uoms.name as item_uom','package_uoms.name as package_uom');
             $purchases = $purchases->join('items','items.id','=','purchases.item_id');
             $purchases = $purchases->join('item_categories','item_categories.id','=','items.category_id');
@@ -40,8 +43,14 @@ class PurchaseController extends Controller
             $purchases = $purchases->join('item_uoms','item_uoms.id','=','purchases.item_uom_id');
             $purchases = $purchases->join('package_uoms','package_uoms.id','=','purchases.package_uom_id');
             $purchases = $purchases->whereIn('purchases.status',['active','inactive']);
+            if($request->item != ''){
+                $purchases = $purchases->where('purchases.item_id',$request->item);
+            }
+            if($request->supplier != ''){
+                $purchases = $purchases->where('purchases.supplier_id',$request->supplier);
+            }
             $purchases = $purchases->paginate(50);
-            return view('purchase.index',compact('purchases'));
+            return view('purchase.index',compact('items','suppliers','purchases'));
         }
         catch(\Exception $e){
             return redirect('error_404');
