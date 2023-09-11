@@ -49,10 +49,25 @@
                                     <div class="portlet-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for=""><b>Opening Date Time</b></label>
-                                                    <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="{{date('m/d/Y',strtotime($job->opening_time))}}" autocomplete="off">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Opening Date</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="{{date('m/d/Y',strtotime($job->opening_time))}}" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for=""><b>Opening Time</b></label>
+                                                            <div>
+                                                                <input type="text" class="form-control timepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -141,6 +156,12 @@
             var customer_id = '{{$job->customer_id}}';
             var customer_vehicle_credential_id = '{{$job->customer_vehicle_credential_id}}';
             populate_customer_vehicle_credentials(customer_id,customer_vehicle_credential_id);
+            
+            // timepicker
+            $('.timepicker').timepicker();
+            $(document).on('change', '.timepicker', function(){
+               alert( $('.timepicker').val()); 
+            });
         });
 
         $(document).on('change', '#job_category', function(){

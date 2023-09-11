@@ -62,6 +62,11 @@
         <!-- BEGIN SELECT2 PLUGIN STYLES -->
         <link href="{{ asset('assets/global/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
         <!-- END SELECT2 PLUGIN STYLES -->
+        
+        <!-- BEGIN TIMEPICKER PLUGIN STYLES -->
+        <!-- Timepicker documentation  https://github.com/jonthornton/jquery-timepicker#timepicker-plugin-for-jquery -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.14.1/jquery.timepicker.min.css" rel="stylesheet" type="text/css" />
+        <!-- BEGIN TIMEPICKER PLUGIN STYLES -->
 
         <script src="{{asset('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 

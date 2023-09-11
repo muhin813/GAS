@@ -1,4 +1,4 @@
-@extends('layouts.master')
+\@extends('layouts.master')
 @section('title', 'Edit Bank Reconciliation')
 @section('content')
 
@@ -100,9 +100,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Outstanding Cheques</b></label>
-                                                    <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control" multiple>
-                                                        <option value="">Select Cheque</option>
+                                                    <div class="select2-container--default">
+                                                    <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control js-example-basic-multiple" multiple="multiple">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="WY">Wyoming</option>
                                                     </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

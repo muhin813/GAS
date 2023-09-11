@@ -2,6 +2,8 @@
 @section('title', 'Create Bank Reconciliation')
 @section('content')
 
+<link href="https://select2.org/assets/5ad898c30986b0985fd29e4a8ca9d1cb.css" />
+
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -100,9 +102,12 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Outstanding Cheques</b></label>
-                                                    <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control" multiple>
-                                                        <option value="">Select Cheque</option>
+                                                    <div class="select2-container--default">
+                                                    <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control js-example-basic-multiple" multiple="multiple">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="WY">Wyoming</option>
                                                     </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -271,7 +276,7 @@
 
     <script>
         $(document).ready(function(){
-
+             $('#outstanding_cheques').select2();
         });
 
         $(document).on('change', '#month, #year', function(){
