@@ -112,7 +112,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for=""><b>Confirmation Time</b></label>
-                                                    <input type="text" class="form-control" name="confirmation_time" id="confirmation_time" value="@if($booking->confirmation_time != ''){{date('h:i:s a', strtotime($booking->confirmation_time))}} @endif">
+                                                    <input type="text" class="form-control timepicker" name="confirmation_time" id="confirmation_time" value="@if($booking->confirmation_time != ''){{date('h:i:s a', strtotime($booking->confirmation_time))}} @endif">
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
 
     <script>
         $(document).ready(function(){
-
+            $('.timepicker').timepicker();
         });
 
         $(document).on("submit", "#booking_form", function(event) {

@@ -102,7 +102,7 @@
                                                             <td class="text-center">{{$booking->vehicle_model}}</td>
                                                             <td class="text-center">{{$booking->special_note}}</td>
                                                             <td class="text-center">{{$booking->emergency}}</td>
-                                                            <td class="text-center">{{$booking->confirmation_status}}</td>
+                                                            <td class="text-center">{{ucfirst($booking->confirmation_status)}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-success btn-sm" href="{{url('bookings',$booking->id)}}" title="Update Booking Status"><i class="icon-pencil"></i></a>
                                                                 <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_booking({{$booking->id}})"><i class="icon-trash"></i></a>

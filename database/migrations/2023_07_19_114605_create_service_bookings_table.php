@@ -20,14 +20,15 @@ class CreateServiceBookingsTable extends Migration
             $table->integer('service_category_id')->nullable();
             $table->integer('service_type_id')->nullable();
             $table->integer('vehicle_credential_id')->nullable();
-            $table->timestamp('booking_date')->nullable();
+            $table->date('booking_date')->nullable();
+            $table->string('booking_time')->nullable();
             $table->timestamp('request_completion_date')->nullable();
             $table->text('special_note')->nullable();
             $table->tinyInteger('home_pickup_drop')->nullable()->default(0);
             $table->enum('emergency', ['Yes','No'])->default('No');
             $table->enum('confirmation_status', ['pending','confirmed'])->default('pending');
             $table->date('confirmation_date')->nullable();
-            $table->time('confirmation_time')->nullable();
+            $table->string('confirmation_time')->nullable();
             $table->integer('confirmed_by')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->timestamps();

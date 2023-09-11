@@ -71,7 +71,7 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="form-group">
-                                                            <label for=""><b>Perfered Date</b></label>
+                                                            <label for=""><b>Booking Date</b></label>
                                                             <div>
                                                                 <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
                                                             </div>
@@ -79,7 +79,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for=""><b>Perfered Time</b></label>
+                                                            <label for=""><b>Booking Time</b></label>
                                                             <div>
                                                                 <input type="text" class="form-control timepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
                                                             </div>
@@ -138,7 +138,7 @@
         $(document).ready(function(){
             $('.timepicker').timepicker();
             $(document).on('change', '.timepicker', function(){
-               alert( $('.timepicker').val()); 
+
             });
         });
 
