@@ -102,8 +102,7 @@
                                                     <label for=""><b>Outstanding Cheques</b></label>
                                                     <div class="select2-container--default">
                                                     <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control js-example-basic-multiple" multiple="multiple">
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="WY">Wyoming</option>
+
                                                     </select>
                                                     </div>
                                                 </div>
@@ -330,6 +329,7 @@
                             options += '>'+b_book.cheque_number+'</option>';
                         });
                         $('#outstanding_cheques').html(options);
+                        $('#outstanding_cheques').select2();
                     } else {
                         show_error_message('Something went wrong.');
                     }

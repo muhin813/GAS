@@ -104,8 +104,7 @@
                                                     <label for=""><b>Outstanding Cheques</b></label>
                                                     <div class="select2-container--default">
                                                     <select name="outstanding_cheques[]" id="outstanding_cheques" class="form-control js-example-basic-multiple" multiple="multiple">
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="WY">Wyoming</option>
+
                                                     </select>
                                                     </div>
                                                 </div>
