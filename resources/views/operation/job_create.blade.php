@@ -69,6 +69,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -150,10 +151,12 @@
 
     <script>
         $(document).ready(function(){
-            $('.timepicker').timepicker();
-            $(document).on('change', '.timepicker', function(){
-               alert( $('.timepicker').val()); 
+            $('.timepicker').timepicker({
+                'timeFormat': 'H:i a'
             });
+            // $(document).on('change', '.timepicker', function(){
+            //   alert( $('.timepicker').val()); 
+            // });
         });
 
         $(document).on('change', '#job_category', function(){
