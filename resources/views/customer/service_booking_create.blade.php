@@ -136,7 +136,7 @@
 
     <script>
         $(document).ready(function(){
-            $('.timepicker').timepicker();
+            $('.timepicker').timepicker({'timeFormat': 'H:i a'});
             $(document).on('change', '.timepicker', function(){
 
             });
