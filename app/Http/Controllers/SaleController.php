@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Sale;
 use App\Models\SalesDetail;
+use App\Models\SalesServiceCostingDetail;
+use App\Models\SalesProductCostingDetail;
 use App\Common;
 use Auth;
 use File;
@@ -166,6 +168,66 @@ class SaleController extends Controller
                 ->where('sales.id',$request->sales_id)
                 ->first();
             return ['status'=>200, 'sale'=>$sale];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function getCostingDetails(Request $request)
+    {
+        try{
+            $sale = Sale::select('sales.*')->where('sales.id',$request->sales_id)->first();
+
+            if($sale->sales_type=='service'){
+                $sale_costings = SalesServiceCostingDetail::where('sales_id',$sale->id)->get();
+            }
+            else{
+                $sale_costings = SalesProductCostingDetail::where('sales_id',$sale->id)->get();
+            }
+            return ['status'=>200, 'sale'=>$sale, 'sale_costings'=>$sale_costings];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function storeCosting(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $sale = Sale::select('sales.*')->where('sales.id',$request->sales_id)->first();
+
+            $grand_total_amount = 0;
+
+            if($sale->sales_type=='service'){
+                SalesServiceCostingDetail::where('sales_id',$request->sales_id)->delete();
+
+                $cost_name = $request->cost_name;
+                $cost_amount = $request->amount;
+                foreach($cost_name as $key=>$name){
+                    $sale_costings = NEW SalesServiceCostingDetail();
+                    $sale_costings->sales_id = $request->sales_id;
+                    $sale_costings->cost_name = $cost_name[$key];
+                    $sale_costings->total_value = $cost_amount[$key];
+                    $sale_costings->created_at = date('Y-m-d h:i:s');
+                    $sale_costings->save();
+
+                    $grand_total_amount = $grand_total_amount+$cost_amount[$key];
+                }
+
+            }
+            else{
+                $sale_costings = SalesProductCostingDetail::where('sales_id',$sale->id)->get();
+            }
+
+            // Now update sales total costing
+            $sale->costing_amount = $grand_total_amount;
+            $sale->updated_by = $user->id;
+            $sale->updated_at = date('Y-m-d h:i:s');
+            $sale->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];

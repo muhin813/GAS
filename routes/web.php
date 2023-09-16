@@ -132,6 +132,8 @@ Route::get('sales', 'SaleController@index');
 Route::get('sales/create', 'SaleController@create');
 Route::post('sales/store', 'SaleController@store');
 Route::post('sales/get_details', 'SaleController@getDetails');
+Route::post('sales/get_costing_details', 'SaleController@getCostingDetails');
+Route::post('sales/store_costing', 'SaleController@storeCosting');
 Route::get('sales/{id}', 'SaleController@edit');
 Route::post('sales/update', 'SaleController@update');
 Route::post('sales/delete', 'SaleController@delete');
@@ -198,6 +200,13 @@ Route::get('income_taxes/{id}', 'AccountController@incomeTaxEdit');
 Route::post('income_taxes/delete', 'AccountController@incomeTaxDelete');
 
 Route::get('monthly_profit_losses', 'AccountController@monthlyProfitLoss');
+
+Route::get('job_wise_profitabilities', 'AccountController@jobWiseProfitability');
+Route::get('job_wise_profitabilities/create', 'AccountController@jobWiseProfitabilityCreate');
+Route::post('job_wise_profitabilities/store', 'AccountController@jobWiseProfitabilityStore');
+Route::get('job_wise_profitabilities/{id}', 'AccountController@jobWiseProfitabilityEdit');
+Route::post('job_wise_profitabilities/update', 'AccountController@jobWiseProfitabilityUpdate');
+Route::post('job_wise_profitabilities/delete', 'AccountController@jobWiseProfitabilityDelete');
 
 //Route::get('cost_of_sales', 'AccountController@costOfSale');
 

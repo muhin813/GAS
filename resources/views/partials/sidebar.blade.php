@@ -181,13 +181,13 @@ $page = $uri[1];
                     </a>
                 </li>
 
-                <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitability') open @endif">
+                <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitabilities') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-pie-chart"></i>
                         <span class="title">Accounts</span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitability') style="display: block;" @endif>
+                    <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitabilities') style="display: block;" @endif>
                         <li class="nav-item @if($page=='cash_books') active @endif">
                             <a href="{{url('cash_books')}}" class="nav-link">
                                 <span class="title">Cash Books</span>
@@ -231,9 +231,9 @@ $page = $uri[1];
                                 <span class="selected"></span>
                             </a>
                         </li>
-                        <li class="nav-item @if($page=='job_wise_profitability') active @endif">
-                            <a href="{{url('job_wise_profitability')}}" class="nav-link">
-                                <span class="title">Job Wise Profitability</span>
+                        <li class="nav-item @if($page=='job_wise_profitabilities') active @endif">
+                            <a href="{{url('job_wise_profitabilities')}}" class="nav-link">
+                                <span class="title">Job Wise Profitabilities</span>
                                 <span class="selected"></span>
                             </a>
                         </li>

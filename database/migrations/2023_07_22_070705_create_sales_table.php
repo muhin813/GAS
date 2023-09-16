@@ -27,6 +27,7 @@ class CreateSalesTable extends Migration
             $table->decimal('discount',10,2)->nullable();
             $table->decimal('vat',10,2)->nullable();
             $table->decimal('total_amount',10,2)->nullable();
+            $table->decimal('costing_amount',10,2)->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
