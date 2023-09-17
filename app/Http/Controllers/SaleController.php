@@ -180,12 +180,15 @@ class SaleController extends Controller
             $sale = Sale::select('sales.*')->where('sales.id',$request->sales_id)->first();
 
             if($sale->sales_type=='service'){
+                $items = [];
                 $sale_costings = SalesServiceCostingDetail::where('sales_id',$sale->id)->get();
             }
             else{
+                $sales_item_ids = SalesDetail::select('item_id')->where('sales_id',$request->sales_id)->pluck('item_id')->toArray(); // Getting item ids of this sale
+                $items = Item::whereIn('id',$sales_item_ids)->where('status','active')->get();
                 $sale_costings = SalesProductCostingDetail::where('sales_id',$sale->id)->get();
             }
-            return ['status'=>200, 'sale'=>$sale, 'sale_costings'=>$sale_costings];
+            return ['status'=>200, 'items'=>$items, 'sale'=>$sale, 'sale_costings'=>$sale_costings];
         }
         catch(\Exception $e){
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
@@ -200,7 +203,25 @@ class SaleController extends Controller
 
             $grand_total_amount = 0;
 
-            if($sale->sales_type=='service'){
+            if($sale->sales_type=='product'){
+                SalesProductCostingDetail::where('sales_id',$request->sales_id)->delete();
+
+                $item_id = $request->products;
+                //$unit_price = $request->unit_price;
+                $total_value = $request->total_amount;
+                foreach($item_id as $key=>$item){
+                    $sale_costings = NEW SalesProductCostingDetail();
+                    $sale_costings->sales_id = $request->sales_id;
+                    $sale_costings->item_id = $item_id[$key];
+                    //$sale_costings->unit_price = $unit_price[$key];
+                    $sale_costings->total_value = $total_value[$key];
+                    $sale_costings->created_at = date('Y-m-d h:i:s');
+                    $sale_costings->save();
+
+                    $grand_total_amount = $grand_total_amount+$total_value[$key];
+                }
+            }
+            else{ // If sales type is service sales
                 SalesServiceCostingDetail::where('sales_id',$request->sales_id)->delete();
 
                 $cost_name = $request->cost_name;
@@ -215,10 +236,6 @@ class SaleController extends Controller
 
                     $grand_total_amount = $grand_total_amount+$cost_amount[$key];
                 }
-
-            }
-            else{
-                $sale_costings = SalesProductCostingDetail::where('sales_id',$sale->id)->get();
             }
 
             // Now update sales total costing

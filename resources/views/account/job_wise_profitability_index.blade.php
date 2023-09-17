@@ -144,6 +144,40 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="product_sales_costing_modal" tabindex="-1" role="dialog" aria-labelledby="prescriptionDetailsModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add Costing</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form  id="product_sales_costing_form" method="post" action="" enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                <div class="alert alert-success" id="product_sales_costing_success_message" style="display:none"></div>
+                                <div class="alert alert-danger" id="product_sales_costing_error_message" style="display: none"></div>
+                                <input type="hidden" name="sales_id" id="product_sales_id" value="">
+
+                                <div class="row">
+                                    <div class="col-md-12" id="product_sales_cost_area">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-right">
+                                    <button type="submit" class="btn green submit-btn" id="profile_button">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" id="">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <!-- END CONTENT BODY -->
@@ -162,11 +196,76 @@
                 url: url,
                 data: {sales_id:id,'_token':'{{csrf_token()}}'},
                 success: function(data) {
-                    hide_loader();
                     if (data.status == 200) {
                         var sale_costings = data.sale_costings;
+                        var items = data.items;
 
                         if(data.sale.sales_type=='product'){
+                            $('#product_sales_id').val(id);
+                            var html = '';
+                            var grant_total_value = 0;
+                            $.each(sale_costings , function(index, costing) {
+                                html +='<div class="row product_sales_cost">';
+                                html +='<div class="col-md-4">';
+                                    html +='<div class="form-group">';
+                                        html +='<label for=""><b>Item Name</b></label>';
+                                        html +='<select name="products[]" id="products" class="form-control Item">';
+                                            html +='<option value="">Select Item</option>';
+                                        $.each(items , function(index, item) {
+                                            html += '<option value="'+item.id+'"';
+                                            if(item.id==costing.item_id){
+                                                html += ' selected ';
+                                            }
+                                            html += '>'+item.name+'</option>';
+                                        });
+                                        html +='</select>';
+                                    html +='</div>';
+                                html +='</div>';
+                                html +='<div class="col-md-4">';
+                                    html +='<div class="form-group">';
+                                        html +='<label for=""><b>Amount</b></label>';
+                                        html +='<input type="number" class="form-control TotalAmount" name="total_amount[]" id="total_amount" value="'+costing.total_value+'">';
+                                    html +='</div>';
+                                html +='</div>';
+                                html +='<div class="col-md-2">';
+                                if(index==0){
+                                    html +='<button type="button" title="Add cost" class="btn btn-primary add_product_sales_cost_button">Add</button>';
+                                }
+                                else{
+                                    html +='<button type="button" title="Remove cost" class="btn btn-danger remove_product_sales_cost_button">Remove</button>';
+                                }
+                                html +='</div>';
+                                html +='</div>';
+
+                                grant_total_value = grant_total_value+parseFloat(costing.total_value);
+                            });
+
+                            if(html==''){ // If no previous costing saved
+                                html +='<div class="row product_sales_cost">';
+                                html +='<div class="col-md-4">';
+                                html +='<div class="form-group">';
+                                html +='<label for=""><b>Item Name</b></label>';
+                                html +='<select name="products[]" id="products" class="form-control Item">';
+                                html +='<option value="">Select Item</option>';
+                                $.each(items , function(index, item) {
+                                    html += '<option value="'+item.id+'">'+item.name+'</option>';
+                                });
+                                html +='</select>';
+                                html +='</div>';
+                                html +='</div>';
+                                html +='<div class="col-md-4">';
+                                html +='<div class="form-group">';
+                                html +='<label for=""><b>Amount</b></label>';
+                                html +='<input type="number" class="form-control TotalAmount" name="total_amount[]" id="total_amount" value="">';
+                                html +='</div>';
+                                html +='</div>';
+                                html +='<div class="col-md-2">';
+                                html +='<button type="button" title="Add cost" class="btn btn-primary add_product_sales_cost_button">Add</button>';
+                                html +='</div>';
+                                html +='</div>';
+                            }
+
+                            $('#product_sales_cost_area').html(html);
                             $('#product_sales_costing_modal').modal('show');
 
                         }
@@ -191,7 +290,7 @@
                                 html +='</div>';
                                 html +='<div class="col-md-2">';
                                 if(index==0){
-                                    html +='<button type="button" title="Add outstanding deposit" class="btn btn-primary add_service_sales_cost_button">Add</button>';
+                                    html +='<button type="button" title="Add cost" class="btn btn-primary add_service_sales_cost_button">Add</button>';
                                 }
                                 else{
                                     html +='<button type="button" title="Remove cost" class="btn btn-danger remove_service_sales_cost_button">Remove</button>';
@@ -217,7 +316,7 @@
                                 html +='</div>';
                                 html +='</div>';
                                 html +='<div class="col-md-2">';
-                                html +='<button type="button" title="Add outstanding deposit" class="btn btn-primary add_service_sales_cost_button">Add</button>';
+                                html +='<button type="button" title="Add cost" class="btn btn-primary add_service_sales_cost_button">Add</button>';
                                 html +='</div>';
                                 html +='</div>';
                             }
@@ -236,6 +335,56 @@
                 }
             });
         }
+
+        $(document).on('click', '.add_product_sales_cost_button', function(){
+            var id = $('#product_sales_id').val();
+            var url = "{{ url('sales/get_costing_details') }}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {sales_id:id,'_token':'{{csrf_token()}}'},
+                success: function(data) {
+                    if (data.status == 200) {
+                        var items = data.items;
+                        var html = '';
+                        html +='<div class="row product_sales_cost">';
+                        html +='<div class="col-md-4">';
+                        html +='<div class="form-group">';
+                        html +='<label for=""><b>Item Name</b></label>';
+                        html +='<select name="products[]" id="products" class="form-control Item">';
+                        html +='<option value="">Select Item</option>';
+                        $.each(items , function(index, item) {
+                            html += '<option value="'+item.id+'">'+item.name+'</option>';
+                        });
+                        html +='</select>';
+                        html +='</div>';
+                        html +='</div>';
+                        html +='<div class="col-md-4">';
+                        html +='<div class="form-group">';
+                        html +='<label for=""><b>Amount</b></label>';
+                        html +='<input type="number" class="form-control TotalAmount" name="total_amount[]" id="total_amount" value="">';
+                        html +='</div>';
+                        html +='</div>';
+                        html +='<div class="col-md-2">';
+                        html +='<button type="button" title="Remove cost" class="btn btn-danger remove_product_sales_cost_button">Remove</button>';
+                        html +='</div>';
+                        html +='</div>';
+
+                        $('#product_sales_cost_area').append(html);
+
+                    } else {
+                        show_error_message('Something went wrong. Please try again later');
+                    }
+                },
+                error: function(data) {
+                    show_error_message(data);
+                }
+            });
+        });
+
+        $(document).on('click', '.remove_product_sales_cost_button', function(){
+            $(this).parents('.product_sales_cost').remove();
+        });
 
         $(document).on('click', '.add_service_sales_cost_button', function(){
             var html = '';
@@ -262,6 +411,81 @@
 
         $(document).on('click', '.remove_service_sales_cost_button', function(){
             $(this).parents('.service_sales_cost').remove();
+        });
+
+        $(document).on("submit", "#product_sales_costing_form", function(event) {
+            event.preventDefault();
+            show_loader();
+
+            var validate = "";
+            var isValid = 1;
+
+            $(".Item").each(function() {
+                var element = $(this);
+                if (element.val() == '') {
+                    isValid = 0;
+                    $(this).css('border','1px solid #ef0530');
+                }
+                else{
+                    $(this).css('border','1px solid #c2cad8');
+                }
+            });
+            $(".TotalAmount").each(function() {
+                var element = $(this);
+                if (element.val() == '') {
+                    isValid = 0;
+                    $(this).css('border','1px solid #ef0530');
+                }
+                else{
+                    $(this).css('border','1px solid #c2cad8');
+                }
+            });
+
+            if(isValid==0){
+                validate = validate+"Fill out all mandatory fields </br>";
+            }
+
+            if (validate == "") {
+                var formData = new FormData($("#product_sales_costing_form")[0]);
+                var url = "{{ url('sales/store_costing') }}";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData,
+                    success: function(data) {
+                        hide_loader();
+                        if (data.status == 200) {
+                            $('#product_sales_costing_form')[0].reset();
+
+                            $("#product_sales_costing_success_message").show();
+                            $("#product_sales_costing_error_message").hide();
+                            $("#product_sales_costing_success_message").html(data.reason);
+                            setTimeout(function(){
+                                location.reload();
+                            },1000)
+                        } else {
+                            $("#product_sales_costing_success_message").hide();
+                            $("#product_sales_costing_error_message").show();
+                            $("#product_sales_costing_error_message").html(data.reason);
+                        }
+                    },
+                    error: function(data) {
+                        hide_loader();
+                        $("#product_sales_costing_success_message").hide();
+                        $("#product_sales_costing_error_message").show();
+                        $("#product_sales_costing_error_message").html(data);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            } else {
+                hide_loader();
+                $("#product_sales_costing_success_message").hide();
+                $("#product_sales_costing_error_message").show();
+                $("#product_sales_costing_error_message").html(validate);
+            }
         });
 
         $(document).on("submit", "#service_sales_costing_form", function(event) {
@@ -332,7 +556,6 @@
                     processData: false
                 });
             } else {
-                $("html, body").animate({ scrollTop: 0 }, 1000);
                 hide_loader();
                 $("#service_sales_costing_success_message").hide();
                 $("#service_sales_costing_error_message").show();

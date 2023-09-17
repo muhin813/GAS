@@ -17,6 +17,7 @@ class CreateSalesProductCostingDetails extends Migration
             $table->id();
             $table->integer('sales_id');
             $table->integer('item_id')->nullable();
+            $table->integer('quantity')->nullable();
             $table->decimal('unit_price',10,2)->nullable();
             $table->decimal('total_value',10,2)->nullable();
             $table->timestamps();
