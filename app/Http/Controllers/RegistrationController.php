@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\CustomerVehicleCredential;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Common;
 use Auth;
@@ -54,13 +55,6 @@ class RegistrationController extends Controller
             $customer->save();
 
             /*
-             * Update GAS customer number
-             * */
-            $customer_update = Customer::where('id',$customer->id)->first();
-            $customer_update->registration_number = 'GAS'.Common::addLeadingZero($customer->id,5);
-            $customer_update->save();
-
-            /*
              * Adding customer vehicle credentials
              * */
             $vehicle_name = $request['vehicle_name'];
@@ -76,6 +70,26 @@ class RegistrationController extends Controller
                 $vehicle_credential->created_at = date('Y-m-d h:i:s');
                 $vehicle_credential->save();
             }
+
+            /*
+             * Adding user information
+             * */
+            $user = new User();
+            $user->name = $request->first_name." ".$request->last_name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->phone = $request->phone;
+            $user->role = 4;
+            $user->status = 'active';
+            $user->save();
+
+            /*
+             * Update GAS customer number and user id
+             * */
+            $customer_update = Customer::where('id',$customer->id)->first();
+            $customer_update->registration_number = 'GAS'.Common::addLeadingZero($customer->id,5);
+            $customer_update->user_id = $user->id;
+            $customer_update->save();
 
             Db::commit();
 
