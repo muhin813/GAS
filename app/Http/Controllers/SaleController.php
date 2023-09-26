@@ -163,8 +163,10 @@ class SaleController extends Controller
     public function getDetails(Request $request)
     {
         try{
-            $sale = Sale::with('details')->select('sales.*','customers.first_name','customers.last_name','customers.address as customer_address','customers.phone as customer_phone')
+            $sale = Sale::with('details')->select('sales.*','customers.first_name','customers.last_name','customers.address as customer_address','customers.phone as customer_phone','customers.email as customer_email','service_categories.name as service_category_name','service_types.name as service_type_name')
                 ->join('customers','customers.registration_number','=','sales.customer_registration_number')
+                ->leftJoin('service_categories','service_categories.id','=','sales.service_category_id')
+                ->leftJoin('service_types','service_types.id','=','sales.service_type_id')
                 ->where('sales.id',$request->sales_id)
                 ->first();
             return ['status'=>200, 'sale'=>$sale];

@@ -239,9 +239,9 @@
         #print_area {
               width: 21cm;
               height: 29.7cm;
-              margin: 30mm 45mm 30mm 45mm; 
+              margin: 30mm 45mm 30mm 45mm;
               /* change the margins as you want them to be. */
-        } 
+        }
       }
       @media print {
         .bg-black {
@@ -251,7 +251,7 @@
         }
     }
     </style>
-    
+
     <div id="print_area" style="background-color: white; margin:0 auto;width: 21cm; height: 29.7cm; display: none">
       <table>
         <tr>
@@ -261,7 +261,7 @@
                 <table border="0" cellspacing="0" cellpadding="0">
                   <tr>
                     <td>
-                      <img src="https://i.ibb.co/PhN7jS7/Service-Invoice-pdf.png" alt="Logo"/> 
+                      <img src="https://i.ibb.co/PhN7jS7/Service-Invoice-pdf.png" alt="Logo"/>
                     </td>
                   </tr>
                 </table>
@@ -337,8 +337,8 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600;">Customer Name:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              Lorem Ipsum
+            <p id="print_customer_name_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -347,8 +347,8 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Registration Number:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              Dhaka-ka 2121210
+            <p id="print_customer_registration_number_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -357,8 +357,8 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Vehicle Number:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              Dhaka-ka 2121210
+            <p id="print_vehicle_number_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -367,8 +367,8 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Job Tracking Number:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              101010
+            <p id="print_job_tracking_number_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -377,8 +377,8 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Phone Number:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              011545546
+            <p id="print_customer_phone_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -387,52 +387,14 @@
             <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Email Address:</p>
           </td>
           <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
-              lorem@gmail.com
+            <p id="print_customer_email_view" style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+
             </p>
           </td>
         </tr>
       </table>
-      <table style="border-collapse:collapse;margin-bottom: 30px;" cellspacing="0">
-        <tr style="height:21pt">
-          <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
-            <p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>
-          </td>
-          <td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
-            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">SERVICE TYPE</p>
-          </td>
-          <td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
-            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">SERVICE NAME</p>
-          </td>
-          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">
-            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">AMOUNT</p>
-          </td>
-        </tr>
+      <table id="print_sales_detail_view" style="border-collapse:collapse;margin-bottom: 30px;" cellspacing="0">
 
-        <!-- services START -->
-        <tr>
-          <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
-              01
-            </p>
-          </td>
-          <td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
-              Service type name
-            </p>
-          </td>
-          <td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
-              service name
-            </p>
-          </td>
-          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
-              10000
-            </p>
-          </td>
-        </tr>
-        <!-- services END -->
       </table>
 
       <table style="border-collapse:collapse;" cellspacing="0">
@@ -447,8 +409,8 @@
             <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Subtotal</p>
           </td>
           <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
-            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
-              10100
+            <p id="print_subtotal_view" style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -457,8 +419,8 @@
             <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Discount</p>
           </td>
           <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
-            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
-              100
+            <p id="print_discount_view" style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+
             </p>
           </td>
         </tr>
@@ -467,8 +429,8 @@
             <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Vat Rate</p>
           </td>
           <td style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
-              15
+            <p id="print_vat_view" style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+
             </p>
           </td>
           <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
@@ -481,8 +443,8 @@
           </td>
           <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
             <p style="text-indent: 0pt;text-align: left;">
-              <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
-                150
+              <p id="print_vat_amount_view" style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+
               </p>
             </p>
           </td>
@@ -493,8 +455,8 @@
           </td>
           <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
             <p style="text-indent: 0pt;text-align: left;">
-              <p style="font-size: 20px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
-                10150
+              <p id="print_total_view" style="font-size: 20px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+
               </p>
             </p>
           </td>
@@ -644,32 +606,131 @@
                         $('#print_invoice_number_view').text(data.sale.invoice_number);
                         $('#print_sale_date_view').text(getFormattedDate(data.sale.date_of_sale,'d/m/Y'));
                         $('#print_customer_name_view').text(data.sale.first_name+''+data.sale.last_name);
-                        $('#print_customer_address_view').text(data.sale.customer_address);
+                        $('#print_customer_registration_number_view').text(data.sale.customer_registration_number);
+                        $('#print_job_tracking_number_view').text(data.sale.job_tracking_number);
                         $('#print_customer_phone_view').text(data.sale.customer_phone);
+                        $('#print_customer_email_view').text(data.sale.customer_email);
 
                         var html = '';
                         var grant_total_value = 0;
-                        $.each(sales_details , function(index, details) {
-                            html +='<tr>';
-                            html +='<td>'+details.item_name+'</td>';
-                            html +='<td>'+details.quantity+'</td>';
-                            html +='<td>'+details.unit_price+'</td>';
-                            html +='<td>'+(details.discount !== null ? details.discount :'')+'</td>';
-                            html +='<td>'+details.total_value+'</td>';
-                            html +='</tr>';
+                        var total_discount_amount = 0;
 
-                            grant_total_value = grant_total_value+parseFloat(details.total_value);
-                        });
-                        // For total row in footer
-                        html +='<tr>';
-                        html +='<td><b>Total</b></td>';
-                        html +='<td></td>';
-                        html +='<td></td>';
-                        html +='<td></td>';
-                        html +='<td>'+grant_total_value.toFixed(2)+'</td>';
-                        html +='</tr>';
+                        if(data.sale.sales_type=='service') {//For service sales
+                            html += '<tr style="height:21pt">';
+                            html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>';
+                            html += '</td>';
+                            html += '<td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">SERVICE TYPE</p>';
+                            html += '</td>';
+                            html += '<td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">SERVICE NAME</p>';
+                            html += '</td>';
+                            html += '<td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">AMOUNT</p>';
+                            html += '</td>';
+                            html += '</tr>';
+                            html += '<tr>';
+                            html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                            html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                            html += '01';
+                            html += '</p>';
+                            html += '</td>';
+                            html += '<td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                            html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                            html += data.sale.service_type_name;
+                            html += '</p>';
+                            html += '</td>';
+                            html += '<td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                            html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                            html += data.sale.service_category_name;
+                            html += '</p>';
+                            html += '</td>';
+                            html += '<td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">';
+                            html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                            html += data.sale.service_amount;
+                            html += '</p>';
+                            html += '</td>';
+                            html += '</tr>';
 
-                        $('#print_sale_detail_item_list').html(html);
+                            grant_total_value = data.sale.service_amount;
+                            total_discount_amount = grant_total_value*(data.sale.discount/100);
+                        }
+                        else{  //For product sales
+                            html += '<tr style="height:21pt">';
+                            html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>';
+                            html += '</td>';
+                            html += '<td style="width:433pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">ITAME NAME</p>';
+                            html += '</td>';
+                            html += '<td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">QUANTITY</p>';
+                            html += '</td>';
+                            html += '<td style="width:133pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">UNIT PRICE</p>';
+                            html += '</td>';
+                            html += '<td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">';
+                            html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">AMOUNT</p>';
+                            html += '</td>';
+                            html += '</tr>';
+
+                            $.each(sales_details , function(index, details) {
+                                /*html +='<tr>';
+                                html +='<td>'+details.item_name+'</td>';
+                                html +='<td>'+details.quantity+'</td>';
+                                html +='<td>'+details.unit_price+'</td>';
+                                html +='<td>'+(details.discount !== null ? details.discount :'')+'</td>';
+                                html +='<td>'+details.total_value+'</td>';
+                                html +='</tr>';*/
+
+                                var total_value = details.quantity*details.unit_price;
+
+                                html += '<tr>';
+                                html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                                html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                                html += (index+1);
+                                html += '</p>';
+                                html += '</td>';
+                                html += '<td style="width:433pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                                html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                                html += details.item_name;
+                                html += '</p>';
+                                html += '</td>';
+                                html += '<td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                                html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                                html += details.quantity;
+                                html += '</p>';
+                                html += '</td>';
+                                html += '<td style="width:133pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">';
+                                html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                                html += details.unit_price;
+                                html += '</p>';
+                                html += '</td>';
+                                html += '<td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">';
+                                html += '<p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">';
+                                html += total_value;
+                                html += '</p>';
+                                html += '</td>';
+                                html += '</tr>';
+
+                                grant_total_value = grant_total_value+parseFloat(total_value);
+
+                                var discount_amount = grant_total_value*(details.discount/100);
+                                total_discount_amount = total_discount_amount+discount_amount;
+                            });
+                        }
+
+                        $('#print_sales_detail_view').html(html);
+
+                        var amount_after_discount = grant_total_value - total_discount_amount;
+                        var vat_amount = amount_after_discount*(data.sale.vat/100);
+
+                        $('#print_subtotal_view').text(grant_total_value);
+                        $('#print_discount_view').text(total_discount_amount);
+                        $('#print_vat_view').text(data.sale.vat);
+                        $('#print_vat_amount_view').text(vat_amount);
+                        $('#print_total_view').text(data.sale.total_amount);
 
                         $('.page-content-wrapper').hide();
                         $('#print_area').show();
