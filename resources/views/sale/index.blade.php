@@ -186,7 +186,323 @@
         <!-- END CONTENT BODY -->
     </div>
 
-    <div id="print_area" style="display: none">
+    <style type="text/css">
+      #print_area * {
+        margin: 0;
+        padding: 0;
+        text-indent: 0;
+      }
+      #print_area h3 {
+        color: black;
+        font-family: "Trebuchet MS", sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 8pt;
+      }
+
+      #print_area h2 {
+        color: black;
+        font-family: Gadugi, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 11pt;
+      }
+
+      #print_area .a {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 8pt;
+      }
+
+      #print_area .p,
+      #print_area p {
+        color: black;
+        font-family: Arial, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 8pt;
+        margin: 0pt;
+      }
+      #print_area table,
+      #print_area tbody {
+        vertical-align: top;
+        overflow: visible;
+        width: 100%;
+      }
+      @media print {
+        #print_area {
+              width: 21cm;
+              height: 29.7cm;
+              margin: 30mm 45mm 30mm 45mm; 
+              /* change the margins as you want them to be. */
+        } 
+      }
+      @media print {
+        .bg-black {
+            color: #fff !important;
+            background-color: #000 !important;
+            -webkit-print-color-adjust: exact;
+        }
+    }
+    </style>
+    
+    <div id="print_area" style="background-color: white; margin:0 auto;width: 21cm; height: 29.7cm; display: none">
+      <table>
+        <tr>
+          <td>
+            <p style="text-indent: 0pt;text-align: left;">
+              <span>
+                <table border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                      <img src="https://i.ibb.co/PhN7jS7/Service-Invoice-pdf.png" alt="Logo"/> 
+                    </td>
+                  </tr>
+                </table>
+              </span>
+            </p>
+          </td>
+          <td width="30%">
+            <table>
+              <tr>
+                <td style="padding-bottom: 10px;">
+                  <img width="16" height="16" style="padding-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABHElEQVQokXWRsUrEQBCG/73sFJEUp+2luRisFjT4EvZCCn0CrfMY2gnaapdCAkfKI2DlFWp1dUCwCEKuVS7HjM3eEUMy8MOw83/DzA6YGWmanoRheAvgaUAPSZJcMjOQpukxgDUAaYmt2m9ijLlGGIY3W4PW+pWIXvrMVhsAeAQgWuvf1Wo1quualFJfAwCPYEMppTzPk/F4vJlOpz/oD6VtIk3T6NlsdprneVWW5aHtqDqAbEdiAOK67mdVVS4RvbcW3+7DbWA342QyuVsul3tRFD3HcXxUFMVBEARvXeBfJ9/3PxaLxb6IQESQZdlZy4P7gb9fE1FGROeO43zv6kmSXPQAXZjt4eZgZhhjrgA0AxdmAGyMmed5rv8ANXCd09Nz1TcAAAAASUVORK5CYIIA" />
+                </td>
+                <td style="padding-bottom: 10px;"><h2 style="text-indent: 0pt;text-align: left; margin-right: 15px;">01751 77 77 77</h2></td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;">
+                  <img width="16" height="16" style="padding-top: 5px; margin-right: 15px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAKCAYAAABv7tTEAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABYUlEQVQokX2OTyiDcRjHv89vw2z2soOraEg5ucmJQmiZ1Bbe1SJ/UmqxchE5KqXIkXYhuTgtjYOb0i5otCJFa9neYoms93337nHwN5lPPafP83x6EJPlvuOGhuTd+norM6PQqLHpCfWo8d54WG43+TTtlIgcz9Go36KkHLa6+ggkCZ/klHRJYqRlU2q8mRNC2PPpM4fIk0l8eMoeRgJJ2btvZB4rAMDIZCrTnv64taTIT0QEADpDiCnvTvGtw/lVhp7rvu/qSDwuLoylejrvSNNrPtWFbsHgk9NMVUtJBjOGT1aNkdSRySQEAAaB3jcZKKo1sDckcVgtJwYdvL9GhFBzAHF5dh7MOn7A4KerNvdGWK0gfITEtyZYXe6QNBNs4jwUACBNi9sCwSqby737M2TGL+yegUubq7f6ZXtrskz2rYlSaw7KOf49AgBRas1Ko+MrfzkAEMz560LyL9TXrPIGyZiUmIUeGIMAAAAASUVORK5CYIIA" />
+                </td>
+                <td style="padding-bottom: 10px;">
+                  <p><a href="mailto:grandautoservices.gas@gmail.com" style="color: black; text-decoration: none; font-size: 14px;" target="_blank">grandautoservices.gas@gmail.com</a></p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;">
+                  <a href="#">
+                    <img width="16" height="16" style=" margin-right: 15px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAyklEQVQYlW2RQWoDMQxFX1woQWnXQ6JT5AY5S88x7QF6kvQGYu7TTpZJJg3ZSNONDGaoQZhvP/l/LNwdVf0ATkBkzVkBjKr67u5UsAXmRdMDCFXtyRdb4Ax85x7AWzaMNFCIyNHMumEY9ma2FZFj4xAtfDazDrikvqauDlGAVdZvKWUHvKZ+SX2vTEkLgE1EnIBbnk0R8QNs8n6uMeZ/Mnci8rXMPC6+rP5GzV7h8UlVZZqmQ5N9nbmfaZaqfpIT7NNhOb06wd7d+QPmNHkKuo2DLgAAAABJRU5ErkJgggAA" />
+                  </a>
+                </td>
+                <td style="padding-bottom: 10px;">
+                  <p style="color: black; text-decoration: none; font-size: 14px;">GAS-Grand-Auto-Services</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;">
+                  <a href="#">
+                    <img width="20" height="20" style="margin-left: -3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACxSURBVDhPYxhmwNZ/Y4Kt/+bfdgFb/+PCtv5bgHjzdqgWVEBIMzK29t0YBtWGANgUgnBq8ZH/+48+/3/jzge4mE3AljSoNgRA1oSMV2+6/x8E5q+4BRcj2oDorAP/T557BTagouU0XJxoA+YtvwXWDAMwcZK8sHHnQxTNIDxIDbD1R9UIw9gMsPLfmgLVhgDW/lu3IyvCh419NolAtaECUAoDOQ8XtvLbnIpTM+mAgQEAKHlLMVb5brkAAAAASUVORK5CYII=" />
+                  </a>
+                </td>
+                <td style="padding-bottom: 10px;">
+                  <p style="color: black; text-decoration: none; font-size: 14px;">Grand Auto Services</p>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px;">
+                  <a href="#">
+                    <img width="12" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAANCAYAAAB7AEQGAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABIUlEQVQYlW2PsU4CURBFz5MVJFleQUJDsJbELSypbPgFY2UnxW65obHjB6CwdQuk0w+wJCF+gNTGEgqNhSabyEafMxbuGiAWk8nMnLlzB1XFOUcYhhfAG6DAV6vVuh6PxyURARGh2Wze5kPJcxHPSZLsMRwOz9cAAd4BV4CNRmOC7/tXBRQEwelisdidzWaHxpjPfOkb4C4vsvl8XhcRVJVqtfpUqO+02+1HwADl6XR6YoxhNBrVV6vVft53xHF8tmV6w3yn05kgIgAfW18VIf1+/xgRodvtXv6n4nneg4iAqrJcLkuVSuV166REUXSgqr+QqtLr9Y7ydxVQ3/dvnHNsQFmWYa1NALXWvqRpWi5mf5CqkqapV6vV7geDgV3v/wCiYLeei7zoHgAAAABJRU5ErkJgggAA" />
+                  </a>
+                </td>
+                <td style="padding-bottom: 10px;">
+                  <p style="color: black; text-decoration: none; font-size: 14px;">Plot-73, Nasirabad Industrial Areo,</br> Textile Gate, Bayezid Bostami,</br> Chattogram</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <div class="bg-black" style="text-align: center;color:#fff;padding:10px; width: 300px; margin: 30px auto 40px auto;font-size: 16px;">Service Invoice </div>
+
+      <table style="border-collapse:collapse; margin-bottom: 30px;"cellspacing="0">
+        <tr>
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">
+            <p style="padding: 2pt 0 2px 5pt;text-indent: 0pt;text-align: left;font-size: 14px;font-weight: 600;">BILL TO</p>
+          </td>
+          <td style="width:219pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
+            <p style="text-indent: 0pt;text-align: left;">
+              <br />
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600;">Customer Name:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              Lorem Ipsum
+            </p>
+          </td>
+        </tr>
+        <tr style="height:15pt">
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Registration Number:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              Dhaka-ka 2121210
+            </p>
+          </td>
+        </tr>
+        <tr style="height:15pt">
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Vehicle Number:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              Dhaka-ka 2121210
+            </p>
+          </td>
+        </tr>
+        <tr style="height:15pt">
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Job Tracking Number:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              101010
+            </p>
+          </td>
+        </tr>
+        <tr style="height:15pt">
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Phone Number:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              011545546
+            </p>
+          </td>
+        </tr>
+        <tr style="height:15pt">
+          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600">Email Address:</p>
+          </td>
+          <td style="width:219pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px;font-size: 13px;font-weight: 600;text-align: center;">
+              lorem@gmail.com
+            </p>
+          </td>
+        </tr>
+      </table>
+      <table style="border-collapse:collapse;margin-bottom: 30px;" cellspacing="0">
+        <tr style="height:21pt">
+          <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
+            <p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>
+          </td>
+          <td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
+            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">SERVICE TYPE</p>
+          </td>
+          <td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">
+            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">SERVICE NAME</p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">
+            <p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">AMOUNT</p>
+          </td>
+        </tr>
+
+        <!-- services START -->
+        <tr>
+          <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
+              01
+            </p>
+          </td>
+          <td style="width:107pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
+              Service type name
+            </p>
+          </td>
+          <td style="width:283pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
+              service name
+            </p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="padding: 5px; text-align: left;font-size: 13px;font-weight: 600; text-align: center;">
+              10000
+            </p>
+          </td>
+        </tr>
+        <!-- services END -->
+      </table>
+
+      <table style="border-collapse:collapse;" cellspacing="0">
+        <tr style="height:21pt">
+          <td style="width:336pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" rowspan="5">
+            <p style="text-indent: 0pt;text-align: left;">
+              <br />
+            </p>
+            <p style="padding: 50px 0; text-align: center;font-size: 18px;font-weight: 600;font-style: italic;">Thank you for choosing us as </br>your trusted provider</p>
+          </td>
+          <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Subtotal</p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+              10100
+            </p>
+          </td>
+        </tr>
+        <tr style="height:21pt">
+          <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Discount</p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+              100
+            </p>
+          </td>
+        </tr>
+        <tr style="height:21pt">
+          <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Vat Rate</p>
+          </td>
+          <td style="width:57pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+              15
+            </p>
+          </td>
+          <td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 3pt;padding-left: 8pt;text-indent: 0pt;text-align: left;">%</p>
+          </td>
+        </tr>
+        <tr style="height:21pt">
+          <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Vat Amount</p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+            <p style="text-indent: 0pt;text-align: left;">
+              <p style="font-size: 13px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+                150
+              </p>
+            </p>
+          </td>
+        </tr>
+        <tr style="height:28pt">
+          <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+            <p class="s10" style="font-size: 20px;font-weight: 600;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Total</p>
+          </td>
+          <td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" colspan="2">
+            <p style="text-indent: 0pt;text-align: left;">
+              <p style="font-size: 20px;font-weight: 800;padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: center;">
+                10150
+              </p>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!--div id="print_area" style="display: none">
         <div style="text-align: center;">
             <h1>Grand Auto Service</h1>
             <span>All kind of auto service and products</span> <br>
@@ -242,7 +558,7 @@
                 </table>
             </div>
         </div>
-    </div>
+</div-->
 
     <!-- END CONTENT -->
 @endsection
