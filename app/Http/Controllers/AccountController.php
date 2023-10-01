@@ -46,11 +46,12 @@ class AccountController extends Controller
     public function cashBook(Request $request)
     {
         try{
+            $setting = Setting::first();
             $cash_books = CashBook::select('cash_books.*');
             $cash_books = $cash_books->where('cash_books.status','active');
             $cash_books = $cash_books->orderBy('cash_books.id','ASC');
             $cash_books = $cash_books->paginate(100);
-            return view('account.cash_book',compact('cash_books'));
+            return view('account.cash_book',compact('setting','cash_books'));
         }
         catch(\Exception $e){
             return redirect('error_404');

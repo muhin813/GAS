@@ -73,8 +73,8 @@ class OperationController extends Controller
             $user = Auth::user();
 
             $job = NEW Job();
-            $job->opening_time = date('Y-m-d h:i:s',strtotime($request->opening_time));
-            $job->job_category = $request->job_category;
+            $job->opening_date = date('Y-m-d',strtotime($request->opening_date));
+            $job->opening_time = $request->opening_time;
             $job->job_type = $request->job_type;
             $job->customer_id = $request->customer_id;
             $job->customer_vehicle_credential_id = $request->customer_vehicle_credential_id;
@@ -120,17 +120,20 @@ class OperationController extends Controller
             $user = Auth::user();
 
             $job = Job::where('id',$request->id)->first();
-            $job->opening_time = date('Y-m-d h:i:s',strtotime($request->opening_time));
+            $job->opening_date = date('Y-m-d',strtotime($request->opening_date));
+            $job->opening_time = $request->opening_time;
             $job->job_category = $request->job_category;
             $job->job_type = $request->job_type;
             $job->customer_id = $request->customer_id;
             $job->customer_vehicle_credential_id = $request->customer_vehicle_credential_id;
             $job->job_assigned_person_id = $request->job_assigned_person_id;
             if($request->job_closing_date != ''){
-                $job->job_closing_date = date('Y-m-d h:i:s',strtotime($request->job_closing_date));
+                $job->job_closing_date = date('Y-m-d',strtotime($request->job_closing_date));
+                $job->job_closing_time = $request->job_closing_time;
             }
             else{
                 $job->job_closing_date = '';
+                $job->job_closing_time = '';
             }
             $job->updated_by = $user->id;
             $job->updated_at = date('Y-m-d h:i:s');

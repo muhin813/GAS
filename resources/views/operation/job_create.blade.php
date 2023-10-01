@@ -56,7 +56,7 @@
                                                         <div class="form-group">
                                                             <label for=""><b>Opening Date</b></label>
                                                             <div>
-                                                                <input type="text" class="form-control datepicker" name="opening_time" id="opening_time" value="" autocomplete="off">
+                                                                <input type="text" class="form-control datepicker" name="opening_date" id="opening_date" value="" autocomplete="off">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -69,7 +69,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -155,7 +155,7 @@
                 'timeFormat': 'H:i a'
             });
             // $(document).on('change', '.timepicker', function(){
-            //   alert( $('.timepicker').val()); 
+            //   alert( $('.timepicker').val());
             // });
         });
 
@@ -219,24 +219,28 @@
             event.preventDefault();
             show_loader();
 
+            var opening_date = $("#opening_date").val();
             var opening_time = $("#opening_time").val();
             var job_category = $("#job_category").val();
             var job_type = $("#job_type").val();
             var customer_id = $("#customer_id").val();
             var job_assigned_person_id = $("#job_assigned_person_id").val();
-            var job_closing_date = $("#job_closing_date").val();
+            //var job_closing_date = $("#job_closing_date").val();
 
             var validate = "";
 
+            if (opening_date.trim() == "") {
+                validate = validate + "Job opening date is required</br>";
+            }
             if (opening_time.trim() == "") {
                 validate = validate + "Job opening time is required</br>";
             }
             if (job_category.trim() == "") {
                 validate = validate + "Job category is required</br>";
             }
-            if (job_type.trim() == "") {
+            /*if (job_type.trim() == "") {
                 validate = validate + "Job type is required</br>";
-            }
+            }*/
             if (customer_id.trim() == "") {
                 validate = validate + "Customer is required</br>";
             }

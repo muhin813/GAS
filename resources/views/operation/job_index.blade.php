@@ -89,8 +89,8 @@
                                                     @foreach($jobs as $key=>$job)
                                                         <tr id="job_{{$job->id}}">
                                                             <td class="text-center">{{$job->tracking_number}}</td>
-                                                            <td class="text-center">{{date('d/m/Y',strtotime($job->opening_time))}}</td>
-                                                            <td class="text-center">{{date('h:i a',strtotime($job->opening_time))}}</td>
+                                                            <td class="text-center">{{date('d/m/Y',strtotime($job->opening_date))}}</td>
+                                                            <td class="text-center">{{$job->opening_time}}</td>
                                                             <td class="text-center">{{$job->job_category_name}}</td>
                                                             <td class="text-center">{{$job->job_type_name}}</td>
                                                             <td class="text-center">{{$job->first_name.' '.$job->last_name}}</td>
@@ -100,15 +100,11 @@
                                                             <td class="text-center">{{$job->vehicle_registration_number}}</td>
                                                             <td class="text-center">{{$job->assigned_person}}</td>
                                                             <td class="text-center">
-                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00')
+                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00')
                                                                 {{date('d/m/Y',strtotime($job->job_closing_date))}}
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center">
-                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00')
-                                                                {{date('h:i a',strtotime($job->job_closing_date))}}
-                                                                @endif
-                                                            </td>
+                                                            <td class="text-center">{{$job->job_closing_time}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-success btn-sm" href="{{url('jobs',$job->id)}}" title="Edit"><i class="icon-pencil"></i></a>
                                                                 <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_job({{$job->id}})"><i class="icon-trash"></i></a>

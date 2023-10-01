@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for=""><b>Vehicle Model</b></label>
+                                                    <label for=""><b>Phone</b></label>
                                                     <input type="text" class="form-control" name="customer_phone" id="customer_phone" value="{{$booking->phone}}" disabled >
                                                 </div>
                                             </div>

@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-10">
                                 <form id="search_form" method="get" action="">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group mb-0">
                                             <select name="month" id="month" class="form-control selectpicker" data-show-subtext="true" data-live-search="true">
                                                 <option value="">Select Month</option>
@@ -81,6 +81,16 @@
                                                 <option value="">Select Supplier</option>
                                                 @foreach($suppliers as $supplier)
                                                     <option value="{{$supplier->id}}" @if($supplier->id==request('supplier_id')) selected @endif>{{$supplier->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select name="challan_no" id="challan_no" class="form-control">
+                                                <option value="">Select Challan No.</option>
+                                                @foreach($all_purchases as $purchase)
+                                                    <option value="{{$purchase->challan_no}}" @if($purchase->challan_no==request('challan_no')) selected @endif>{{$purchase->challan_no}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

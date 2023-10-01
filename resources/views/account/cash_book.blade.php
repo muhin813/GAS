@@ -38,7 +38,7 @@
                             <div class="col-md-12">
                                 <div class="page-top-header">
                                     <h3 class="page-title">All Cash Books</h3>
-
+                                    <span class="page-title">Cash at Hand: {{number_format($setting->cash_in_hand_opening_balance, 2, '.', ',')}}</span>
                                     <div class="portlet-body patients-info">
                                         <a href="{{url('cash_books/create')}}" class="btn btn-primary"><i class="icon-cash_book"></i>&nbsp; Add Cash Books</a>
                                     </div>

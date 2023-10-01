@@ -33,6 +33,7 @@ class InventoryController extends Controller
         try{
             $items = Item::whereIn('items.status',['active'])->get();
             $suppliers = Supplier::whereIn('suppliers.status',['active'])->get();
+            $all_purchases = Purchase::whereIn('status',['active'])->get();
 
             $purchases = Purchase::select('purchases.*','items.name as item_name','items.description as item_description','item_categories.name as category_name','suppliers.name as supplier_name','item_uoms.name as item_uom','package_uoms.name as package_uom');
             $purchases = $purchases->join('items','items.id','=','purchases.item_id');
@@ -51,8 +52,11 @@ class InventoryController extends Controller
             if($request->supplier_id != ''){
                 $purchases = $purchases->where('supplier_id',$request->supplier_id);
             }
+            if($request->challan_no != ''){
+                $purchases = $purchases->where('challan_no',$request->challan_no);
+            }
             $purchases = $purchases->paginate(50);
-            return view('inventory.stock_record',compact('items','suppliers','purchases'));
+            return view('inventory.stock_record',compact('all_purchases','items','suppliers','purchases'));
         }
         catch(\Exception $e){
             return redirect('error_404');

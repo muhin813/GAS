@@ -16,13 +16,15 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('tracking_number')->nullable();
-            $table->timestamp('opening_time')->nullable();
+            $table->date('opening_date')->nullable();
+            $table->string('opening_time')->nullable();
             $table->integer('job_category')->nullable();
             $table->integer('job_type')->nullable();
             $table->integer('customer_id')->nullable();
             $table->integer('customer_vehicle_credential_id')->nullable();
             $table->integer('job_assigned_person_id')->nullable();
-            $table->timestamp('job_closing_date')->nullable();
+            $table->date('job_closing_date')->nullable();
+            $table->string('job_closing_time')->nullable();
             $table->enum('status', ['active','inactive','deleted'])->default('active');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();

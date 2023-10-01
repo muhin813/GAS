@@ -120,8 +120,8 @@
                                                     </thead>
                                                     <tbody>
                                                     <?php foreach($jobs as $key=>$job){
-                                                        if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00'){
-                                                            $datediff = strtotime($job->job_closing_date) - strtotime($job->opening_time);
+                                                        if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00'){
+                                                            $datediff = strtotime($job->job_closing_date.' '.$job->job_closing_time) - strtotime($job->opening_date.' '.$job->opening_time);
                                                             $time_taken = round($datediff / (60 * 60 * 24)).' Days';
                                                         }
                                                         else{
@@ -130,15 +130,15 @@
 
                                                     ?>
                                                         <tr id="job_{{$job->id}}">
-                                                            <td class="text-center">{{date('d/m/Y',strtotime($job->opening_time))}}</td>
-                                                            <td class="text-center">{{date('h:i a',strtotime($job->opening_time))}}</td>
+                                                            <td class="text-center">{{date('d/m/Y',strtotime($job->opening_date))}}</td>
+                                                            <td class="text-center">{{$job->opening_time}}</td>
                                                             <td class="text-center">{{$job->job_category_name}}</td>
                                                             <td class="text-center">{{$job->job_type_name}}</td>
                                                             <td class="text-center">{{$job->first_name.' '.$job->last_name}}</td>
                                                             <td class="text-center">{{$job->assigned_person}}</td>
                                                             <td class="text-center">
-                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00 00:00:00')
-                                                                {{date('d/m/Y h:i a',strtotime($job->job_closing_date))}}
+                                                                @if($job->job_closing_date != '' && $job->job_closing_date != '0000-00-00')
+                                                                {{date('d/m/Y',strtotime($job->job_closing_date)).' '.$job->job_closing_time}}
                                                                 @endif
                                                             </td>
                                                             <td class="text-center">{{$time_taken}}</td>
