@@ -38,6 +38,7 @@
                             <div class="col-md-12">
                                 <div class="page-top-header">
                                     <h3 class="page-title">All Stock Records</h3>
+                                    <h3 class="page-title">Total Amount: <span id="total_balance_amount"></span></h3>
                                 </div>
                             </div>
                         </div>
@@ -144,12 +145,17 @@
                                                         <th class="text-center">Invoice/Challan</th>
                                                         <th class="text-center">Unit Price</th>
                                                         <th class="text-center">Total Value</th>
+                                                        <th class="text-center">Value of Balance Quantity</th>
                                                         <th class="text-center">Ageing</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <?php foreach($purchases as $key=>$purchase) {
+                                                    <?php
+                                                        $total_value_balance_quantity = 0;
+                                                        foreach($purchases as $key=>$purchase) {
                                                         $inventory_age = \App\Common::getDateDiffDays(date('Y-m-d'),$purchase->date_of_purchase);
+                                                        $value_balance_quantity = $purchase->balance_quantity*$purchase->unit_price;
+                                                        $total_value_balance_quantity = $total_value_balance_quantity+$value_balance_quantity;
                                                     ?>
                                                         <tr id="purchase_{{$purchase->id}}">
                                                             <td class="text-center">{{$purchase->category_name}}</td>
@@ -166,6 +172,7 @@
                                                             <td class="text-center">{{$purchase->challan_no}}</td>
                                                             <td class="text-center">{{$purchase->unit_price}}</td>
                                                             <td class="text-center">{{$purchase->total_value}}</td>
+                                                            <td class="text-center">{{$value_balance_quantity}}</td>
                                                             <td class="text-center">{{$inventory_age}} Days</td>
                                                         </tr>
                                                     <?php } ?>
@@ -195,6 +202,9 @@
 
 @section('js')
     <script>
+        $(document).ready(function(){
+            $('#total_balance_amount').text('{{$total_value_balance_quantity}}');
+        });
         function delete_purchase(id){
             $(".warning_message").text('Are you sure you delete this purchase detail? This can not be undone.');
             $("#warning_modal").modal('show');
