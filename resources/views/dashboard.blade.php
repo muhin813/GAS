@@ -64,7 +64,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                                 <a class="dashboard-stat dashboard-stat-v2 red" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-bag icons"></i>
+                                                        <i class="icon-hourglass icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
