@@ -239,14 +239,19 @@
         #print_area {
               width: 21cm;
               height: 29.7cm;
+              size: auto;
               margin: 30mm 45mm 30mm 45mm;
               /* change the margins as you want them to be. */
         }
-      }
-      @media print {
+        
         .bg-black {
             color: #fff !important;
             background-color: #000 !important;
+            -webkit-print-color-adjust: exact;
+        }
+        .bg-golden{
+            color: #000 !important;
+            background-color: #C4993A !important;
             -webkit-print-color-adjust: exact;
         }
     }
@@ -272,16 +277,16 @@
             <table>
               <tr>
                 <td style="padding-bottom: 10px;">
-                  <img width="16" height="16" style="padding-top: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABHElEQVQokXWRsUrEQBCG/73sFJEUp+2luRisFjT4EvZCCn0CrfMY2gnaapdCAkfKI2DlFWp1dUCwCEKuVS7HjM3eEUMy8MOw83/DzA6YGWmanoRheAvgaUAPSZJcMjOQpukxgDUAaYmt2m9ijLlGGIY3W4PW+pWIXvrMVhsAeAQgWuvf1Wo1quualFJfAwCPYEMppTzPk/F4vJlOpz/oD6VtIk3T6NlsdprneVWW5aHtqDqAbEdiAOK67mdVVS4RvbcW3+7DbWA342QyuVsul3tRFD3HcXxUFMVBEARvXeBfJ9/3PxaLxb6IQESQZdlZy4P7gb9fE1FGROeO43zv6kmSXPQAXZjt4eZgZhhjrgA0AxdmAGyMmed5rv8ANXCd09Nz1TcAAAAASUVORK5CYIIA" />
+                  <img width="16" height="16" style="padding-top: 0px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABHElEQVQokXWRsUrEQBCG/73sFJEUp+2luRisFjT4EvZCCn0CrfMY2gnaapdCAkfKI2DlFWp1dUCwCEKuVS7HjM3eEUMy8MOw83/DzA6YGWmanoRheAvgaUAPSZJcMjOQpukxgDUAaYmt2m9ijLlGGIY3W4PW+pWIXvrMVhsAeAQgWuvf1Wo1quualFJfAwCPYEMppTzPk/F4vJlOpz/oD6VtIk3T6NlsdprneVWW5aHtqDqAbEdiAOK67mdVVS4RvbcW3+7DbWA342QyuVsul3tRFD3HcXxUFMVBEARvXeBfJ9/3PxaLxb6IQESQZdlZy4P7gb9fE1FGROeO43zv6kmSXPQAXZjt4eZgZhhjrgA0AxdmAGyMmed5rv8ANXCd09Nz1TcAAAAASUVORK5CYIIA" />
                 </td>
-                <td style="padding-bottom: 10px;"><h2 style="text-indent: 0pt;text-align: left; margin-right: 15px;">01751 77 77 77</h2></td>
+                <td style="padding-bottom: 10px;"><h2 style="text-indent: 0pt;text-align: left; margin-left: 15px;">01751 77 77 77</h2></td>
               </tr>
               <tr>
                 <td style="padding-bottom: 10px;">
-                  <img width="16" height="16" style="padding-top: 5px; margin-right: 15px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAKCAYAAABv7tTEAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABYUlEQVQokX2OTyiDcRjHv89vw2z2soOraEg5ucmJQmiZ1Bbe1SJ/UmqxchE5KqXIkXYhuTgtjYOb0i5otCJFa9neYoms93337nHwN5lPPafP83x6EJPlvuOGhuTd+norM6PQqLHpCfWo8d54WG43+TTtlIgcz9Go36KkHLa6+ggkCZ/klHRJYqRlU2q8mRNC2PPpM4fIk0l8eMoeRgJJ2btvZB4rAMDIZCrTnv64taTIT0QEADpDiCnvTvGtw/lVhp7rvu/qSDwuLoylejrvSNNrPtWFbsHgk9NMVUtJBjOGT1aNkdSRySQEAAaB3jcZKKo1sDckcVgtJwYdvL9GhFBzAHF5dh7MOn7A4KerNvdGWK0gfITEtyZYXe6QNBNs4jwUACBNi9sCwSqby737M2TGL+yegUubq7f6ZXtrskz2rYlSaw7KOf49AgBRas1Ko+MrfzkAEMz560LyL9TXrPIGyZiUmIUeGIMAAAAASUVORK5CYIIA" />
+                  <img width="16" height="16" style="padding-top: 0px; margin-right: 15px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAAKCAYAAABv7tTEAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABYUlEQVQokX2OTyiDcRjHv89vw2z2soOraEg5ucmJQmiZ1Bbe1SJ/UmqxchE5KqXIkXYhuTgtjYOb0i5otCJFa9neYoms93337nHwN5lPPafP83x6EJPlvuOGhuTd+norM6PQqLHpCfWo8d54WG43+TTtlIgcz9Go36KkHLa6+ggkCZ/klHRJYqRlU2q8mRNC2PPpM4fIk0l8eMoeRgJJ2btvZB4rAMDIZCrTnv64taTIT0QEADpDiCnvTvGtw/lVhp7rvu/qSDwuLoylejrvSNNrPtWFbsHgk9NMVUtJBjOGT1aNkdSRySQEAAaB3jcZKKo1sDckcVgtJwYdvL9GhFBzAHF5dh7MOn7A4KerNvdGWK0gfITEtyZYXe6QNBNs4jwUACBNi9sCwSqby737M2TGL+yegUubq7f6ZXtrskz2rYlSaw7KOf49AgBRas1Ko+MrfzkAEMz560LyL9TXrPIGyZiUmIUeGIMAAAAASUVORK5CYIIA" />
                 </td>
                 <td style="padding-bottom: 10px;">
-                  <p><a href="mailto:grandautoservices.gas@gmail.com" style="color: black; text-decoration: none; font-size: 14px;" target="_blank">grandautoservices.gas@gmail.com</a></p>
+                  <p style="margin-left: 15px; color: black; text-decoration: none; font-size: 14px;">grandautoservices.gas@gmail.com</p>
                 </td>
               </tr>
               <tr>
@@ -291,17 +296,17 @@
                   </a>
                 </td>
                 <td style="padding-bottom: 10px;">
-                  <p style="color: black; text-decoration: none; font-size: 14px;">GAS-Grand-Auto-Services</p>
+                  <p style="color: black; text-decoration: none; font-size: 14px;margin-left: 15px;">GAS-Grand-Auto-Services</p>
                 </td>
               </tr>
               <tr>
                 <td style="padding-bottom: 10px;">
                   <a href="#">
-                    <img width="20" height="20" style="margin-left: -3px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACxSURBVDhPYxhmwNZ/Y4Kt/+bfdgFb/+PCtv5bgHjzdqgWVEBIMzK29t0YBtWGANgUgnBq8ZH/+48+/3/jzge4mE3AljSoNgRA1oSMV2+6/x8E5q+4BRcj2oDorAP/T557BTagouU0XJxoA+YtvwXWDAMwcZK8sHHnQxTNIDxIDbD1R9UIw9gMsPLfmgLVhgDW/lu3IyvCh419NolAtaECUAoDOQ8XtvLbnIpTM+mAgQEAKHlLMVb5brkAAAAASUVORK5CYII=" />
+                    <img width="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAADQAAAA0AF5Y8+UAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAIpQTFRF////AAD/RliVSVeSSFyQRlmTRleRSFmWR1qSSFmUR1mTR1iUSFqSR1qTR1mUR1mTSFiSR1iTR1iUR1mTR1qTRlmUR1mUR1qSR1qTRlmTR1mTRliTRlmTR1mTR1iTR1mTR1qTR1mTR1mTRlmTR1mTR1mTR1mTR1mTR1mUR1mTRlmTR1mTR1mTR1mTDzUfHgAAAC10Uk5TAAEdIycoLC42OVNdYG9wdnyChZCXmJ2iqLXCx9LV2+Dh4uPk5ebn8PL09vz+lXQN5AAAAJhJREFUKM910scSwjAMRdEbSCAU04LpmN6t//89VsnISfx2mrN5I4nEOC+1eGcSjLTG4NrB4dvBE4y/5bCf9Y4iIgF8cwA2DZgSgQ6QTmavOryBrBw0nIBRDMZN2NsFMLDWfkLoUmYVg20IaQWHEHbFHMiLYt1o9WxvJfKIwT0GtwDUoa4KvD7tRYHTz3BWYFDvUy3RO5P8AZLpTyodVpEmAAAAAElFTkSuQmCC" />
                   </a>
                 </td>
                 <td style="padding-bottom: 10px;">
-                  <p style="color: black; text-decoration: none; font-size: 14px;">Grand Auto Services</p>
+                  <p style="color: black; text-decoration: none; font-size: 14px; margin-left: 15px;">Grand Auto Services</p>
                 </td>
               </tr>
               <tr>
@@ -311,7 +316,7 @@
                   </a>
                 </td>
                 <td style="padding-bottom: 10px;">
-                  <p style="color: black; text-decoration: none; font-size: 14px;">Plot-73, Nasirabad Industrial Areo,</br> Textile Gate, Bayezid Bostami,</br> Chattogram</p>
+                  <p style="color: black; text-decoration: none; font-size: 14px; margin-left: 15px;">Plot-73, Nasirabad Industrial Areo,</br> Textile Gate, Bayezid Bostami,</br> Chattogram</p>
                 </td>
               </tr>
             </table>
@@ -319,11 +324,11 @@
         </tr>
       </table>
 
-      <div class="bg-black" style="text-align: center;color:#fff;padding:10px; width: 300px; margin: 30px auto 40px auto;font-size: 16px;">Service Invoice </div>
+      <div class="bg-black" style="text-align: center;color:#fff;padding:10px; width: 300px; margin: 30px auto 40px auto;font-size: 16px;"> Invoice </div>
 
       <table style="border-collapse:collapse; margin-bottom: 30px;"cellspacing="0">
         <tr>
-          <td style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">
+          <td class="bg-golden" style="width:121pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt;">
             <p style="padding: 2pt 0 2px 5pt;text-indent: 0pt;text-align: left;font-size: 14px;font-weight: 600;">BILL TO</p>
           </td>
           <td style="width:219pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
@@ -618,16 +623,16 @@
 
                         if(data.sale.sales_type=='service') {//For service sales
                             html += '<tr style="height:21pt">';
-                            html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<td class="bg-golden" style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>';
                             html += '</td>';
-                            html += '<td style="width:195pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<td class="bg-golden" style="width:195pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">SERVICE CATEGORY</p>';
                             html += '</td>';
-                            html += '<td style="width:195pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
+                            html += '<td class="bg-golden" style="width:195pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-indent: 0pt;text-align: center;">SERVICE TYPE</p>';
                             html += '</td>';
-                            html += '<td style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">';
+                            html += '<td class="bg-golden" style="width:85pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;padding-top: 5pt;text-align: center;">AMOUNT</p>';
                             html += '</td>';
                             html += '</tr>';
