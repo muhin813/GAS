@@ -143,7 +143,7 @@ $page = $uri[1];
 
                 <li class="nav-item @if($page=='stock_record' || $page=='stock_issues' || $page=='stock_returns') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-list"></i>
+                        <i class="icon-notebook"></i>
                         <span class="title">Inventory</span>
                         <span class="arrow"></span>
                     </a>
@@ -242,7 +242,7 @@ $page = $uri[1];
 
                 <li class="nav-item @if($page=='bookings' || $page=='jobs' || $page=='job_duration_trackings') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-pie-chart"></i>
+                        <i class="icon-hourglass"></i>
                         <span class="title">Operations</span>
                         <span class="arrow"></span>
                     </a>
