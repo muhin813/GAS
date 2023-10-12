@@ -51,7 +51,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-feed icons"></i>
+                                                        <i class="icon-basket-loaded icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -64,7 +64,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                                 <a class="dashboard-stat dashboard-stat-v2 red" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-pie-chart icons"></i>
+                                                        <i class="icon-hourglass icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -76,7 +76,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                                 <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-bag icons"></i>
+                                                        <i class="icon-calendar icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -89,7 +89,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                                 <a class="dashboard-stat dashboard-stat-v2 purple" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-globe icons"></i>
+                                                        <i class="icon-briefcase icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -101,7 +101,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
                                                 <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-bag icons"></i>
+                                                        <i class="icon-flag icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -114,7 +114,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
                                                 <a class="dashboard-stat dashboard-stat-v2 purple" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-globe icons"></i>
+                                                        <i class="icon-wallet icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
@@ -126,7 +126,7 @@
                                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" style="margin-top: 30px;">
                                                 <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0)">
                                                     <div class="visual">
-                                                        <i class="icon-feed icons"></i>
+                                                        <i class="icon-home icons"></i>
                                                     </div>
                                                     <div class="details">
                                                         <div class="number">
