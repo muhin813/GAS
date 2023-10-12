@@ -46,6 +46,40 @@
                             </div>
                         </div>
                     </div>
+                    <div class="portlet light ">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-striped table-bordered table-hover data-table focus-table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Bank Name</th>
+                                        <th class="text-center">Account Name</th>
+                                        <th class="text-center">Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                        $total_balance = 0;
+                                    foreach($bank_accounts as $key=>$account){
+                                        $total_balance = $total_balance+$account->balance;
+                                    ?>
+                                        <tr>
+                                            <td class="text-center">{{$account->bank_name}}</td>
+                                            <td class="text-center">{{$account->account_name}}</td>
+                                            <td class="text-center">{{number_format($account->balance, 2, '.', ',')}}</td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td class="text-center"><b>Total</b></td>
+                                        <td class="text-center"></td>
+                                        <td class="text-center"><b>{{number_format($total_balance, 2, '.', ',')}}</b></td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- BEGIN PROFILE SIDEBAR -->
                     <!-- <div class="profile-sidebar">
 

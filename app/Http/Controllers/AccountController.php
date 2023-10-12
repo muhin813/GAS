@@ -184,13 +184,18 @@ class AccountController extends Controller
     public function bankBook(Request $request)
     {
         try{
+            $bank_accounts = BankAccount::select('account_number','account_name','opening_balance as balance','banks.name as bank_name')
+                ->leftJoin('banks','banks.id','=','bank_accounts.bank_id')
+                ->where('bank_accounts.status','active')
+                ->get();
+
             $bank_books = BankBook::select('bank_books.*','banks.name as bank_name','parties.party_name');
             $bank_books = $bank_books->join('banks','banks.id','=','bank_books.bank_id');
             $bank_books = $bank_books->join('parties','parties.id','=','bank_books.party');
             $bank_books = $bank_books->where('bank_books.status','active');
             $bank_books = $bank_books->orderBy('bank_books.id','ASC');
             $bank_books = $bank_books->paginate(100);
-            return view('account.bank_book',compact('bank_books'));
+            return view('account.bank_book',compact('bank_accounts','bank_books'));
         }
         catch(\Exception $e){
             return redirect('error_404');
