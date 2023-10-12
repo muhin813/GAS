@@ -243,7 +243,7 @@
               margin: 30mm 45mm 30mm 45mm;
               /* change the margins as you want them to be. */
         }
-        
+
         .bg-black {
             color: #fff !important;
             background-color: #000 !important;
@@ -565,13 +565,22 @@
 
                             grant_total_value = grant_total_value+parseFloat(details.total_value);
                         });
+                        var total_vat_amount = grant_total_value*(data.sale.vat/100);
+                        var grant_total_value_with_vat = grant_total_value+total_vat_amount;
                         // For total row in footer
                         html +='<tr>';
-                        html +='<td><b>Total</b></td>';
-                        html +='<td></td>';
-                        html +='<td></td>';
-                        html +='<td></td>';
-                        html +='<td>'+grant_total_value.toFixed(2)+'</td>';
+                        html +='<td colspan="4" style="text-align: right"><b>Subtotal</b></td>';
+                        html +='<td><b>'+grant_total_value.toFixed(2)+'</b></td>';
+                        html +='</tr>';
+
+                        html +='<tr>';
+                        html +='<td colspan="4" style="text-align: right"><b>Vat</b></td>';
+                        html +='<td><b>'+total_vat_amount.toFixed(2)+'</b></td>';
+                        html +='</tr>';
+
+                        html +='<tr>';
+                        html +='<td colspan="4" style="text-align: right"><b>Total</b></td>';
+                        html +='<td><b>'+grant_total_value_with_vat.toFixed(2)+'</b></td>';
                         html +='</tr>';
 
                         $('#sale_detail_item_list').html(html);
@@ -682,14 +691,6 @@
                             html += '</tr>';
 
                             $.each(sales_details , function(index, details) {
-                                /*html +='<tr>';
-                                html +='<td>'+details.item_name+'</td>';
-                                html +='<td>'+details.quantity+'</td>';
-                                html +='<td>'+details.unit_price+'</td>';
-                                html +='<td>'+(details.discount !== null ? details.discount :'')+'</td>';
-                                html +='<td>'+details.total_value+'</td>';
-                                html +='</tr>';*/
-
                                 var total_value = details.quantity*details.unit_price;
 
                                 html += '<tr>';
