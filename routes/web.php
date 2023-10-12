@@ -137,6 +137,8 @@ Route::post('sales/store_costing', 'SaleController@storeCosting');
 Route::get('sales/{id}', 'SaleController@edit');
 Route::post('sales/update', 'SaleController@update');
 Route::post('sales/delete', 'SaleController@delete');
+Route::get('service_sales_report', 'SaleController@serviceSalesReport');
+Route::get('product_sales_report', 'SaleController@productSalesReport');
 
 Route::get('stock_record', 'InventoryController@stockRecord');
 

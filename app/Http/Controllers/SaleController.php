@@ -376,4 +376,36 @@ class SaleController extends Controller
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
         }
     }
+
+    public function serviceSalesReport(Request $request)
+    {
+        try{
+            $sales = Sale::with('details');
+            $sales = $sales->select('sales.*','customers.first_name','customers.last_name','customers.registration_number as customer_registration_number');
+            $sales = $sales->join('customers','customers.registration_number','=','sales.customer_registration_number');
+            $sales = $sales->where('sales.sales_type','service');
+            $sales = $sales->whereIn('sales.status',['active','inactive']);
+            $sales = $sales->paginate(50);
+            return view('sale.service_sales_report',compact('sales'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function productSalesReport(Request $request)
+    {
+        try{
+            $sales = Sale::with('details');
+            $sales = $sales->select('sales.*','customers.first_name','customers.last_name','customers.registration_number as customer_registration_number');
+            $sales = $sales->join('customers','customers.registration_number','=','sales.customer_registration_number');
+            $sales = $sales->where('sales.sales_type','product');
+            $sales = $sales->whereIn('sales.status',['active','inactive']);
+            $sales = $sales->paginate(50);
+            return view('sale.product_sales_report',compact('sales'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
 }

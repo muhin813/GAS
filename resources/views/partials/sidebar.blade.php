@@ -181,13 +181,13 @@ $page = $uri[1];
                     </a>
                 </li>
 
-                <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitabilities') open @endif">
+                <li class="nav-item @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-pie-chart"></i>
                         <span class="title">Accounts</span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses' || $page=='job_wise_profitabilities') style="display: block;" @endif>
+                    <ul class="sub-menu" @if($page=='cash_books' || $page=='bank_books' || $page=='bank_reconciliations' || $page=='supplier_payments' || $page=='other_payments' || $page=='income_taxes' || $page=='monthly_profit_losses') style="display: block;" @endif>
                         <li class="nav-item @if($page=='cash_books') active @endif">
                             <a href="{{url('cash_books')}}" class="nav-link">
                                 <span class="title">Cash Books</span>
@@ -231,22 +231,16 @@ $page = $uri[1];
                                 <span class="selected"></span>
                             </a>
                         </li>
-                        <li class="nav-item @if($page=='job_wise_profitabilities') active @endif">
-                            <a href="{{url('job_wise_profitabilities')}}" class="nav-link">
-                                <span class="title">Job Wise Profitabilities</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
-                <li class="nav-item @if($page=='bookings' || $page=='jobs' || $page=='job_duration_trackings') open @endif">
+                <li class="nav-item @if($page=='bookings' || $page=='jobs') open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="icon-hourglass"></i>
                         <span class="title">Operations</span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu" @if($page=='bookings' || $page=='jobs' || $page=='job_duration_trackings') style="display: block;" @endif>
+                    <ul class="sub-menu" @if($page=='bookings' || $page=='jobs') style="display: block;" @endif>
                         <li class="nav-item @if($page=='bookings') active @endif">
                             <a href="{{url('bookings')}}" class="nav-link">
                                 <span class="title">Bookings</span>
@@ -256,6 +250,34 @@ $page = $uri[1];
                         <li class="nav-item @if($page=='jobs') active @endif">
                             <a href="{{url('jobs')}}" class="nav-link">
                                 <span class="title">Jobs</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item @if($page=='service_sales_report' || $page=='product_sales_report' || $page=='job_wise_profitabilities' || $page=='job_duration_trackings') open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="icon-book-open"></i>
+                        <span class="title">Reports</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" @if($page=='service_sales_report' || $page=='product_sales_report' || $page=='job_wise_profitabilities' || $page=='job_duration_trackings') style="display: block;" @endif>
+                        <li class="nav-item @if($page=='service_sales_report') active @endif">
+                            <a href="{{url('service_sales_report')}}" class="nav-link">
+                                <span class="title">Service Sales Report</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='product_sales_report') active @endif">
+                            <a href="{{url('product_sales_report')}}" class="nav-link">
+                                <span class="title">Product Sales Report</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item @if($page=='job_wise_profitabilities') active @endif">
+                            <a href="{{url('job_wise_profitabilities')}}" class="nav-link">
+                                <span class="title">Job Wise Profitabilities</span>
                                 <span class="selected"></span>
                             </a>
                         </li>
