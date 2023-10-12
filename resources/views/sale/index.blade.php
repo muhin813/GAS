@@ -90,7 +90,7 @@
                                                             <td class="text-center">{{$sale->customer_registration_number}}</td>
                                                             <td class="text-center">{{$sale->job_tracking_number}}</td>
                                                             <td class="text-center">{{$sale->invoice_number}}</td>
-                                                            <td class="text-center">{{$sale->total_amount}}</td>
+                                                            <td class="text-center">{{number_format($sale->total_amount, 2, '.', ',')}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-primary btn-sm" href="javascript:void(0)" title="View Details" onclick="view_details({{$sale->id}})"><i class="icon-eye"></i></a>
                                                                 <a class="btn btn-info btn-sm" href="javascript:void(0)" title="Print" onclick="print_sales_invoice({{$sale->id}})"><i class="icon-printer"></i></a>
@@ -324,7 +324,7 @@
         </tr>
       </table>
 
-      <div class="bg-black" style="text-align: center;color:#fff;padding:10px; width: 300px; margin: 30px auto 40px auto;font-size: 16px;"> Invoice </div>
+      <div class="bg-black" id="invoice_title_view" style="text-align: center;color:#fff;padding:10px; width: 300px; margin: 30px auto 40px auto;font-size: 16px;"> Invoice </div>
 
       <table style="border-collapse:collapse; margin-bottom: 30px;"cellspacing="0">
         <tr>
@@ -631,6 +631,8 @@
                         var total_discount_amount = 0;
 
                         if(data.sale.sales_type=='service') {//For service sales
+                            $('#invoice_title_view').text('Sales Invoice');
+
                             html += '<tr style="height:21pt">';
                             html += '<td class="bg-golden" style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>';
@@ -672,6 +674,8 @@
                             total_discount_amount = grant_total_value*(data.sale.discount/100);
                         }
                         else{  //For product sales
+                            $('#invoice_title_view').text('Product Invoice');
+
                             html += '<tr style="height:21pt">';
                             html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
                             html += '<p style="font-size: 14px;font-weight: 600;line-height: 10pt;text-align: center;">SL. No.</p>';

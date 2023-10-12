@@ -106,7 +106,7 @@
                                             <table id="monthly_salary_statement_table" class="table table-striped table-bordered table-hover data-table focus-table">
                                                     <thead>
                                                     <tr>
-                                                        <th class="text-center">SL NO</th>
+<!--                                                        <th class="text-center">SL NO</th>-->
                                                         <th class="text-center">Particulars</th>
                                                         <th class="text-center">January</th>
                                                         <th class="text-center">February</th>
@@ -124,56 +124,56 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td class="text-center">A</td>
+<!--                                                        <td class="text-center">A</td>-->
                                                         <td class="text-center">Sales Revenue</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['sales'] != '' ? number_format($profit_loss[$month]['sales'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">B</td>
+<!--                                                        <td class="text-center">B</td>-->
                                                         <td class="text-center">Cost of sales</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['cost_of_sales'] != '' ? number_format($profit_loss[$month]['cost_of_sales'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">A-B</td>
+<!--                                                        <td class="text-center">A-B</td>-->
                                                         <td class="text-center">Gross Profit</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['gross_profit'] != '' ? number_format($profit_loss[$month]['gross_profit'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">D</td>
+<!--                                                        <td class="text-center">D</td>-->
                                                         <td class="text-center">Administrative Expense</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['other_expense'] != '' ? number_format($profit_loss[$month]['other_expense'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">C</td>
+<!--                                                        <td class="text-center">C</td>-->
                                                         <td class="text-center">Operating Expense</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['salary_expense'] != '' ? number_format($profit_loss[$month]['salary_expense'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">(A-B) - (C+D)</td>
+<!--                                                        <td class="text-center">(A-B) - (C+D)</td>-->
                                                         <td class="text-center">Net Profit</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['net_profit'] != '' ? number_format($profit_loss[$month]['net_profit'], 2, '.', ','): '')}}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">F</td>
+<!--                                                        <td class="text-center">F</td>-->
                                                         <td class="text-center">Income Tax</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['income_tax'] != '' ? number_format($profit_loss[$month]['income_tax'], 2, '.', ',') : '') }}</td>
                                                         @endforeach
                                                     </tr>
                                                     <tr>
-                                                        <td class="text-center">Net Profit-F</td>
+<!--                                                        <td class="text-center">Net Profit-F</td>-->
                                                         <td class="text-center">Profit/Loss</td>
                                                         @foreach($months as $month)
                                                             <td class="text-center">{{($profit_loss[$month]['profit'] != '' ? number_format($profit_loss[$month]['profit'], 2, '.', ',') : '')}}</td>

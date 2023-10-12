@@ -147,55 +147,55 @@
                                                 <tbody>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Statement</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->bank_statement_closing_balance}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->bank_statement_closing_balance, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Book</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->closing_balance_bank_book}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->closing_balance_bank_book, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Opening Variance</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$opening_variance, 2, '.', '')}}@endif </td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$opening_variance, 2, '.', ',')}}@endif </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">
                                                         <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_outstanding_cheques({{$bank_reconciliations->id}})" @endif>Less: Outstanding Cheques</a>
                                                     </td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->outstanding_cheque_amount}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->outstanding_cheque_amount, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"><b>Balance (Outstanding Cheques)</b></td>
-                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$outstanding_cheque_balance, 2, '.', '')}}@endif</b></td>
+                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$outstanding_cheque_balance, 2, '.', ',')}}@endif</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">
                                                         <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_outstanding_deposits({{$bank_reconciliations->id}})" @endif>Add: Outstanding Deposits</a>
                                                     </td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->outstanding_deposit_amount}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->outstanding_deposit_amount, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"><b>Balance (Outstanding Deposits)</b></td>
-                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$outstanding_deposit_balance, 2, '.', '')}}@endif</b></td>
+                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$outstanding_deposit_balance, 2, '.', ',')}}@endif</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">
                                                         <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_other_payments({{$bank_reconciliations->id}})" @endif>Less: Other Payments</a>
                                                     </td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->other_payment_amount}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->other_payment_amount, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"><b>Balance (Other Payments)</b></td>
-                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$other_payment_balance, 2, '.', '')}}@endif</b></td>
+                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$other_payment_balance, 2, '.', ',')}}@endif</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">
                                                         <a href="javascript:void(0)" @if(!empty($bank_reconciliations)) onclick="view_other_deposits({{$bank_reconciliations->id}})" @endif>Add: Other Deposits</a>
                                                     </td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{$bank_reconciliations->other_deposit_amount}}@endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format($bank_reconciliations->other_deposit_amount, 2, '.', ',')}}@endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"><b>Balance (Other Deposits)</b></td>
-                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$other_deposit_balance, 2, '.', '')}}@endif</b></td>
+                                                    <td class="text-center"><b>@if(!empty($bank_reconciliations)){{number_format((float)$other_deposit_balance, 2, '.', ',')}}@endif</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"></td>
@@ -203,7 +203,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Balance Bank Book</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$closing_balance_bank_book, 2, '.', '') }} @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{number_format((float)$closing_balance_bank_book, 2, '.', ',') }} @endif</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center"></td>
@@ -211,7 +211,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="text-center">Closing Variance</td>
-                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{ $closing_variance }} @endif</td>
+                                                    <td class="text-center">@if(!empty($bank_reconciliations)){{ number_format($closing_variance, 2, '.', ',') }} @endif</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

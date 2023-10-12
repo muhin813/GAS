@@ -297,17 +297,18 @@ $page = $uri[1];
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" @if($page=='items' || $page=='item_categories' || $page=='item_uoms') style="display: block;" @endif>
-                                <li class="nav-item @if($page=='items') active @endif">
-                                    <a href="{{url('items')}}" class="nav-link">
-                                        <!--                            <i class="icon-users"></i>-->
-                                        <span class="title">Item List</span>
-                                        <span class="selected"></span>
-                                    </a>
-                                </li>
+
                                 <li class="nav-item @if($page=='item_categories') active @endif">
                                     <a href="{{url('item_categories')}}" class="nav-link">
                                         <!--                            <i class="icon-users"></i>-->
                                         <span class="title">Item Categories</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item @if($page=='items') active @endif">
+                                    <a href="{{url('items')}}" class="nav-link">
+                                        <!--                            <i class="icon-users"></i>-->
+                                        <span class="title">Item List</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>

@@ -83,10 +83,10 @@
                                                             <td class="text-center">{{date('d/m/Y',strtotime($sale->created_at))}}</td>
                                                             <td class="text-center">{{date('M/Y',strtotime($sale->created_at))}}</td>
                                                             <td class="text-center">{{$sale->invoice_number}}</td>
-                                                            <td class="text-center">{{$sale->total_amount}}</td>
+                                                            <td class="text-center">{{number_format($sale->total_amount, 2, '.', ',')}}</td>
                                                             <td class="text-center">{{$sales_types[$sale->sales_type]}}</td>
-                                                            <td class="text-center">{{$sale->costing_amount}}</td>
-                                                            <td class="text-center">{{number_format($profit_amount, 2, '.', '')}}</td>
+                                                            <td class="text-center">{{number_format($sale->costing_amount, 2, '.', ',')}}</td>
+                                                            <td class="text-center">{{number_format($profit_amount, 2, '.', ',')}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-success btn-sm" href="javascript:void(0)" title="Add Costing" onclick="add_costing({{$sale->id}})"><i class="icon-pencil"></i></a>
                                                             </td>

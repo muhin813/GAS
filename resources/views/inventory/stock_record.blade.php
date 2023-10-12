@@ -38,7 +38,7 @@
                             <div class="col-md-12">
                                 <div class="page-top-header">
                                     <h3 class="page-title">All Stock Records</h3>
-                                    <h3 class="page-title">Total Amount: <span id="total_balance_amount"></span></h3>
+                                    <h3 class="page-title">Total Amount : &nbsp;&nbsp; <span id="total_balance_amount"></span></h3>
                                 </div>
                             </div>
                         </div>
@@ -170,9 +170,9 @@
                                                             <td class="text-center">{{$purchase->package}}</td>
                                                             <td class="text-center">{{$purchase->package_uom}}</td>
                                                             <td class="text-center">{{$purchase->challan_no}}</td>
-                                                            <td class="text-center">{{$purchase->unit_price}}</td>
-                                                            <td class="text-center">{{$purchase->total_value}}</td>
-                                                            <td class="text-center">{{$value_balance_quantity}}</td>
+                                                            <td class="text-center">{{number_format($purchase->unit_price, 2, '.', ',')}}</td>
+                                                            <td class="text-center">{{number_format($purchase->total_value, 2, '.', ',')}}</td>
+                                                            <td class="text-center">{{number_format($value_balance_quantity, 2, '.', ',')}}</td>
                                                             <td class="text-center">{{$inventory_age}} Days</td>
                                                         </tr>
                                                     <?php } ?>
@@ -203,7 +203,7 @@
 @section('js')
     <script>
         $(document).ready(function(){
-            $('#total_balance_amount').text('{{$total_value_balance_quantity}}');
+            $('#total_balance_amount').text('{{number_format($total_value_balance_quantity, 2, '.', ',')}}');
         });
         function delete_purchase(id){
             $(".warning_message").text('Are you sure you delete this purchase detail? This can not be undone.');

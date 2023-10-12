@@ -379,22 +379,28 @@
             success: function(data) {
                 hide_loader();
                 if (data.status == 200) {
+                    $("html, body").animate({ scrollTop: 0 }, 1000);
+
                     $('#customer_form')[0].reset();
 
                     $("#success_message").show();
                     $("#error_message").hide();
                     $("#success_message").html(data.reason);
+
+                    alert(data.reason);
                     setTimeout(function(){
                     window.location.href="{{url('login')}}";
                     },1000)
                 }
                 else {
+                    $("html, body").animate({ scrollTop: 0 }, 1000);
                     $("#success_message").hide();
                     $("#error_message").show();
                     $("#error_message").html(data.reason);
                 }
             },
             error: function(data) {
+                $("html, body").animate({ scrollTop: 0 }, 1000);
                 hide_loader();
                 $("#success_message").hide();
                 $("#error_message").show();
@@ -406,6 +412,7 @@
             });
         }
         else {
+            $("html, body").animate({ scrollTop: 0 }, 1000);
             hide_loader();
             $("#success_message").hide();
             $("#error_message").show();

@@ -231,7 +231,13 @@ class UserController extends Controller
         try{
             $user = Auth::user();
 
-            return view('profile',compact('user'));
+            if($user->role==4){
+                return view('customer_profile',compact('user'));
+            }
+            else{
+                return view('profile',compact('user'));
+            }
+
         }
         catch(\Exception $e){
             return redirect('error_404');

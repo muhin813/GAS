@@ -271,9 +271,10 @@ class ServiceController extends Controller
     {
         try{
             $user = Auth::user();
+            $customer = Customer::where('user_id',$user->id)->first();
 
             $service_booking = NEW ServiceBooking();
-            $service_booking->customer_id = $user->id;
+            $service_booking->customer_id = $customer->id;
             $service_booking->service_category_id = $request->service_category_id;
             $service_booking->service_type_id = $request->service_type_id;
             $service_booking->vehicle_credential_id = $request->vehicle_credential_id;
@@ -322,8 +323,6 @@ class ServiceController extends Controller
     public function serviceBookingUpdate(Request $request)
     {
         try{
-            $user = Auth::user();
-
             $service_booking = ServiceBooking::where('id',$request->id)->first();
             $service_booking->service_category_id = $request->service_category_id;
             $service_booking->service_type_id = $request->service_type_id;

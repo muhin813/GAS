@@ -87,7 +87,7 @@
                                                             <td class="text-center">{{date('F/Y',strtotime($o_payment->payment_date))}}</td>
                                                             <td class="text-center">{{$o_payment->purpose_of_payment}}</td>
                                                             <td class="text-center">{{$o_payment->payment_type}}</td>
-                                                            <td class="text-center">{{$o_payment->amount}}</td>
+                                                            <td class="text-center">{{number_format($o_payment->amount, 2, '.', ',')}}</td>
                                                             <td class="text-center">{{$o_payment->payment_mode}}</td>
                                                             <td class="text-center">{{$o_payment->voucher_number}}</td>
                                                             <td class="text-center">{{$o_payment->remarks}}</td>

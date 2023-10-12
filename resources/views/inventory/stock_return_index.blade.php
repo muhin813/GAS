@@ -89,8 +89,8 @@
                                                             <td class="text-center">{{$stock_return->item_name}}</td>
                                                             <td class="text-center">{{$stock_return->item_uom}}</td>
                                                             <td class="text-center">{{$stock_return->quantity}}</td>
-                                                            <td class="text-center">{{$stock_return->unit_price}}</td>
-                                                            <td class="text-center">{{$stock_return->total_value}}</td>
+                                                            <td class="text-center">{{number_format($stock_return->unit_price, 2, '.', ',')}}</td>
+                                                            <td class="text-center">{{number_format($stock_return->total_value, 2, '.', ',')}}</td>
                                                             <td class="text-center">
 <!--                                                                <a class="btn btn-success btn-sm" href="{{url('stock_returns',$stock_return->id)}}" title="Edit"><i class="icon-pencil"></i></a>-->
                                                                 <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_stock_return({{$stock_return->id}})"><i class="icon-trash"></i></a>

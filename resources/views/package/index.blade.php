@@ -87,7 +87,7 @@
                                                         <tr id="package_{{$package->id}}">
                                                             <td class="text-center">{{$package->name}}</td>
                                                             <td class="text-center">{{$package->vehicle_name}}</td>
-                                                            <td class="text-center">{{$package->package_price}}</td>
+                                                            <td class="text-center">{{number_format($package->package_price, 2, '.', ',')}}</td>
                                                             <td class="text-center">{{date('d/m/Y',strtotime($package->package_validity))}}</td>
                                                             <td class="text-center">{{$package->package_id}}</td>
                                                             <td class="text-center">

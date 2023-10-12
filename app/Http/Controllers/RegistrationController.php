@@ -35,13 +35,21 @@ class RegistrationController extends Controller
 
     public function store(Request $request)
     {
-        try{
+        //try{
 
             DB::beginTransaction();
 
             $old_customer = Customer::where('first_name',$request->first_name)->where('last_name',$request->last_name)->where('status','!=','deleted')->first();
             if(!empty($old_customer)){
                 return ['status'=>401, 'reason'=>'This customer name already exists'];
+            }
+            $duplicate_phone = Customer::where('phone',$request->phone)->where('status','!=','deleted')->first();
+            if(!empty($duplicate_phone)){
+                return ['status'=>401, 'reason'=>'This customer phone already exists'];
+            }
+            $duplicate_email = Customer::where('email',$request->email)->where('status','!=','deleted')->first();
+            if(!empty($duplicate_email)){
+                return ['status'=>401, 'reason'=>'This customer email already exists'];
             }
 
             $customer = NEW Customer();
@@ -94,10 +102,10 @@ class RegistrationController extends Controller
             Db::commit();
 
             return ['status'=>200, 'reason'=>'Successfully saved'];
-        }
+        /*}
         catch(\Exception $e){
             DB::rollback();
             return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
-        }
+        }*/
     }
 }

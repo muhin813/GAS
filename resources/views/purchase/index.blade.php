@@ -133,8 +133,8 @@
                                                             <td class="text-center">{{$purchase->package}}</td>
                                                             <td class="text-center">{{$purchase->package_uom}}</td>
                                                             <td class="text-center">{{$purchase->challan_no}}</td>
-                                                            <td class="text-center">{{$purchase->unit_price}}</td>
-                                                            <td class="text-center">{{$purchase->total_value}}</td>
+                                                            <td class="text-center">{{number_format($purchase->unit_price, 2, '.', ',')}}</td>
+                                                            <td class="text-center">{{number_format($purchase->total_value, 2, '.', ',')}}</td>
                                                             <td class="text-center">
                                                                 <a class="btn btn-success btn-sm" href="{{url('purchases',$purchase->id)}}" title="Edit"><i class="icon-pencil"></i></a>
                                                                 <a class="btn btn-danger btn-sm" href="javascript:void(0)" title="Delete" onclick="delete_purchase({{$purchase->id}})"><i class="icon-trash"></i></a>
