@@ -151,9 +151,7 @@
 
     <script>
         $(document).ready(function(){
-            $('.timepicker').timepicker({
-                'timeFormat': 'H:i a'
-            });
+            $('.timepicker').timepicker();
             // $(document).on('change', '.timepicker', function(){
             //   alert( $('.timepicker').val());
             // });
