@@ -20,7 +20,7 @@
             </div>
 
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Dashboard
+            <h3 class="page-title"> Our Services
             </h3>
             <!-- END PAGE TITLE-->
             <!-- END PAGE BAR -->
@@ -47,57 +47,55 @@
 
                                     </div> -->
                                     <div class="portlet-body">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                <a class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0)">
-                                                    <div class="visual">
-                                                        <i class="icon-feed icons"></i>
-                                                    </div>
-                                                    <div class="details">
-                                                        <div class="number">
-                                                            <span data-counter="counterup" data-value="100">100</span>
-                                                        </div>
-                                                        <div class="desc"> Item1 </div>
-                                                    </div>
+                                        <div class="service-list">
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Painting_and_Denting.png')}}" alt="Painting and Denting" />
+                                                    <p>Painting and Denting</p>
                                                 </a>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                <a class="dashboard-stat dashboard-stat-v2 red" href="javascript:void(0)">
-                                                    <div class="visual">
-                                                        <i class="icon-pie-chart icons"></i>
-                                                    </div>
-                                                    <div class="details">
-                                                        <div class="number">
-                                                            <span data-counter="counterup" data-value="200">200</span> </div>
-                                                        <div class="desc"> Item2 </div>
-                                                    </div>
+                                            </div>   
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Wash_Polish_&_Detailing.png')}}" alt="Wash Polish & Detailing" />
+                                                    <p>Wash Polish & Detailing</p>
                                                 </a>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                <a class="dashboard-stat dashboard-stat-v2 green" href="javascript:void(0)">
-                                                    <div class="visual">
-                                                        <i class="icon-bag icons"></i>
-                                                    </div>
-                                                    <div class="details">
-                                                        <div class="number">
-                                                            <span data-counter="counterup" data-value="300">300</span>
-                                                        </div>
-                                                        <div class="desc"> Item3 </div>
-                                                    </div>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Mechanical_Works.png')}}" alt="Mechanical Works" />
+                                                    <p>Mechanical Works</p>
                                                 </a>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                <a class="dashboard-stat dashboard-stat-v2 purple" href="javascript:void(0)">
-                                                    <div class="visual">
-                                                        <i class="icon-globe icons"></i>
-                                                    </div>
-                                                    <div class="details">
-                                                        <div class="number">
-                                                            <span data-counter="counterup" data-value="400">400</span></div>
-                                                        <div class="desc"> Item4 </div>
-                                                    </div>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Electrical_&_AC_Services.png')}}" alt="Electrical & AC Services" />
+                                                    <p>Electrical & AC Services</p>
                                                 </a>
-                                            </div>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Restoration_&_Project_Works.png')}}" alt="Restoration & Project Works" />
+                                                    <p>Restoration & Project Works</p>
+                                                </a>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Wheel_Alignment_and_Balancing.png')}}" alt="Wheel Alignment and Balancing" />
+                                                    <p>Wheel Alignment and Balancing</p>
+                                                </a>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/SOS_Services.png')}}" alt="SOS Services" />
+                                                    <p>SOS Services</p>
+                                                </a>
+                                            </div>  
+                                            <div class="service-list__item">
+                                                <a href="#">
+                                                    <img src="{{asset('assets/global/img/icons/Car_Diagnosis_&_Hybrid_Works.png')}}" alt="Car Diagnosis & Hybrid Works" />
+                                                    <p>Car Diagnosis & Hybrid Works</p>
+                                                </a>
+                                            </div>  
                                         </div>
                                     </div>
                                 </div>
