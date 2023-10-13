@@ -474,9 +474,88 @@ a.nav-link .icon-product {
     color: #a90000 !important;
     font-size: 15px;
 }
+
+/* print invoice */
+#print_area * {
+margin: 0;
+padding: 0;
+text-indent: 0;
+}
+#print_area h3 {
+color: black;
+font-family: "Trebuchet MS", sans-serif;
+font-style: normal;
+font-weight: bold;
+text-decoration: none;
+font-size: 8pt;
+}
+
+#print_area h2 {
+color: black;
+font-family: Gadugi, sans-serif;
+font-style: normal;
+font-weight: bold;
+text-decoration: none;
+font-size: 11pt;
+}
+
+#print_area .a {
+color: black;
+font-family: Arial, sans-serif;
+font-style: normal;
+font-weight: normal;
+text-decoration: none;
+font-size: 8pt;
+}
+
+#print_area .p,
+#print_area p {
+color: black;
+font-family: Arial, sans-serif;
+font-style: normal;
+font-weight: normal;
+text-decoration: none;
+font-size: 8pt;
+margin: 0pt;
+}
+#print_area table,
+#print_area tbody {
+vertical-align: top;
+overflow: visible;
+width: 100%;
+}
+@media print {
+#print_area {
+      width: 21cm;
+      height: 29.7cm;
+      margin: 30mm 45mm 30mm 45mm; 
+      /* change the margins as you want them to be. */
+} 
+}
+
 .dashboard-stat i {
     opacity: 0.4 !important;
     font-size: 50px !important;
     margin-left: 10px !important;
     margin-top: -30px;
+}
+.service-list{
+    display: flex;
+    margin-bottom: 50px;
+}
+.service-list__item{
+    width: 130px;
+    height: 130px;
+    margin: 15px;
+}
+.service-list__item img{
+    max-width: 100%;
+}
+.service-list__item>a {
+    display: block;
+}
+.service-list__item p{
+    margin-bottom: 0;
+    font-weight: 600;
+    margin-top: 10px !important;
 }
