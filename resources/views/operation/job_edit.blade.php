@@ -170,7 +170,7 @@
             populate_customer_vehicle_credentials(customer_id,customer_vehicle_credential_id);
 
             // timepicker
-            $('.timepicker').timepicker({'timeFormat': 'H:i a'});
+            $('.timepicker').timepicker();
             // $(document).on('change', '.timepicker', function(){
             //   alert( $('.timepicker').val());
             // });
