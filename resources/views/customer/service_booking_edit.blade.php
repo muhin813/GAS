@@ -141,7 +141,7 @@
             var service_type_id = '{{$service_booking->service_type_id}}';
             populate_service_type(service_category_id,service_type_id);
 
-            $('.timepicker').timepicker({'timeFormat': 'H:i a'});
+            $('.timepicker').timepicker();
             $(document).on('change', '.timepicker', function(){
 
             });
