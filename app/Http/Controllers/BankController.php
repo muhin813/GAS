@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bank;
 use App\Models\BankAccount;
 use App\Models\BankBranch;
+use App\Models\ChequeBook;
 use App\Models\Party;
 use App\Models\PartyCategory;
 use Illuminate\Database\Eloquent\Model;
@@ -349,6 +350,118 @@ class BankController extends Controller
             $bank_account->deleted_by = $user->id;
             $bank_account->deleted_at = date('Y-m-d h:i:s');
             $bank_account->save();
+
+            return ['status'=>200, 'reason'=>'Successfully deleted'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+
+
+    /*##################################### Cheque book section #######################################*/
+
+    public function chequeBook(Request $request)
+    {
+        try{
+            $cheque_books = ChequeBook::select('cheque_books.*','banks.name as bank_name','bank_accounts.account_number');
+            $cheque_books = $cheque_books->leftJoin('bank_accounts','bank_accounts.id','=','cheque_books.bank_account_id');
+            $cheque_books = $cheque_books->leftJoin('banks','banks.id','=','bank_accounts.bank_id');
+            $cheque_books = $cheque_books->where('cheque_books.status','active');
+            $cheque_books = $cheque_books->orderBy('cheque_books.id','ASc');
+            $cheque_books = $cheque_books->paginate(100);
+            return view('bank.cheque_book_index',compact('cheque_books'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function chequeBookcreate(Request $request)
+    {
+        try{
+            $bank_accounts = BankAccount::select('bank_accounts.*')->get();
+            return view('bank.cheque_book_create',compact('bank_accounts'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function chequeBookStore(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $old_cheque_book = ChequeBook::where('bank_account_id',$request->bank_account_id)->where('book_number',$request->book_number)->where('status','active')->first();
+            if(!empty($old_cheque_book)){
+                return ['status'=>401, 'reason'=>'This checkbook already added'];
+            }
+
+            $cheque_book = NEW ChequeBook();
+            $cheque_book->bank_account_id = $request->bank_account_id;
+            $cheque_book->book_number = $request->book_number;
+            $cheque_book->created_by = $user->id;
+            $cheque_book->created_at = date('Y-m-d h:i:s');
+            $cheque_book->save();
+
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function chequeBookEdit(Request $request)
+    {
+        try{
+            $bank_accounts = BankAccount::select('bank_accounts.*')->get();
+            $cheque_book = ChequeBook::select('cheque_books.*')
+                ->where('cheque_books.id',$request->id)
+                ->first();
+            return view('bank.cheque_book_edit',compact('bank_accounts','cheque_book'));
+        }
+        catch(\Exception $e){
+            return redirect('error_404');
+        }
+    }
+
+    public function chequeBookUpdate(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $old_cheque_book = ChequeBook::where('bank_account_id',$request->bank_account_id)->where('book_number',$request->book_number)->where('status','active')->first();
+            if(!empty($old_cheque_book) && $old_cheque_book->id != $request->id){
+                return ['status'=>401, 'reason'=>'This checkbook already added'];
+            }
+
+            $cheque_book = ChequeBook::where('id',$request->id)->first();
+            $cheque_book->bank_account_id = $request->bank_account_id;
+            $cheque_book->book_number = $request->book_number;
+            $cheque_book->updated_by = $user->id;
+            $cheque_book->updated_at = date('Y-m-d h:i:s');
+            $cheque_book->save();
+
+            return ['status'=>200, 'reason'=>'Successfully saved'];
+        }
+        catch(\Exception $e){
+            return ['status'=>401, 'reason'=>'Something went wrong. Try again later.'];
+        }
+    }
+
+    public function chequeBookDelete(Request $request)
+    {
+        try{
+            $user = Auth::user();
+
+            $cheque_book = ChequeBook::where('id',$request->cheque_book_id)->first();
+            $cheque_book->status = 'deleted';
+            $cheque_book->deleted_by = $user->id;
+            $cheque_book->deleted_at = date('Y-m-d h:i:s');
+            $cheque_book->save();
 
             return ['status'=>200, 'reason'=>'Successfully deleted'];
         }

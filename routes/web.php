@@ -233,6 +233,13 @@ Route::post('bank_accounts/update', 'BankController@bankAccountUpdate');
 Route::get('bank_accounts/{id}', 'BankController@bankAccountEdit');
 Route::post('bank_accounts/delete', 'BankController@bankAccountDelete');
 
+Route::get('cheque_books','BankController@chequeBook');
+Route::get('cheque_books/create', 'BankController@chequeBookCreate');
+Route::post('cheque_books/store', 'BankController@chequeBookStore');
+Route::post('cheque_books/update', 'BankController@chequeBookUpdate');
+Route::get('cheque_books/{id}', 'BankController@chequeBookEdit');
+Route::post('cheque_books/delete', 'BankController@chequeBookDelete');
+
 Route::get('party_categories','BankController@partyCategories');
 Route::get('party_categories/create', 'BankController@partyCategoryCreate');
 Route::post('party_categories/store', 'BankController@partyCategoryStore');
