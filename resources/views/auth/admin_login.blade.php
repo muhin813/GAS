@@ -101,15 +101,11 @@
 
             <!-- <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a> -->
         </div>
-        <!--        <div class="create-account theme-bg">
+        <div class="create-account theme-bg">
             <p>
-                <a href="{{ route('password.request') }}" id="register-btn" class="uppercase">Forgot Password?</a>
+                <a href="{{ url('login') }}" id="register-btn" class="uppercase">Login as Customer</a>
             </p>
-
-            <p>
-                <a href="{{url('registration')}}" id="" class="uppercase">Register Here</a>
-            </p>
-        </div>-->
+        </div>
     </form>
     <!-- END LOGIN FORM -->
 </div>

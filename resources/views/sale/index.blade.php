@@ -617,7 +617,7 @@
                     if (data.status == 200) {
                         var sales_details = data.sale.details;
 
-                        $('#print_invoice_number_view').text(data.sale.invoice_number);
+                        //$('#print_invoice_number_view').text(data.sale.invoice_number);
                         $('#print_sale_date_view').text(getFormattedDate(data.sale.date_of_sale,'d/m/Y'));
                         $('#print_customer_name_view').text(data.sale.first_name+''+data.sale.last_name);
                         $('#print_customer_registration_number_view').text(data.sale.customer_registration_number);
@@ -631,7 +631,7 @@
                         var total_discount_amount = 0;
 
                         if(data.sale.sales_type=='service') {//For service sales
-                            $('#invoice_title_view').text('Sales Invoice');
+                            $('#invoice_title_view').text('Sales Invoice #'+data.sale.invoice_number);
 
                             html += '<tr style="height:21pt">';
                             html += '<td class="bg-golden" style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
@@ -674,7 +674,7 @@
                             total_discount_amount = grant_total_value*(data.sale.discount/100);
                         }
                         else{  //For product sales
-                            $('#invoice_title_view').text('Product Invoice');
+                            $('#invoice_title_view').text('Product Invoice #'+data.sale.invoice_number);
 
                             html += '<tr style="height:21pt">';
                             html += '<td style="width:28pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" bgcolor="#C4993A">';
